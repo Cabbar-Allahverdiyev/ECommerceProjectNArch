@@ -36,6 +36,34 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
         
        
         
+       
+       #region Companies
+       
+       seeds.Add(new OperationClaim { Id = ++id, Name = "Companies.Admin" });
+       
+       seeds.Add(new OperationClaim { Id = ++id, Name = "Companies.Read" });
+       seeds.Add(new OperationClaim { Id = ++id, Name = "Companies.Write" });
+       
+       seeds.Add(new OperationClaim { Id = ++id, Name = "Companies.Add" });
+       seeds.Add(new OperationClaim { Id = ++id, Name = "Companies.Update" });
+       seeds.Add(new OperationClaim { Id = ++id, Name = "Companies.Delete" });
+       
+       #endregion
+       
+       
+       #region Cities
+       
+       seeds.Add(new OperationClaim { Id = ++id, Name = "Cities.Admin" });
+       
+       seeds.Add(new OperationClaim { Id = ++id, Name = "Cities.Read" });
+       seeds.Add(new OperationClaim { Id = ++id, Name = "Cities.Write" });
+       
+       seeds.Add(new OperationClaim { Id = ++id, Name = "Cities.Add" });
+       seeds.Add(new OperationClaim { Id = ++id, Name = "Cities.Update" });
+       seeds.Add(new OperationClaim { Id = ++id, Name = "Cities.Delete" });
+       
+       #endregion
+       
         return seeds;
     }
 }
