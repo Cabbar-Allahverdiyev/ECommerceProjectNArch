@@ -16,6 +16,15 @@ public class CreateCityCommand : IRequest<CreatedCityResponse>//, ISecuredReques
 {
     public string? Name { get; set; }
 
+    public CreateCityCommand(string name)
+    {
+        Name = name;
+    }
+    public CreateCityCommand()
+    {
+        Name = string.Empty;
+    }
+
     public string[] Roles => new[] { Admin, Write, CitiesOperationClaims.Create };
 
     public bool BypassCache { get; }
@@ -38,8 +47,8 @@ public class CreateCityCommand : IRequest<CreatedCityResponse>//, ISecuredReques
 
         public async Task<CreatedCityResponse> Handle(CreateCityCommand request, CancellationToken cancellationToken)
         {
-            City city = _mapper.Map<City>(request);
-
+            City? city = _mapper.Map<City>(request);
+            await  _cityBusinessRules.CityNameShouldNotExistWhenSelected(city,cancellationToken);
             await _cityRepository.AddAsync(city);
 
             CreatedCityResponse response = _mapper.Map<CreatedCityResponse>(city);
