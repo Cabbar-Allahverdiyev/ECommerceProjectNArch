@@ -21,6 +21,23 @@ public class CityBusinessRules : BaseBusinessRules
             throw new BusinessException(CitiesBusinessMessages.CityNotExists);
         return Task.CompletedTask;
     }
+    public Task CityShouldNotExistWhenSelected(City? city)
+    {
+        if (city != null)
+            throw new BusinessException(CitiesBusinessMessages.CityNameAlreadyExists);
+        return Task.CompletedTask;
+    }
+    public async Task CityNameShouldNotExistWhenSelected(City? city, CancellationToken cancellationToken)
+    {
+        if (city == null)
+            throw new BusinessException(CitiesBusinessMessages.CityIsNull);
+        City? result =await _cityRepository.GetAsync(
+        predicate: c => string.Equals(c.Name, city.Name, StringComparison.OrdinalIgnoreCase),
+        enableTracking: false,
+        cancellationToken: cancellationToken);
+
+        await CityShouldNotExistWhenSelected(result);
+    }
 
     public async Task CityIdShouldExistWhenSelected(Guid id, CancellationToken cancellationToken)
     {
