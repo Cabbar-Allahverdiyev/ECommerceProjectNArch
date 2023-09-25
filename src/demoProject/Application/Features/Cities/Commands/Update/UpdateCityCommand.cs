@@ -41,6 +41,7 @@ public class UpdateCityCommand : IRequest<UpdatedCityResponse>//, ISecuredReques
         {
             City? city = await _cityRepository.GetAsync(predicate: c => c.Id == request.Id, cancellationToken: cancellationToken);
             await _cityBusinessRules.CityShouldExistWhenSelected(city);
+            await _cityBusinessRules.CityNameShouldNotExistWhenSelectedForUpdateCommand(city,request.Name,cancellationToken);
             city = _mapper.Map(request, city);
 
             await _cityRepository.UpdateAsync(city!);
