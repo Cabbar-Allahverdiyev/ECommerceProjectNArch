@@ -9,7 +9,7 @@ using static Application.Features.Companies.Constants.CompaniesOperationClaims;
 
 namespace Application.Features.Companies.Queries.GetById;
 
-public class GetByIdCompanyQuery : IRequest<GetByIdCompanyResponse>, ISecuredRequest
+public class GetByIdCompanyQuery : IRequest<GetByIdCompanyResponse>//, ISecuredRequest
 {
     public Guid Id { get; set; }
 
@@ -30,7 +30,9 @@ public class GetByIdCompanyQuery : IRequest<GetByIdCompanyResponse>, ISecuredReq
 
         public async Task<GetByIdCompanyResponse> Handle(GetByIdCompanyQuery request, CancellationToken cancellationToken)
         {
-            Company? company = await _companyRepository.GetAsync(predicate: c => c.Id == request.Id, cancellationToken: cancellationToken);
+            Company? company = await _companyRepository.GetAsync(predicate: c => c.Id == request.Id,
+                                                                 cancellationToken: cancellationToken,
+                                                                 enableTracking: false);
             await _companyBusinessRules.CompanyShouldExistWhenSelected(company);
 
             GetByIdCompanyResponse response = _mapper.Map<GetByIdCompanyResponse>(company);

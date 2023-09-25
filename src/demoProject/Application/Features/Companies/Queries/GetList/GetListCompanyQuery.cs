@@ -12,7 +12,7 @@ using static Application.Features.Companies.Constants.CompaniesOperationClaims;
 
 namespace Application.Features.Companies.Queries.GetList;
 
-public class GetListCompanyQuery : IRequest<GetListResponse<GetListCompanyListItemDto>>, ISecuredRequest, ICachableRequest
+public class GetListCompanyQuery : IRequest<GetListResponse<GetListCompanyListItemDto>>//, ISecuredRequest, ICachableRequest
 {
     public PageRequest PageRequest { get; set; }
 
@@ -39,7 +39,8 @@ public class GetListCompanyQuery : IRequest<GetListResponse<GetListCompanyListIt
             IPaginate<Company> companies = await _companyRepository.GetListAsync(
                 index: request.PageRequest.PageIndex,
                 size: request.PageRequest.PageSize, 
-                cancellationToken: cancellationToken
+                cancellationToken: cancellationToken,
+                enableTracking:false
             );
 
             GetListResponse<GetListCompanyListItemDto> response = _mapper.Map<GetListResponse<GetListCompanyListItemDto>>(companies);
