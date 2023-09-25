@@ -39,6 +39,19 @@ public class CityBusinessRules : BaseBusinessRules
         await CityShouldNotExistWhenSelected(result);
     }
 
+    public async Task CityNameShouldNotExistWhenSelectedForUpdateCommand(City? city,string newCityName, CancellationToken cancellationToken)
+    {
+        if (city == null)
+            throw new BusinessException(CitiesBusinessMessages.CityIsNull);
+        City? result = await _cityRepository.GetAsync(
+        predicate: c => string.Equals(c.Name, newCityName, StringComparison.OrdinalIgnoreCase)&& c.Id != city.Id,
+                     
+        enableTracking: false,
+        cancellationToken: cancellationToken);
+        //if (result.Id != city.Id) await CityShouldExistWhenSelected(result);
+        await CityShouldNotExistWhenSelected(result);
+    }
+
     public async Task CityIdShouldExistWhenSelected(Guid id, CancellationToken cancellationToken)
     {
         City? city = await _cityRepository.GetAsync(
