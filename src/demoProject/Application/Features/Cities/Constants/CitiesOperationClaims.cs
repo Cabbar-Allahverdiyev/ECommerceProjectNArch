@@ -10,4 +10,6 @@ public static class CitiesOperationClaims
     public const string Create = "Cities.Create";
     public const string Update = "Cities.Update";
     public const string Delete = "Cities.Delete";
+    public const string GetByNameCityQuery = "Cities.GetByNameCityQuery";
+    public const string GetByNameCity = "Cities.GetByNameCity";
 }
