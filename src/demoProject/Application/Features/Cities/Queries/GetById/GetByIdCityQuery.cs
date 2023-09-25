@@ -30,7 +30,9 @@ public class GetByIdCityQuery : IRequest<GetByIdCityResponse>//, ISecuredRequest
 
         public async Task<GetByIdCityResponse> Handle(GetByIdCityQuery request, CancellationToken cancellationToken)
         {
-            City? city = await _cityRepository.GetAsync(predicate: c => c.Id == request.Id, cancellationToken: cancellationToken);
+            City? city = await _cityRepository.GetAsync(predicate: c => c.Id == request.Id,
+                cancellationToken: cancellationToken,
+                enableTracking:false);
             await _cityBusinessRules.CityShouldExistWhenSelected(city);
 
             GetByIdCityResponse response = _mapper.Map<GetByIdCityResponse>(city);
