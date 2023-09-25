@@ -61,6 +61,10 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
        seeds.Add(new OperationClaim { Id = ++id, Name = "Cities.Add" });
        seeds.Add(new OperationClaim { Id = ++id, Name = "Cities.Update" });
        seeds.Add(new OperationClaim { Id = ++id, Name = "Cities.Delete" });
+       seeds.Add(new OperationClaim { Id = ++id, Name = "Cities.GetByNameCityQuery" });
+
+       seeds.Add(new OperationClaim { Id = ++id, Name = "Cities.GetByNameCity" });
+
        
        #endregion
        
