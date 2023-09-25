@@ -43,7 +43,12 @@ public class CreateCompanyCommand : IRequest<CreatedCompanyResponse>, ISecuredRe
 
         public async Task<CreatedCompanyResponse> Handle(CreateCompanyCommand request, CancellationToken cancellationToken)
         {
+            await _companyBusinessRules.CompanyNameShouldNotExistWhenSelected(request.Name,cancellationToken);
+            await _companyBusinessRules.CompanyEmailShouldNotExistWhenSelected(request.Email, cancellationToken);
+            await _companyBusinessRules.CompanyPhoneNumberShouldNotExistWhenSelected(request.PhoneNumber, cancellationToken);
+
             Company company = _mapper.Map<Company>(request);
+            await _companyBusinessRules.CompanyShouldExistWhenSelected(company);
 
             await _companyRepository.AddAsync(company);
 

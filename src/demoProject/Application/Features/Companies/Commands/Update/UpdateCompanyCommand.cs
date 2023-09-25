@@ -46,6 +46,10 @@ public class UpdateCompanyCommand : IRequest<UpdatedCompanyResponse>, ISecuredRe
         {
             Company? company = await _companyRepository.GetAsync(predicate: c => c.Id == request.Id, cancellationToken: cancellationToken);
             await _companyBusinessRules.CompanyShouldExistWhenSelected(company);
+            await _companyBusinessRules.CompanyNameShouldNotExistWhenUptaded(company,request.Name, cancellationToken);
+            await _companyBusinessRules.CompanyEmailShouldNotExistWhenUptaded(company,request.Email, cancellationToken);
+            await _companyBusinessRules.CompanyPhoneNumberShouldNotExistWhenUptaded(company,request.PhoneNumber, cancellationToken);
+
             company = _mapper.Map(request, company);
 
             await _companyRepository.UpdateAsync(company!);
