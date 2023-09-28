@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Persistence.EntityConfigurations;
 
-public class CityConfiguration : IEntityTypeConfiguration<City>
+public class CountryConfiguration : IEntityTypeConfiguration<Country>
 {
-    public void Configure(EntityTypeBuilder<City> builder)
+    public void Configure(EntityTypeBuilder<Country> builder)
     {
-        builder.ToTable("Cities").HasKey(c => c.Id);
+        builder.ToTable("Countries").HasKey(c => c.Id);
 
         builder.Property(c => c.Id).HasColumnName("Id").IsRequired();
         builder.Property(c => c.Name).HasColumnName("Name");
@@ -18,9 +18,15 @@ public class CityConfiguration : IEntityTypeConfiguration<City>
 
         builder.HasQueryFilter(c => !c.DeletedDate.HasValue);
 
-        builder.HasData(new City[] {
-        new(Guid.NewGuid(),"Baku",DateTime.UtcNow),
-        new(Guid.NewGuid(),"Yevlakh",DateTime.UtcNow)
-        });
+        builder.HasData(getSeeds());
+    }
+
+    private IEnumerable<Country> getSeeds()
+    {
+        List<Country> seeds = new List<Country>() { 
+        new(Guid.NewGuid(),"Azerbaijan"),
+        new(Guid.NewGuid(),"Turkey")
+        };
+        return seeds.ToArray();
     }
 }

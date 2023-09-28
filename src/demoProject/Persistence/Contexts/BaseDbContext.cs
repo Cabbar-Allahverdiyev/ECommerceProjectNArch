@@ -17,6 +17,7 @@ public class BaseDbContext : DbContext
     public DbSet<UserOperationClaim> UserOperationClaims { get; set; }
     public DbSet<Company> Companies { get; set; }
     public DbSet<City> Cities { get; set; }
+    public DbSet<Country> Countries { get; set; }
     
 
     public BaseDbContext(DbContextOptions dbContextOptions, IConfiguration configuration)

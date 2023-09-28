@@ -22,5 +22,9 @@ public class CompanyConfiguration : IEntityTypeConfiguration<Company>
         builder.Property(c => c.DeletedDate).HasColumnName("DeletedDate");
 
         builder.HasQueryFilter(c => !c.DeletedDate.HasValue);
+
+        //builder.HasData(new Company[] {
+        //new(){Id=Guid.NewGuid(),Name="AzerAgroMMC",AddressLine1="S.Esgerova ev 8",CityId=}
+        //});
     }
 }
