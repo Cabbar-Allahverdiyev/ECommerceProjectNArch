@@ -48,6 +48,7 @@ public class CreateCityCommand : IRequest<CreatedCityResponse>//, ISecuredReques
         public async Task<CreatedCityResponse> Handle(CreateCityCommand request, CancellationToken cancellationToken)
         {
             City? city = _mapper.Map<City>(request);
+            await _cityBusinessRules.CityShouldExistWhenSelected(city);
             await  _cityBusinessRules.CityNameShouldNotExistWhenSelected(city,cancellationToken);
             await _cityRepository.AddAsync(city);
 
