@@ -29,4 +29,8 @@
 	  <ProjectReference Include="..\..\src\demoProject\Persistence\Persistence.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Features\Cities\Queries\" />
+	</ItemGroup>
+
 </Project>

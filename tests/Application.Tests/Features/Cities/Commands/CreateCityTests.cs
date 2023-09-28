@@ -25,10 +25,12 @@ public class CreateCityTests:CityMockRepository
         _handler = new CreateCityCommandHandler(Mapper, MockRepository.Object, BusinessRules);
     }
 
-    [Fact]
-    public void CityNameEmptyShouldReturnError()
+    [Theory]
+    [InlineData("")]
+    [InlineData("a")]
+    public void CityNameEmptyShouldReturnError(string cityName)
     {
-        _command.Name = "a";
+        _command.Name = cityName;
         ValidationFailure? result = _validator
            .Validate(_command)
            .Errors.Where(x => x.PropertyName == "Name" && x.ErrorCode == ValidationErrorCodes.MinimumLengthValidator)
