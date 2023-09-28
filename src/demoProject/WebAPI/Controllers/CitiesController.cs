@@ -6,6 +6,7 @@ using Application.Features.Cities.Queries.GetList;
 using Core.Application.Requests;
 using Core.Application.Responses;
 using Microsoft.AspNetCore.Mvc;
+using Application.Features.Cities.Queries.GetByNameCity;
 
 namespace WebAPI.Controllers;
 
@@ -49,6 +50,15 @@ public class CitiesController : BaseController
     {
         GetListCityQuery getListCityQuery = new() { PageRequest = pageRequest };
         GetListResponse<GetListCityListItemDto> response = await Mediator.Send(getListCityQuery);
+        return Ok(response);
+    }
+    
+   
+    
+    [HttpGet("GetByNameCity")]
+    public async Task<IActionResult> GetByNameCity([FromQuery] GetByNameCityQuery getByNameCityQuery)
+    {
+        GetByNameCityResponse response = await Mediator.Send(getByNameCityQuery);
         return Ok(response);
     }
 }
