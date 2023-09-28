@@ -39,7 +39,7 @@ public class CityBusinessRules : BaseBusinessRules
         await CityShouldNotExistWhenSelected(result);
     }
 
-    public async Task CityNameShouldNotExistWhenSelectedForUpdateCommand(City? city,string newCityName, CancellationToken cancellationToken)
+    public async Task CityNameShouldNotExistWhenUpdated(City? city,string newCityName, CancellationToken cancellationToken)
     {
         if (city == null)
             throw new BusinessException(CitiesBusinessMessages.CityIsNull);
@@ -48,7 +48,6 @@ public class CityBusinessRules : BaseBusinessRules
                      
         enableTracking: false,
         cancellationToken: cancellationToken);
-        //if (result.Id != city.Id) await CityShouldExistWhenSelected(result);
         await CityShouldNotExistWhenSelected(result);
     }
 
