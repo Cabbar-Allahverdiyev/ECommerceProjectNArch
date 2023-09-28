@@ -17,6 +17,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 using Application.Services.Companies;
 using Application.Services.Cities;
+using Application.Services.Countries;
 
 namespace Application;
 
@@ -48,6 +49,7 @@ public static class ApplicationServiceRegistration
         services.AddScoped<IUserService, UserManager>();
         services.AddScoped<ICompaniesService, CompaniesManager>();
         services.AddScoped<ICitiesService, CitiesManager>();
+        services.AddScoped<ICountriesService, CountriesManager>();
         return services;
     }
 
