@@ -1,4 +1,5 @@
 ﻿using Application.Features.Cities.Commands.Create;
+using Application.Features.Cities.Commands.Delete;
 using Application.Features.Cities.Commands.Update;
 using Application.Tests.Mocks.FakeData;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,8 +12,10 @@ public static class CityTestServiceRegistration
         services.AddTransient<CityFakeData>();
         services.AddTransient<CreateCityCommand>();
         services.AddTransient<UpdateCityCommand>();
+        services.AddTransient<DeleteCityCommand>();
 
         services.AddTransient<CreateCityCommandValidator>();
         services.AddTransient<UpdateCityCommandValidator>();
+        services.AddTransient<DeleteCityCommandValidator>();
     }
 }
