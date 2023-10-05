@@ -1,11 +1,15 @@
-﻿using Application.Features.Cities.Commands.Update;
+﻿using Application.Features.Cities.Commands.Create;
+using Application.Features.Cities.Commands.Update;
 using Application.Tests.Mocks.FakeData;
 using Application.Tests.Mocks.Repositories;
 using Core.Test.Application.Constants;
 using FluentValidation.Results;
 using System.Linq;
+using System.Threading.Tasks;
+using System.Threading;
 using Xunit;
 using static Application.Features.Cities.Commands.Update.UpdateCityCommand;
+using Core.CrossCuttingConcerns.Exceptions.Types;
 
 namespace Application.Tests.Features.Cities.Commands;
 public class UpdateCityTests : CityMockRepository
@@ -16,12 +20,12 @@ public class UpdateCityTests : CityMockRepository
 
     public UpdateCityTests(CityFakeData fakeData,
                            UpdateCityCommandValidator validator,
-                           UpdateCityCommand command,
-                           UpdateCityCommandHandler handler) : base(fakeData)
+                           UpdateCityCommand command
+                           ) : base(fakeData)
     {
         _validator = validator;
         _command = command;
-        _handler = handler;
+        _handler = new UpdateCityCommandHandler(Mapper,MockRepository.Object,BusinessRules);
     }
 
     [Theory]
@@ -35,5 +39,24 @@ public class UpdateCityTests : CityMockRepository
            .Errors.Where(x => x.PropertyName == "Name" && x.ErrorCode == ValidationErrorCodes.MinimumLengthValidator)
            .FirstOrDefault();
         Assert.Equal(ValidationErrorCodes.MinimumLengthValidator, result?.ErrorCode);
+    }
+
+    [Fact]
+    public async Task UpdateShouldSuccessfully()
+    {
+        var createdCity=await MockRepository.Object.AddAsync(new(System.Guid.NewGuid(), "Terter"));
+
+        _command.Id = createdCity.Id;
+        _command.Name = "Berde";
+        UpdatedCityResponse result = await _handler.Handle(_command, CancellationToken.None);
+
+        Assert.Equal(expected: "Berde", result.Name);
+    }
+
+    [Fact]
+    public async Task DuplicatedCityNameShouldReturnError()
+    {
+        _command.Name = "Baku";
+        await Assert.ThrowsAsync<BusinessException>(async () => await _handler.Handle(_command, CancellationToken.None));
     }
 }
