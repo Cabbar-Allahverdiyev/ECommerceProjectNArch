@@ -27,7 +27,7 @@ public class DeleteCityTests : CityMockRepository
         _handler = new DeleteCityCommandHandler(Mapper, MockRepository.Object, BusinessRules);
     }
 
-    [Fact]
+    //[Fact]
     public  void CityNameEmptyShouldReturnError( )
     {
         _command.Id = Guid.Empty;

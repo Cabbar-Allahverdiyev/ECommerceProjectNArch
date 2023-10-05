@@ -1,10 +1,14 @@
-﻿using Application.Features.Countries.Commands.Update;
+﻿using Application.Features.Cities.Commands.Update;
+using Application.Features.Countries.Commands.Update;
 using Application.Tests.Mocks.FakeData;
 using Application.Tests.Mocks.Repositories;
+using Core.CrossCuttingConcerns.Exceptions.Types;
 using Core.Test.Application.Constants;
 using FluentValidation.Results;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
+using System.Threading;
 using Xunit;
 using static Application.Features.Countries.Commands.Update.UpdateCountryCommand;
 
@@ -27,6 +31,7 @@ public class UpdateCountryTests:CountryMockRepository
     [InlineData("")]
     [InlineData("a")]
     [InlineData("aa")]
+    [InlineData("aaa")]
     public void CountryNameIsNotLongerShouldReturnError(string countryName)
     {
         _command.Name = countryName;
@@ -48,5 +53,23 @@ public class UpdateCountryTests:CountryMockRepository
         Assert.Equal(expected: ValidationErrorCodes.NotEmptyValidator, result?.ErrorCode);
     }
 
+    [Fact]
+    public async Task UpdateShouldSuccessfully()
+    {
+        var createdCity = await MockRepository.Object.AddAsync(new(System.Guid.NewGuid(), "Italy"));
+
+        _command.Id = createdCity.Id;
+        _command.Name = "Ispany";
+        UpdatedCountryResponse result = await _handler.Handle(_command, CancellationToken.None);
+
+        Assert.Equal(expected: "Ispany", result.Name);
+    }
+
+    [Fact]
+    public async Task DuplicatedCountryNameShouldReturnError()
+    {
+        _command.Name = "Katar";
+        await Assert.ThrowsAsync<BusinessException>(async () => await _handler.Handle(_command, CancellationToken.None));
+    }
 
 }
