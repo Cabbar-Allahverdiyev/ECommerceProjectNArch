@@ -1,5 +1,4 @@
 ﻿using Application.Features.Cities.Commands.Delete;
-using Application.Features.Cities.Commands.Update;
 using Application.Tests.Mocks.FakeData;
 using Application.Tests.Mocks.Repositories;
 using Core.Test.Application.Constants;
@@ -10,7 +9,6 @@ using System.Linq;
 using System.Threading;
 using Xunit;
 using static Application.Features.Cities.Commands.Delete.DeleteCityCommand;
-using static Application.Features.Cities.Commands.Update.UpdateCityCommand;
 
 namespace Application.Tests.Features.Cities.Commands;
 public class DeleteCityTests : CityMockRepository

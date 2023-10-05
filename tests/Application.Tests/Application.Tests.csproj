@@ -31,6 +31,7 @@
 
 	<ItemGroup>
 	  <Folder Include="Features\Cities\Queries\" />
+	  <Folder Include="Features\Countries\Queries\" />
 	</ItemGroup>
 
 </Project>
