@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Entities\ProductRelatedEntities\" />
     <Folder Include="Enums\" />
     <Folder Include="NewFolder\" />
   </ItemGroup>
