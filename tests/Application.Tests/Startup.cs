@@ -10,5 +10,6 @@ public sealed class Startup
         services.AddUsersServices();
         services.AddCityServices();
         services.AddCountryServices();
+        services.AddDiscountServices();
     }
 }

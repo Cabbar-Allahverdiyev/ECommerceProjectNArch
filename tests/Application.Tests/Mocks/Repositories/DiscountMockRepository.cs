@@ -7,8 +7,13 @@ using Domain.Entities;
 using System;
 
 namespace Application.Tests.Mocks.Repositories;
-public class DiscountMockRepository : BaseMockRepository<IDiscountRepository, Discount, Guid, MappingProfiles, DiscountBusinessRules, DiscountFakeData>
-{
+public class DiscountMockRepository : BaseMockRepository<IDiscountRepository,
+                                                        Discount, 
+                                                        Guid,
+                                                        MappingProfiles, 
+                                                        DiscountBusinessRules, 
+                                                        DiscountFakeData>
+                                                    {
     public DiscountMockRepository(DiscountFakeData fakeData) : base(fakeData)
     {
     }
