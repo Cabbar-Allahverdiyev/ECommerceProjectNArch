@@ -12,7 +12,7 @@ using static Application.Features.Discounts.Constants.DiscountsOperationClaims;
 
 namespace Application.Features.Discounts.Commands.Update;
 
-public class UpdateDiscountCommand : IRequest<UpdatedDiscountResponse>, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
+public class UpdateDiscountCommand : IRequest<UpdatedDiscountResponse>//, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
 {
     public Guid Id { get; set; }
     public decimal DiscountPercent { get; set; }
@@ -43,6 +43,7 @@ public class UpdateDiscountCommand : IRequest<UpdatedDiscountResponse>, ISecured
         {
             Discount? discount = await _discountRepository.GetAsync(predicate: d => d.Id == request.Id, cancellationToken: cancellationToken);
             await _discountBusinessRules.DiscountShouldExistWhenSelected(discount);
+            await _discountBusinessRules.DiscountNameShouldNotExistWhenUpdated(discount,request.Name,cancellationToken);
             discount = _mapper.Map(request, discount);
 
             await _discountRepository.UpdateAsync(discount!);
