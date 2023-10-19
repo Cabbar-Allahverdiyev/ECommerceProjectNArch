@@ -30,7 +30,10 @@ public class GetByIdDiscountQuery : IRequest<GetByIdDiscountResponse>, ISecuredR
 
         public async Task<GetByIdDiscountResponse> Handle(GetByIdDiscountQuery request, CancellationToken cancellationToken)
         {
-            Discount? discount = await _discountRepository.GetAsync(predicate: d => d.Id == request.Id, cancellationToken: cancellationToken);
+            Discount? discount = await _discountRepository.GetAsync(
+                predicate: d => d.Id == request.Id,
+                cancellationToken: cancellationToken,
+                 enableTracking: false);
             await _discountBusinessRules.DiscountShouldExistWhenSelected(discount);
 
             GetByIdDiscountResponse response = _mapper.Map<GetByIdDiscountResponse>(discount);
