@@ -5,7 +5,7 @@ public class Discount : Entity<Guid>
 {
     public decimal DiscountPercent { get; set; }
     public string Name { get; set; }
-    public string Description { get; set; }
+    public string? Description { get; set; }
 
     public ICollection<Product>? Products { get; set; }
 
@@ -17,7 +17,7 @@ public class Discount : Entity<Guid>
     public Discount(Guid id,
                     decimal discountPercent,
                     string name,
-                    string description
+                    string description=""
                    ) : this()
     {
         Id = id;
