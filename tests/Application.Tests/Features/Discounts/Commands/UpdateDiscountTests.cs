@@ -1,5 +1,4 @@
-﻿using Application.Features.Discounts.Commands.Create;
-using Application.Features.Discounts.Commands.Update;
+﻿using Application.Features.Discounts.Commands.Update;
 using Application.Tests.Mocks.FakeData;
 using Application.Tests.Mocks.Repositories;
 using Core.Test.Application.Constants;
@@ -181,4 +180,6 @@ public class UpdateDiscountTests:DiscountMockRepository
 
         await Assert.ThrowsAsync<BusinessException>(Action);
     }
+
+    
 }
