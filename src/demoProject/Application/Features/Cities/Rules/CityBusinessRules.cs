@@ -44,8 +44,7 @@ public class CityBusinessRules : BaseBusinessRules
         if (city == null)
             throw new BusinessException(CitiesBusinessMessages.CityIsNull);
         City? result = await _cityRepository.GetAsync(
-        predicate: c => string.Equals(c.Name, newCityName, StringComparison.OrdinalIgnoreCase)&& c.Id != city.Id,
-                     
+        predicate: c => string.Equals(c.Name, newCityName, StringComparison.OrdinalIgnoreCase)&& c.Id != city.Id,                     
         enableTracking: false,
         cancellationToken: cancellationToken);
         await CityShouldNotExistWhenSelected(result);
