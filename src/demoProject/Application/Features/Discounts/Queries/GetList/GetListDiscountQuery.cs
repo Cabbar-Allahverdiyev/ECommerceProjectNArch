@@ -12,7 +12,7 @@ using static Application.Features.Discounts.Constants.DiscountsOperationClaims;
 
 namespace Application.Features.Discounts.Queries.GetList;
 
-public class GetListDiscountQuery : IRequest<GetListResponse<GetListDiscountListItemDto>>, ISecuredRequest, ICachableRequest
+public class GetListDiscountQuery : IRequest<GetListResponse<GetListDiscountListItemDto>>//, ISecuredRequest, ICachableRequest
 {
     public PageRequest PageRequest { get; set; }
 
@@ -39,7 +39,8 @@ public class GetListDiscountQuery : IRequest<GetListResponse<GetListDiscountList
             IPaginate<Discount> discounts = await _discountRepository.GetListAsync(
                 index: request.PageRequest.PageIndex,
                 size: request.PageRequest.PageSize, 
-                cancellationToken: cancellationToken
+                cancellationToken: cancellationToken,
+                 enableTracking: false
             );
 
             GetListResponse<GetListDiscountListItemDto> response = _mapper.Map<GetListResponse<GetListDiscountListItemDto>>(discounts);
