@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 namespace Application.Tests.DependencyResolvers;
 public static class DiscountTestServiceRegistration
 {
-    public static void AddDiscountServices(IServiceCollection services)
+    public static void AddDiscountServices(this IServiceCollection services)
     {
         services.AddTransient<DiscountFakeData>();
         services.AddTransient<CreateDiscountCommand>();
