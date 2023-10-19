@@ -7,6 +7,7 @@ using AutoMapper;
 using Core.Application.Responses;
 using Domain.Entities;
 using Core.Persistence.Paging;
+using Application.Features.Discounts.Queries.GetByName;
 
 namespace Application.Features.Discounts.Profiles;
 
@@ -21,6 +22,7 @@ public class MappingProfiles : Profile
         CreateMap<Discount, DeleteDiscountCommand>().ReverseMap();
         CreateMap<Discount, DeletedDiscountResponse>().ReverseMap();
         CreateMap<Discount, GetByIdDiscountResponse>().ReverseMap();
+        CreateMap<Discount, GetByNameDiscountResponse>().ReverseMap();
         CreateMap<Discount, GetListDiscountListItemDto>().ReverseMap();
         CreateMap<IPaginate<Discount>, GetListResponse<GetListDiscountListItemDto>>().ReverseMap();
     }

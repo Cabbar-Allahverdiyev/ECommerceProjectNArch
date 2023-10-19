@@ -1,5 +1,4 @@
 using Application.Features.Discounts.Constants;
-using Application.Features.Discounts.Constants;
 using Application.Features.Discounts.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
@@ -13,7 +12,7 @@ using static Application.Features.Discounts.Constants.DiscountsOperationClaims;
 
 namespace Application.Features.Discounts.Commands.Delete;
 
-public class DeleteDiscountCommand : IRequest<DeletedDiscountResponse>, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
+public class DeleteDiscountCommand : IRequest<DeletedDiscountResponse>//, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
 {
     public Guid Id { get; set; }
 
