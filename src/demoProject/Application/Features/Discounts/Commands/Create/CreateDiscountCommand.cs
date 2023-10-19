@@ -12,11 +12,11 @@ using static Application.Features.Discounts.Constants.DiscountsOperationClaims;
 
 namespace Application.Features.Discounts.Commands.Create;
 
-public class CreateDiscountCommand : IRequest<CreatedDiscountResponse>, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
+public class CreateDiscountCommand : IRequest<CreatedDiscountResponse>//, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
 {
     public decimal DiscountPercent { get; set; }
-    public string Name { get; set; }
-    public string Description { get; set; }
+    public string? Name { get; set; }
+    public string? Description { get; set; }
 
     public string[] Roles => new[] { Admin, Write, DiscountsOperationClaims.Create };
 
@@ -41,6 +41,10 @@ public class CreateDiscountCommand : IRequest<CreatedDiscountResponse>, ISecured
         public async Task<CreatedDiscountResponse> Handle(CreateDiscountCommand request, CancellationToken cancellationToken)
         {
             Discount discount = _mapper.Map<Discount>(request);
+            discount.Id = Guid.NewGuid();
+
+            await _discountBusinessRules.DiscountIdShouldNotExistWhenSelected(discount.Id,cancellationToken);
+            await _discountBusinessRules.DiscountNameShouldNotExistWhenSelected(discount,cancellationToken);
 
             await _discountRepository.AddAsync(discount);
 
