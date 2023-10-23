@@ -19,6 +19,7 @@ using Application.Services.Companies;
 using Application.Services.Cities;
 using Application.Services.Countries;
 using Application.Services.Discounts;
+using Application.Services.ProductBrands;
 
 namespace Application;
 
@@ -52,6 +53,7 @@ public static class ApplicationServiceRegistration
         services.AddScoped<ICitiesService, CitiesManager>();
         services.AddScoped<ICountriesService, CountriesManager>();
         services.AddScoped<IDiscountsService, DiscountsManager>();
+        services.AddScoped<IProductBrandsService, ProductBrandsManager>();
         return services;
     }
 
