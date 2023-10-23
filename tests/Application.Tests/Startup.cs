@@ -11,5 +11,6 @@ public sealed class Startup
         services.AddCityServices();
         services.AddCountryServices();
         services.AddDiscountServices();
+        services.AddProductBrandServices();
     }
 }

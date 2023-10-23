@@ -25,7 +25,7 @@ public  class DeleteDiscountTests:DiscountMockRepository
     }
 
     [Fact]
-    public async Task UpdateShouldSuccessfully()
+    public async Task DeleteShouldSuccessfully()
     {
         Guid id = Guid.NewGuid();
         await MockRepository.Object.AddAsync(new(id, 10, "Beyləqan endirimi", description: "Qacirilmazdir"));
