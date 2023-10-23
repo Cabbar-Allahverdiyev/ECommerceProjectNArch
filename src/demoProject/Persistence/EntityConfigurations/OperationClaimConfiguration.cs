@@ -96,6 +96,20 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
        
        #endregion
        
+       
+       #region ProductBrands
+       
+       seeds.Add(new OperationClaim { Id = ++id, Name = "ProductBrands.Admin" });
+       
+       seeds.Add(new OperationClaim { Id = ++id, Name = "ProductBrands.Read" });
+       seeds.Add(new OperationClaim { Id = ++id, Name = "ProductBrands.Write" });
+       
+       seeds.Add(new OperationClaim { Id = ++id, Name = "ProductBrands.Add" });
+       seeds.Add(new OperationClaim { Id = ++id, Name = "ProductBrands.Update" });
+       seeds.Add(new OperationClaim { Id = ++id, Name = "ProductBrands.Delete" });
+       
+       #endregion
+       
         return seeds;
     }
 }

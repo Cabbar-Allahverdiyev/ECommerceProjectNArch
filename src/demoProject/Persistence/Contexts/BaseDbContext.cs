@@ -19,6 +19,7 @@ public class BaseDbContext : DbContext
     public DbSet<City> Cities { get; set; }
     public DbSet<Country> Countries { get; set; }
     public DbSet<Discount> Discounts { get; set; }
+    public DbSet<ProductBrand> ProductBrands { get; set; }
     
 
     public BaseDbContext(DbContextOptions dbContextOptions, IConfiguration configuration)
