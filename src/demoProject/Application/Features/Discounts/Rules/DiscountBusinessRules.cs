@@ -59,12 +59,11 @@ public class DiscountBusinessRules : BaseBusinessRules
         await DiscountShouldNotExistWhenSelected(result);
     }
 
-    public async Task DiscountNameShouldNotExistWhenUpdated(Discount? discount, string newName, CancellationToken cancellationToken)
+    public async Task DiscountNameShouldNotExistWhenUpdated(Guid id, string newName, CancellationToken cancellationToken)
     {
-        if (discount == null)
-            throw new BusinessException(DiscountsBusinessMessages.DiscountIsNull);
+        
         Discount? result = await _discountRepository.GetAsync(
-        predicate: d => string.Equals(d.Name, newName, StringComparison.OrdinalIgnoreCase) && d.Id != discount.Id,
+        predicate: d => string.Equals(d.Name, newName, StringComparison.OrdinalIgnoreCase) && d.Id != id,
         enableTracking: false,
         cancellationToken: cancellationToken);
         await DiscountShouldNotExistWhenSelected(result);
