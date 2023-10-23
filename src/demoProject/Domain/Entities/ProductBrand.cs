@@ -22,4 +22,12 @@ public class ProductBrand : Entity<Guid>
         Name = name;
         Description = description;
     }
+    
+    public ProductBrand(Guid id,
+                        string name)
+                        : this()
+    {
+        Id = id;
+        Name = name;
+    }
 }
