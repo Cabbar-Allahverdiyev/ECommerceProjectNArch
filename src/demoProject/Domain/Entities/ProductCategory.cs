@@ -25,4 +25,13 @@ public class ProductCategory : Entity<Guid>
         ParentId = parentId;
         Description = description;
     }
+
+    public ProductCategory(Guid id,
+                              string name,
+                              string description) : this()
+    {
+        Id = id;
+        Name = name;
+        Description = description;
+    }
 }
