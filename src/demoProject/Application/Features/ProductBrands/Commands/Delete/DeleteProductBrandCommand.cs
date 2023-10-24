@@ -1,5 +1,4 @@
 using Application.Features.ProductBrands.Constants;
-using Application.Features.ProductBrands.Constants;
 using Application.Features.ProductBrands.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
