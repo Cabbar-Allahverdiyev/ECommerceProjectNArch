@@ -43,7 +43,7 @@ public class UpdateDiscountCommand : IRequest<UpdatedDiscountResponse>//, ISecur
         {
             Discount? discount = await _discountRepository.GetAsync(predicate: d => d.Id == request.Id, cancellationToken: cancellationToken);
             await _discountBusinessRules.DiscountShouldExistWhenSelected(discount);
-            await _discountBusinessRules.DiscountNameShouldNotExistWhenUpdated(discount,request.Name,cancellationToken);
+            await _discountBusinessRules.DiscountNameShouldNotExistWhenUpdated(request.Id,request.Name,cancellationToken);
             discount = _mapper.Map(request, discount);
 
             await _discountRepository.UpdateAsync(discount!);
