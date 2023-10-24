@@ -6,6 +6,7 @@ using Application.Features.ProductBrands.Queries.GetList;
 using Core.Application.Requests;
 using Core.Application.Responses;
 using Microsoft.AspNetCore.Mvc;
+using Application.Features.ProductBrands.Queries.GetByName;
 
 namespace WebAPI.Controllers;
 
@@ -49,6 +50,13 @@ public class ProductBrandsController : BaseController
     {
         GetListProductBrandQuery getListProductBrandQuery = new() { PageRequest = pageRequest };
         GetListResponse<GetListProductBrandListItemDto> response = await Mediator.Send(getListProductBrandQuery);
+        return Ok(response);
+    }
+    
+    [HttpGet("GetByName")]
+    public async Task<IActionResult> GetByName([FromQuery] GetByNameProductBrandQuery getByNameQuery)
+    {
+        GetByNameProductBrandResponse response = await Mediator.Send(getByNameQuery);
         return Ok(response);
     }
 }
