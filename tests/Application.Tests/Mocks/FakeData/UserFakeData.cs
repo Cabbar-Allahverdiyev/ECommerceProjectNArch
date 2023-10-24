@@ -16,8 +16,8 @@ public class UserFakeData : BaseFakeData<User, int>
                 new User
                 {
                     Id = ++id,
-                    FirstName = "Engin",
-                    LastName = "Demiroğ",
+                    FirstName = "Cabbar",
+                    LastName = "Allahverdiyev",
                     Email = "example@email.com",
                     PasswordHash = new byte[] { },
                     PasswordSalt = new byte[] { },
@@ -28,8 +28,8 @@ public class UserFakeData : BaseFakeData<User, int>
                 new User
                 {
                     Id = ++id,
-                    FirstName = "Ahmet",
-                    LastName = "Çetinkaya",
+                    FirstName = "Seymur",
+                    LastName = "Veliyev",
                     Email = "example2@email.com",
                     PasswordHash = new byte[] { },
                     PasswordSalt = new byte[] { },
