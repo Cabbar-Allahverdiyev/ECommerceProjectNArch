@@ -107,6 +107,22 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
        seeds.Add(new OperationClaim { Id = ++id, Name = "ProductBrands.Add" });
        seeds.Add(new OperationClaim { Id = ++id, Name = "ProductBrands.Update" });
        seeds.Add(new OperationClaim { Id = ++id, Name = "ProductBrands.Delete" });
+       seeds.Add(new OperationClaim { Id = ++id, Name = "ProductBrands.GetByName" });
+
+       
+       #endregion
+       
+       
+       #region ProductCategories
+       
+       seeds.Add(new OperationClaim { Id = ++id, Name = "ProductCategories.Admin" });
+       
+       seeds.Add(new OperationClaim { Id = ++id, Name = "ProductCategories.Read" });
+       seeds.Add(new OperationClaim { Id = ++id, Name = "ProductCategories.Write" });
+       
+       seeds.Add(new OperationClaim { Id = ++id, Name = "ProductCategories.Add" });
+       seeds.Add(new OperationClaim { Id = ++id, Name = "ProductCategories.Update" });
+       seeds.Add(new OperationClaim { Id = ++id, Name = "ProductCategories.Delete" });
        
        #endregion
        

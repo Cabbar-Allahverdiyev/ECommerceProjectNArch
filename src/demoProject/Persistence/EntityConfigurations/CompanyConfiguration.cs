@@ -11,7 +11,7 @@ public class CompanyConfiguration : IEntityTypeConfiguration<Company>
         builder.ToTable("Companies").HasKey(c => c.Id);
 
         builder.Property(c => c.Id).HasColumnName("Id").IsRequired();
-        builder.Property(c => c.Name).HasColumnName("Name");
+        builder.Property(c => c.Name).HasColumnName("Name").IsRequired(); 
         builder.Property(c => c.AddressLine1).HasColumnName("AddressLine1");
         builder.Property(c => c.AddressLine2).HasColumnName("AddressLine2");
         builder.Property(c => c.CityId).HasColumnName("CityId");
