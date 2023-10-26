@@ -43,6 +43,7 @@ public class UpdateProductCategoryCommand : IRequest<UpdatedProductCategoryRespo
         {
             ProductCategory? productCategory = await _productCategoryRepository.GetAsync(predicate: pc => pc.Id == request.Id, cancellationToken: cancellationToken);
             await _productCategoryBusinessRules.ProductCategoryShouldExistWhenSelected(productCategory);
+            await _productCategoryBusinessRules.ProductCategoryNameShouldNotExistWhenUpdated(productCategory.Id,request.Name,cancellationToken);
             productCategory = _mapper.Map(request, productCategory);
 
             await _productCategoryRepository.UpdateAsync(productCategory!);
