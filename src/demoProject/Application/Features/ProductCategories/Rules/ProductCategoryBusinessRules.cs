@@ -52,4 +52,14 @@ public class ProductCategoryBusinessRules : BaseBusinessRules
       );
         await ProductCategoryShouldNotExistWhenSelected(productCategory);
     }
+
+    public async Task ProductCategoryNameShouldNotExistWhenUpdated(Guid id  , string? name, CancellationToken cancellationToken)
+    {
+        ProductCategory? productCategory = await _productCategoryRepository.GetAsync(
+         predicate: pc => string.Equals(pc.Name, name, StringComparison.OrdinalIgnoreCase) && pc.Id != id,
+       enableTracking: false,
+         cancellationToken: cancellationToken
+     );
+        await ProductCategoryShouldNotExistWhenSelected(productCategory);
+    }
 }
