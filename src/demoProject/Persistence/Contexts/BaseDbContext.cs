@@ -21,6 +21,9 @@ public class BaseDbContext : DbContext
     public DbSet<Discount> Discounts { get; set; }
     public DbSet<ProductBrand> ProductBrands { get; set; }
     public DbSet<ProductCategory> ProductCategories { get; set; }
+    public DbSet<ProductInventor> ProductInventors { get; set; }
+    public DbSet<Product> Products { get; set; }
+    public DbSet<Supplier> Suppliers { get; set; }
     
 
     public BaseDbContext(DbContextOptions dbContextOptions, IConfiguration configuration)
