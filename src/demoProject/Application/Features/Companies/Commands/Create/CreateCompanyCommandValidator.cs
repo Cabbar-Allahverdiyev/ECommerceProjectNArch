@@ -14,7 +14,7 @@ public class CreateCompanyCommandValidator : AbstractValidator<CreateCompanyComm
 
         RuleFor(c => c.AddressLine1).NotEmpty();
         RuleFor(c => c.AddressLine1).MinimumLength(2);
-        RuleFor(c => c.AddressLine1).MinimumLength(100);
+        RuleFor(c => c.AddressLine1).MaximumLength(100);
 
         //RuleFor(c =>c.AddressLine2).NotEmpty();
 
