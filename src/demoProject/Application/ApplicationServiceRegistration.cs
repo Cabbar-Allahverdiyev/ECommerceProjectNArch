@@ -21,6 +21,9 @@ using Application.Services.Countries;
 using Application.Services.Discounts;
 using Application.Services.ProductBrands;
 using Application.Services.ProductCategories;
+using Application.Services.ProductInventors;
+using Application.Services.Products;
+using Application.Services.Suppliers;
 
 namespace Application;
 
@@ -56,6 +59,9 @@ public static class ApplicationServiceRegistration
         services.AddScoped<IDiscountsService, DiscountsManager>();
         services.AddScoped<IProductBrandsService, ProductBrandsManager>();
         services.AddScoped<IProductCategoriesService, ProductCategoriesManager>();
+        services.AddScoped<IProductInventorsService, ProductInventorsManager>();
+        services.AddScoped<IProductsService, ProductsManager>();
+        services.AddScoped<ISuppliersService, SuppliersManager>();
         return services;
     }
 
