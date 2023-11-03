@@ -20,8 +20,9 @@ public class MappingProfiles : Profile
         CreateMap<Company, UpdatedCompanyResponse>().ReverseMap();
         CreateMap<Company, DeleteCompanyCommand>().ReverseMap();
         CreateMap<Company, DeletedCompanyResponse>().ReverseMap();
-        CreateMap<Company, GetByIdCompanyResponse>().ReverseMap();
-        CreateMap<Company, GetListCompanyListItemDto>().ReverseMap();
+        CreateMap<Company, GetByIdCompanyResponse>().ForMember(dest=>dest.CityName,opt=>opt.MapFrom(src=>src.City.Name)).ReverseMap();
+
+        CreateMap<Company, GetListCompanyListItemDto>().ForMember(dest => dest.CityName, opt => opt.MapFrom(src => src.City.Name)).ReverseMap();
         CreateMap<IPaginate<Company>, GetListResponse<GetListCompanyListItemDto>>().ReverseMap();
     }
 }
