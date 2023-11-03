@@ -1,9 +1,9 @@
 using Core.Application.Responses;
 using Domain.Entities;
 
-namespace Application.Features.ProductCategories.Queries.GetById;
+namespace Application.Features.ProductCategories.Queries.GetByName;
 
-public class GetByIdProductCategoryResponse : IResponse
+public class GetByNameProductCategoryResponse : IResponse
 {
     public Guid Id { get; set; }
     public string? Name { get; set; }

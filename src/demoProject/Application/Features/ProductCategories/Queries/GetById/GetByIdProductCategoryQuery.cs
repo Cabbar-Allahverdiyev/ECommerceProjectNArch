@@ -6,10 +6,11 @@ using Domain.Entities;
 using Core.Application.Pipelines.Authorization;
 using MediatR;
 using static Application.Features.ProductCategories.Constants.ProductCategoriesOperationClaims;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features.ProductCategories.Queries.GetById;
 
-public class GetByIdProductCategoryQuery : IRequest<GetByIdProductCategoryResponse>, ISecuredRequest
+public class GetByIdProductCategoryQuery : IRequest<GetByIdProductCategoryResponse>//, ISecuredRequest
 {
     public Guid Id { get; set; }
 
@@ -30,7 +31,11 @@ public class GetByIdProductCategoryQuery : IRequest<GetByIdProductCategoryRespon
 
         public async Task<GetByIdProductCategoryResponse> Handle(GetByIdProductCategoryQuery request, CancellationToken cancellationToken)
         {
-            ProductCategory? productCategory = await _productCategoryRepository.GetAsync(predicate: pc => pc.Id == request.Id, cancellationToken: cancellationToken);
+            ProductCategory? productCategory = await _productCategoryRepository.GetAsync(
+                predicate: pc => pc.Id == request.Id, 
+                enableTracking:false,
+                include: c=>c.Include(c=>c.Products),
+                cancellationToken: cancellationToken);
             await _productCategoryBusinessRules.ProductCategoryShouldExistWhenSelected(productCategory);
 
             GetByIdProductCategoryResponse response = _mapper.Map<GetByIdProductCategoryResponse>(productCategory);

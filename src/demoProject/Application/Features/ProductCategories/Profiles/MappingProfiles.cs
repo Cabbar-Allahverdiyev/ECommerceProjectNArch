@@ -7,6 +7,7 @@ using AutoMapper;
 using Core.Application.Responses;
 using Domain.Entities;
 using Core.Persistence.Paging;
+using Application.Features.ProductCategories.Queries.GetByName;
 
 namespace Application.Features.ProductCategories.Profiles;
 
@@ -22,6 +23,7 @@ public class MappingProfiles : Profile
         CreateMap<ProductCategory, DeletedProductCategoryResponse>().ReverseMap();
         CreateMap<ProductCategory, GetByIdProductCategoryResponse>().ReverseMap();
         CreateMap<ProductCategory, GetListProductCategoryListItemDto>().ReverseMap();
+        CreateMap<ProductCategory, GetByNameProductCategoryResponse>().ForMember(dest => dest.Parent, opt => opt.MapFrom(src => src.Parent));
         CreateMap<IPaginate<ProductCategory>, GetListResponse<GetListProductCategoryListItemDto>>().ReverseMap();
     }
 }

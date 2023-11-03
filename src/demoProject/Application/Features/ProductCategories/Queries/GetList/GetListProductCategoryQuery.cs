@@ -9,10 +9,11 @@ using Core.Application.Responses;
 using Core.Persistence.Paging;
 using MediatR;
 using static Application.Features.ProductCategories.Constants.ProductCategoriesOperationClaims;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features.ProductCategories.Queries.GetList;
 
-public class GetListProductCategoryQuery : IRequest<GetListResponse<GetListProductCategoryListItemDto>>, ISecuredRequest, ICachableRequest
+public class GetListProductCategoryQuery : IRequest<GetListResponse<GetListProductCategoryListItemDto>>//, ISecuredRequest, ICachableRequest
 {
     public PageRequest PageRequest { get; set; }
 
@@ -38,7 +39,8 @@ public class GetListProductCategoryQuery : IRequest<GetListResponse<GetListProdu
         {
             IPaginate<ProductCategory> productCategories = await _productCategoryRepository.GetListAsync(
                 index: request.PageRequest.PageIndex,
-                size: request.PageRequest.PageSize, 
+                size: request.PageRequest.PageSize,
+                 include: c => c.Include(c => c.Products).Include(c=>c.Parent),
                 cancellationToken: cancellationToken
             );
 

@@ -10,4 +10,5 @@ public static class ProductCategoriesOperationClaims
     public const string Create = "ProductCategories.Create";
     public const string Update = "ProductCategories.Update";
     public const string Delete = "ProductCategories.Delete";
+    public const string GetByNameProductCategory = "ProductCategories.GetByNameProductCategory";
 }
