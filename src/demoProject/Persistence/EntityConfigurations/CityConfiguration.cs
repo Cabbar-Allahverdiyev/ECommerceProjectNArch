@@ -16,11 +16,19 @@ public class CityConfiguration : IEntityTypeConfiguration<City>
         builder.Property(c => c.UpdatedDate).HasColumnName("UpdatedDate");
         builder.Property(c => c.DeletedDate).HasColumnName("DeletedDate");
 
+        builder.HasMany(c => c.Companies);
+        builder.HasMany(c => c.Countries);
+
         builder.HasQueryFilter(c => !c.DeletedDate.HasValue);
 
         builder.HasData(new City[] {
-        new(Guid.NewGuid(),"Baku",DateTime.UtcNow),
-        new(Guid.NewGuid(),"Yevlakh",DateTime.UtcNow)
+        new(CityIds[0],"Baku",DateTime.UtcNow),
+        new(CityIds[1],"Yevlakh",DateTime.UtcNow)
         });
     }
+
+    public static List<Guid> CityIds = new() {
+        Guid.NewGuid(),
+        Guid.NewGuid()
+    };
 }

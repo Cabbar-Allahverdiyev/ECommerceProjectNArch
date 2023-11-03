@@ -123,6 +123,50 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
        seeds.Add(new OperationClaim { Id = ++id, Name = "ProductCategories.Add" });
        seeds.Add(new OperationClaim { Id = ++id, Name = "ProductCategories.Update" });
        seeds.Add(new OperationClaim { Id = ++id, Name = "ProductCategories.Delete" });
+       seeds.Add(new OperationClaim { Id = ++id, Name = "ProductCategories.GetByNameProductCategory" });
+
+       
+       #endregion
+       
+       
+       #region ProductInventors
+       
+       seeds.Add(new OperationClaim { Id = ++id, Name = "ProductInventors.Admin" });
+       
+       seeds.Add(new OperationClaim { Id = ++id, Name = "ProductInventors.Read" });
+       seeds.Add(new OperationClaim { Id = ++id, Name = "ProductInventors.Write" });
+       
+       seeds.Add(new OperationClaim { Id = ++id, Name = "ProductInventors.Add" });
+       seeds.Add(new OperationClaim { Id = ++id, Name = "ProductInventors.Update" });
+       seeds.Add(new OperationClaim { Id = ++id, Name = "ProductInventors.Delete" });
+       
+       #endregion
+       
+       
+       #region Products
+       
+       seeds.Add(new OperationClaim { Id = ++id, Name = "Products.Admin" });
+       
+       seeds.Add(new OperationClaim { Id = ++id, Name = "Products.Read" });
+       seeds.Add(new OperationClaim { Id = ++id, Name = "Products.Write" });
+       
+       seeds.Add(new OperationClaim { Id = ++id, Name = "Products.Add" });
+       seeds.Add(new OperationClaim { Id = ++id, Name = "Products.Update" });
+       seeds.Add(new OperationClaim { Id = ++id, Name = "Products.Delete" });
+       
+       #endregion
+       
+       
+       #region Suppliers
+       
+       seeds.Add(new OperationClaim { Id = ++id, Name = "Suppliers.Admin" });
+       
+       seeds.Add(new OperationClaim { Id = ++id, Name = "Suppliers.Read" });
+       seeds.Add(new OperationClaim { Id = ++id, Name = "Suppliers.Write" });
+       
+       seeds.Add(new OperationClaim { Id = ++id, Name = "Suppliers.Add" });
+       seeds.Add(new OperationClaim { Id = ++id, Name = "Suppliers.Update" });
+       seeds.Add(new OperationClaim { Id = ++id, Name = "Suppliers.Delete" });
        
        #endregion
        

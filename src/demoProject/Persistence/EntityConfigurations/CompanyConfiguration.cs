@@ -1,4 +1,4 @@
-using Domain.Entities;
+﻿using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -23,8 +23,20 @@ public class CompanyConfiguration : IEntityTypeConfiguration<Company>
 
         builder.HasQueryFilter(c => !c.DeletedDate.HasValue);
 
-        //builder.HasData(new Company[] {
-        //new(){Id=Guid.NewGuid(),Name="AzerAgroMMC",AddressLine1="S.Esgerova ev 8",CityId=}
-        //});
+        builder.HasOne(c => c.City);
+
+        builder.HasData(getSeeds());
+    }
+
+    private IEnumerable<Company> getSeeds()
+    {
+       
+        List<Company> data = new()
+        {
+
+            new(Guid.NewGuid(),"ABC","yyyyy","aaaa",CityConfiguration.CityIds[0],"aaa@aaa.com","0554696363"),
+            new(Guid.NewGuid(),"Telefon","aaaaaa","aaaaaa",CityConfiguration.CityIds[1],"avd@ads.com","0554446655"),
+        };
+        return data;
     }
 }
