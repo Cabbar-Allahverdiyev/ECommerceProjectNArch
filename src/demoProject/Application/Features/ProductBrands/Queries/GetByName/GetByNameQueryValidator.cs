@@ -2,9 +2,9 @@ using FluentValidation;
 
 namespace Application.Features.ProductBrands.Queries.GetByName;
 
-public class GetByNameQueryValidator : AbstractValidator<GetByNameProductBrandQuery>
+public class GetByNameProductBrandQueryValidator : AbstractValidator<GetByNameProductBrandQuery>
 {
-    public GetByNameQueryValidator()
+    public GetByNameProductBrandQueryValidator()
     {
         RuleFor(b => b.Name).NotEmpty();
     }

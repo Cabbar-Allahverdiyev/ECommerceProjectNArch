@@ -12,7 +12,7 @@ using static Application.Features.ProductBrands.Constants.ProductBrandsOperation
 
 namespace Application.Features.ProductBrands.Queries.GetByName;
 
-public class GetByNameProductBrandQuery : IRequest<GetByNameProductBrandResponse>//, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest
+public class GetByNameProductBrandQuery : IRequest<GetByNameProductBrandResponse>//, ISecuredRequest, ILoggableRequest
 {
     public string? Name { get; set; }
 
