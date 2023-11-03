@@ -6,6 +6,7 @@ using Domain.Entities;
 using Core.Application.Pipelines.Authorization;
 using MediatR;
 using static Application.Features.Cities.Constants.CitiesOperationClaims;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features.Cities.Queries.GetById;
 
@@ -32,7 +33,9 @@ public class GetByIdCityQuery : IRequest<GetByIdCityResponse>//, ISecuredRequest
         {
             City? city = await _cityRepository.GetAsync(predicate: c => c.Id == request.Id,
                 cancellationToken: cancellationToken,
-                enableTracking:false);
+                include:c=>c.Include(c=>c.Companies).Include(c=>c.Countries)
+                //enableTracking:false
+                );
             await _cityBusinessRules.CityShouldExistWhenSelected(city);
 
             GetByIdCityResponse response = _mapper.Map<GetByIdCityResponse>(city);
