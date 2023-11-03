@@ -13,7 +13,7 @@ using static Application.Features.ProductCategories.Constants.ProductCategoriesO
 
 namespace Application.Features.ProductCategories.Commands.Delete;
 
-public class DeleteProductCategoryCommand : IRequest<DeletedProductCategoryResponse>, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
+public class DeleteProductCategoryCommand : IRequest<DeletedProductCategoryResponse>//, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
 {
     public Guid Id { get; set; }
 

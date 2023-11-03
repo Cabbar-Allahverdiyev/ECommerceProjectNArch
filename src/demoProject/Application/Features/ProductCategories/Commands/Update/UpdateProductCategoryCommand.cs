@@ -12,7 +12,7 @@ using static Application.Features.ProductCategories.Constants.ProductCategoriesO
 
 namespace Application.Features.ProductCategories.Commands.Update;
 
-public class UpdateProductCategoryCommand : IRequest<UpdatedProductCategoryResponse>, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
+public class UpdateProductCategoryCommand : IRequest<UpdatedProductCategoryResponse>//, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
 {
     public Guid Id { get; set; }
     public string? Name { get; set; }
