@@ -7,10 +7,12 @@ public class City:Entity<Guid>
 
 
     public ICollection<Company>? Companies { get; set; }
+    public ICollection<Country>? Countries { get; set; }
 
     public City()
     {
         Companies = new HashSet<Company>();
+        Countries=new HashSet<Country>();
     }
     public City(string? name):this()
     {

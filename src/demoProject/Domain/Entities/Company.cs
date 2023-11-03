@@ -6,7 +6,7 @@ public class Company : Entity<Guid>
     public string? Name { get; set; }
     public string? AddressLine1 { get; set; }
     public string? AddressLine2 { get; set; }
-    public int CityId { get; set; }
+    public Guid CityId { get; set; }
     public string? Email { get; set; }
     public string? PhoneNumber { get; set; }
 
@@ -21,7 +21,7 @@ public class Company : Entity<Guid>
                    string name,
                    string addressLine1,
                    string? addressLine2,
-                   int cityId,
+                   Guid cityId,
                    string email,
                    string phoneNumber
                    ) : this()
