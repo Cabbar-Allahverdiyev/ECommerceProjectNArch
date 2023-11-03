@@ -6,6 +6,7 @@ using Domain.Entities;
 using Core.Application.Pipelines.Authorization;
 using MediatR;
 using static Application.Features.Companies.Constants.CompaniesOperationClaims;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features.Companies.Queries.GetById;
 
@@ -31,6 +32,7 @@ public class GetByIdCompanyQuery : IRequest<GetByIdCompanyResponse>//, ISecuredR
         public async Task<GetByIdCompanyResponse> Handle(GetByIdCompanyQuery request, CancellationToken cancellationToken)
         {
             Company? company = await _companyRepository.GetAsync(predicate: c => c.Id == request.Id,
+                                                                 include: c=>c.Include(c=>c.City),
                                                                  cancellationToken: cancellationToken,
                                                                  enableTracking: false);
             await _companyBusinessRules.CompanyShouldExistWhenSelected(company);
