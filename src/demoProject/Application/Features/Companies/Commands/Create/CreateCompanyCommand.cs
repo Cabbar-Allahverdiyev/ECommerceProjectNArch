@@ -50,6 +50,7 @@ public class CreateCompanyCommand : IRequest<CreatedCompanyResponse>//, ISecured
             Company company = _mapper.Map<Company>(request);
             await _companyBusinessRules.CompanyShouldExistWhenSelected(company);
 
+            company.PhoneNumber = $"+{company.PhoneNumber}";
             await _companyRepository.AddAsync(company);
 
             CreatedCompanyResponse response = _mapper.Map<CreatedCompanyResponse>(company);

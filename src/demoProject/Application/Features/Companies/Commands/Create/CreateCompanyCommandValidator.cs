@@ -27,8 +27,8 @@ public class CreateCompanyCommandValidator : AbstractValidator<CreateCompanyComm
 
         RuleFor(c => c.PhoneNumber).NotEmpty();
         RuleFor(c => c.PhoneNumber).MinimumLength(10);
-        RuleFor(c => c.PhoneNumber).MaximumLength(14);
-        RuleFor(c => c.PhoneNumber).Matches(new Regex(pattern: @"((\(\d{3}\) ?)|(\d{3}-))?\d{3}-\d{4}"))
-            .WithMessage(CompaniesValidationMessages.PhoneNumberNotValid);
+        RuleFor(c => c.PhoneNumber).MaximumLength(13);
+        RuleFor(c => c.PhoneNumber).Matches(new Regex(pattern: @"^(\d{12}|\d{13})$"))
+            .WithMessage(CompaniesValidationMessages.PhoneNumberNotValid);//bunu duzelt duzgun islemir
     }
 }

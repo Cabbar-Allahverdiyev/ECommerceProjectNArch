@@ -63,7 +63,7 @@ public class CompanyBusinessRules : BaseBusinessRules
     public  async Task CompanyPhoneNumberShouldNotExistWhenSelected(string? phoneNumber, CancellationToken cancellationToken)
     {
         Company? company = await _companyRepository.GetAsync(
-             predicate: c => c.PhoneNumber==phoneNumber,
+             predicate: c => c.PhoneNumber==$"+{phoneNumber}",
              enableTracking: false,
              cancellationToken: cancellationToken
          );
