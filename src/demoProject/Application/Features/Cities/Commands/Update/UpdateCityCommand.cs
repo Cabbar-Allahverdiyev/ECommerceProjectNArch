@@ -16,6 +16,7 @@ public class UpdateCityCommand : IRequest<UpdatedCityResponse>//, ISecuredReques
 {
     public Guid Id { get; set; }
     public string? Name { get; set; }
+    public Guid? CountryId { get; set; }
 
     public string[] Roles => new[] { Admin, Write, CitiesOperationClaims.Update };
 
