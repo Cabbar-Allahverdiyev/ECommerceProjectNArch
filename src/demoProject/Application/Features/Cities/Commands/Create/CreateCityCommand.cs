@@ -15,14 +15,17 @@ namespace Application.Features.Cities.Commands.Create;
 public class CreateCityCommand : IRequest<CreatedCityResponse>//, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
 {
     public string? Name { get; set; }
+    public Guid CountryId { get; set; }
 
-    public CreateCityCommand(string name)
-    {
-        Name = name;
-    }
     public CreateCityCommand()
     {
         Name = string.Empty;
+    }
+
+    public CreateCityCommand(string? name, Guid countryId) 
+    {
+        CountryId = countryId;
+        Name = name;
     }
 
     public string[] Roles => new[] { Admin, Write, CitiesOperationClaims.Create };
