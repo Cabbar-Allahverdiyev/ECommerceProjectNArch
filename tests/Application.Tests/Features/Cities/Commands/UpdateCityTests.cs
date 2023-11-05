@@ -10,6 +10,9 @@ using System.Threading;
 using Xunit;
 using static Application.Features.Cities.Commands.Update.UpdateCityCommand;
 using Core.CrossCuttingConcerns.Exceptions.Types;
+using Domain.Entities;
+using System;
+using System.Collections;
 
 namespace Application.Tests.Features.Cities.Commands;
 public class UpdateCityTests : CityMockRepository
@@ -44,7 +47,8 @@ public class UpdateCityTests : CityMockRepository
     [Fact]
     public async Task UpdateShouldSuccessfully()
     {
-        var createdCity=await MockRepository.Object.AddAsync(new(System.Guid.NewGuid(), "Terter"));
+        var gotCity = await MockRepository.Object.GetListAsync();
+        City createdCity=await MockRepository.Object.AddAsync(new(System.Guid.NewGuid(), gotCity.Items[0].CountryId,"Terter"));
 
         _command.Id = createdCity.Id;
         _command.Name = "Berde";
