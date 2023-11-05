@@ -34,8 +34,8 @@ public class CompanyConfiguration : IEntityTypeConfiguration<Company>
         List<Company> data = new()
         {
 
-            new(Guid.NewGuid(),"ABC","yyyyy","aaaa",CityConfiguration.CityIds[0],"aaa@aaa.com","0554696363"),
-            new(Guid.NewGuid(),"Telefon","aaaaaa","aaaaaa",CityConfiguration.CityIds[1],"avd@ads.com","0554446655"),
+            new(Guid.NewGuid(),"ABC","yyyyy","aaaa",CityConfiguration.CityConfigIds[0],"aaa@aaa.com","0554696363"),
+            new(Guid.NewGuid(),"Telefon","aaaaaa","aaaaaa",CityConfiguration.CityConfigIds[1],"avd@ads.com","0554446655"),
         };
         return data;
     }

@@ -23,10 +23,15 @@ public class CountryConfiguration : IEntityTypeConfiguration<Country>
 
     private IEnumerable<Country> getSeeds()
     {
-        List<Country> seeds = new List<Country>() { 
-        new(Guid.NewGuid(),"Azerbaijan"),
-        new(Guid.NewGuid(),"Turkey")
+        List<Country> seeds = new List<Country>() {
+        new(CountryConfigIds[0],"Azerbaijan"),
+        new(CountryConfigIds[1],"Turkey")
         };
         return seeds.ToArray();
     }
+
+    public static List<Guid> CountryConfigIds = new() {
+        Guid.NewGuid(),
+        Guid.NewGuid()
+     };
 }
