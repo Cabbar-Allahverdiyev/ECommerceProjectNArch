@@ -9,6 +9,7 @@ using Core.Application.Responses;
 using Core.Persistence.Paging;
 using MediatR;
 using static Application.Features.Cities.Constants.CitiesOperationClaims;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features.Cities.Queries.GetList;
 
@@ -38,9 +39,10 @@ public class GetListCityQuery : IRequest<GetListResponse<GetListCityListItemDto>
         {
             IPaginate<City> cities = await _cityRepository.GetListAsync(
                 index: request.PageRequest.PageIndex,
-                size: request.PageRequest.PageSize, 
-                cancellationToken: cancellationToken,
-                enableTracking:false
+                size: request.PageRequest.PageSize,
+                 include: c => c.Include(c => c.Companies).Include(c => c.Country),
+                cancellationToken: cancellationToken
+                //enableTracking:false
             );
 
             GetListResponse<GetListCityListItemDto> response = _mapper.Map<GetListResponse<GetListCityListItemDto>>(cities);
