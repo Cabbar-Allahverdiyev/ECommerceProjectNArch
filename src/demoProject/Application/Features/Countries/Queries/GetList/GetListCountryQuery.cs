@@ -12,7 +12,7 @@ using static Application.Features.Countries.Constants.CountriesOperationClaims;
 
 namespace Application.Features.Countries.Queries.GetList;
 
-public class GetListCountryQuery : IRequest<GetListResponse<GetListCountryListItemDto>>, ISecuredRequest, ICachableRequest
+public class GetListCountryQuery : IRequest<GetListResponse<GetListCountryListItemDto>>//, ISecuredRequest, ICachableRequest
 {
     public PageRequest PageRequest { get; set; }
 
