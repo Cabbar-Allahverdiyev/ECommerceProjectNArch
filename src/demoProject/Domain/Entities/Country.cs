@@ -7,7 +7,7 @@ public  class Country:Entity<Guid>
 
     public ICollection<City>? Cities { get; set; }
 
-    public Country(Guid id,string name)
+    public Country(Guid id,string name):this()
     {
         Id = id;
         Name = name;

@@ -6,6 +6,7 @@ using Domain.Entities;
 using Core.Application.Pipelines.Authorization;
 using MediatR;
 using static Application.Features.Countries.Constants.CountriesOperationClaims;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features.Countries.Queries.GetById;
 
@@ -32,6 +33,7 @@ public class GetByIdCountryQuery : IRequest<GetByIdCountryResponse>//, ISecuredR
         {
             Country? country = await _countryRepository.GetAsync(predicate: c => c.Id == request.Id, 
                 cancellationToken: cancellationToken,
+                include:c=>c.Include(c=>c.Cities),
                 enableTracking:false);
             await _countryBusinessRules.CountryShouldExistWhenSelected(country);
 

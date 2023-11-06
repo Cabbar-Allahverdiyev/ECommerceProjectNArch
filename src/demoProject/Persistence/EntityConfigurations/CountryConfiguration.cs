@@ -18,6 +18,8 @@ public class CountryConfiguration : IEntityTypeConfiguration<Country>
 
         builder.HasQueryFilter(c => !c.DeletedDate.HasValue);
 
+        builder.HasMany(c => c.Cities);
+
         builder.HasData(getSeeds());
     }
 

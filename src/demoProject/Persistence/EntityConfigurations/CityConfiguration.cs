@@ -23,8 +23,8 @@ public class CityConfiguration : IEntityTypeConfiguration<City>
         builder.HasQueryFilter(c => !c.DeletedDate.HasValue);
 
         builder.HasData(new City[] {
-        new(CityConfigIds[0],"Baku",CountryConfiguration.CountryConfigIds[0],DateTime.UtcNow),
-        new(CityConfigIds[1],"Yevlakh",CountryConfiguration.CountryConfigIds[1],DateTime.UtcNow)
+        new(CityConfigIds[0],CountryConfiguration.CountryConfigIds[0],"Baku",DateTime.UtcNow),
+        new(CityConfigIds[1],CountryConfiguration.CountryConfigIds[1],"Yevlakh",DateTime.UtcNow)
         });
     }
 

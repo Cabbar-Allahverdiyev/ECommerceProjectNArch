@@ -47,6 +47,8 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
        seeds.Add(new OperationClaim { Id = ++id, Name = "Companies.Add" });
        seeds.Add(new OperationClaim { Id = ++id, Name = "Companies.Update" });
        seeds.Add(new OperationClaim { Id = ++id, Name = "Companies.Delete" });
+       seeds.Add(new OperationClaim { Id = ++id, Name = "Companies.GetByNameCompany" });
+
        
        #endregion
        
@@ -79,6 +81,8 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
        seeds.Add(new OperationClaim { Id = ++id, Name = "Countries.Add" });
        seeds.Add(new OperationClaim { Id = ++id, Name = "Countries.Update" });
        seeds.Add(new OperationClaim { Id = ++id, Name = "Countries.Delete" });
+       seeds.Add(new OperationClaim { Id = ++id, Name = "Countries.GetByNameCountry" });
+
        
        #endregion
        

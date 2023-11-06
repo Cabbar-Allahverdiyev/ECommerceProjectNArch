@@ -18,10 +18,10 @@ public class Company : Entity<Guid>
     }
 
     public Company(Guid id,
+                   Guid cityId,
                    string name,
                    string addressLine1,
                    string? addressLine2,
-                   Guid cityId,
                    string email,
                    string phoneNumber
                    ) : this()

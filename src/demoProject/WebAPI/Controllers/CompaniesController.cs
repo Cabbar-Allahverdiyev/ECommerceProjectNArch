@@ -6,6 +6,7 @@ using Application.Features.Companies.Queries.GetList;
 using Core.Application.Requests;
 using Core.Application.Responses;
 using Microsoft.AspNetCore.Mvc;
+using Application.Features.Companies.Queries.GetByNameCompany;
 
 namespace WebAPI.Controllers;
 
@@ -49,6 +50,13 @@ public class CompaniesController : BaseController
     {
         GetListCompanyQuery getListCompanyQuery = new() { PageRequest = pageRequest };
         GetListResponse<GetListCompanyListItemDto> response = await Mediator.Send(getListCompanyQuery);
+        return Ok(response);
+    }
+    
+    [HttpGet("GetByNameCompany")]
+    public async Task<IActionResult> GetByNameCompany([FromQuery] GetByNameCompanyQuery getByNameCompanyQuery)
+    {
+        GetByNameCompanyResponse response = await Mediator.Send(getByNameCompanyQuery);
         return Ok(response);
     }
 }

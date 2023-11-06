@@ -6,6 +6,7 @@ using Application.Features.Countries.Queries.GetList;
 using Core.Application.Requests;
 using Core.Application.Responses;
 using Microsoft.AspNetCore.Mvc;
+using Application.Features.Countries.Queries.GetByName;
 
 namespace WebAPI.Controllers;
 
@@ -49,6 +50,13 @@ public class CountriesController : BaseController
     {
         GetListCountryQuery getListCountryQuery = new() { PageRequest = pageRequest };
         GetListResponse<GetListCountryListItemDto> response = await Mediator.Send(getListCountryQuery);
+        return Ok(response);
+    }
+    
+    [HttpGet("GetByNameCountry")]
+    public async Task<IActionResult> GetByNameCountry([FromQuery] GetByNameCountryQuery getByNameCountryQuery)
+    {
+        GetByNameCountryResponse response = await Mediator.Send(getByNameCountryQuery);
         return Ok(response);
     }
 }
