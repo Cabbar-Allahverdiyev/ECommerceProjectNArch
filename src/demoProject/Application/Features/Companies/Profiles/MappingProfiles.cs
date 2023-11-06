@@ -7,6 +7,8 @@ using AutoMapper;
 using Core.Application.Responses;
 using Domain.Entities;
 using Core.Persistence.Paging;
+using Application.Features.Companies.Dtos;
+using Application.Features.Companies.Queries.GetByNameCompany;
 
 namespace Application.Features.Companies.Profiles;
 
@@ -20,9 +22,13 @@ public class MappingProfiles : Profile
         CreateMap<Company, UpdatedCompanyResponse>().ReverseMap();
         CreateMap<Company, DeleteCompanyCommand>().ReverseMap();
         CreateMap<Company, DeletedCompanyResponse>().ReverseMap();
-        CreateMap<Company, GetByIdCompanyResponse>().ForMember(dest=>dest.CityName,opt=>opt.MapFrom(src=>src.City.Name)).ReverseMap();
 
-        CreateMap<Company, GetListCompanyListItemDto>().ForMember(dest => dest.CityName, opt => opt.MapFrom(src => src.City.Name)).ReverseMap();
+        CreateMap<City, GetCityInCompanyDto>().ReverseMap();
+
+        CreateMap<Company, GetByIdCompanyResponse>().ForMember(dest=>dest.City, opt=>opt.MapFrom(src=>src.City)).ReverseMap();
+        CreateMap<Company, GetByNameCompanyResponse>().ForMember(dest=>dest.City, opt=>opt.MapFrom(src=>src.City)).ReverseMap();
+
+        CreateMap<Company, GetListCompanyListItemDto>().ForMember(dest => dest.City, opt => opt.MapFrom(src => src.City)).ReverseMap();
         CreateMap<IPaginate<Company>, GetListResponse<GetListCompanyListItemDto>>().ReverseMap();
     }
 }
