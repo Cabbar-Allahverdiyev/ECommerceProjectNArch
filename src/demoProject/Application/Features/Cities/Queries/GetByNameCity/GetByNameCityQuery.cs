@@ -12,7 +12,7 @@ using static Application.Features.Cities.Constants.CitiesOperationClaims;
 
 namespace Application.Features.Cities.Queries.GetByNameCity;
 
-public class GetByNameCityQuery : IRequest<GetByNameCityResponse>, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest
+public class GetByNameCityQuery : IRequest<GetByNameCityResponse>//, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest
 {
     public string? Name { get; set; }
     public string[] Roles => new[] { Admin, Read, CitiesOperationClaims.GetByNameCity };
@@ -40,8 +40,8 @@ public class GetByNameCityQuery : IRequest<GetByNameCityResponse>, ISecuredReque
             City? city = await _cityRepository.GetAsync(
                 predicate: c => string.Equals(c.Name, request.Name, StringComparison.OrdinalIgnoreCase),
                 cancellationToken: cancellationToken,
-                 include: c => c.Include(c => c.Companies).Include(c => c.Country)
-                //enableTracking: false
+                 include: c => c.Include(c => c.Companies).Include(c => c.Country),
+                enableTracking: false
                 );
             await _cityBusinessRules.CityShouldExistWhenSelected(city);
 
