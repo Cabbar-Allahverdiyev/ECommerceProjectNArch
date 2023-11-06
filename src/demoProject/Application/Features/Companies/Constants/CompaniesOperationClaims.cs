@@ -10,4 +10,5 @@ public static class CompaniesOperationClaims
     public const string Create = "Companies.Create";
     public const string Update = "Companies.Update";
     public const string Delete = "Companies.Delete";
+    public const string GetByNameCompany = "Companies.GetByNameCompany";
 }
