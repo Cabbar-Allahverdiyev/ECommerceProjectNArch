@@ -7,7 +7,7 @@ using AutoMapper;
 using Core.Application.Responses;
 using Domain.Entities;
 using Core.Persistence.Paging;
-using Application.Features.Cities.Queries.GetByNameCity;
+using Application.Features.Cities.Queries.GetByName;
 using Application.Features.Cities.Dtos;
 
 namespace Application.Features.Cities.Profiles;
