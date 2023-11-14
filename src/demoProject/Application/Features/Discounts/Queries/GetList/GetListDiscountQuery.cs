@@ -9,6 +9,7 @@ using Core.Application.Responses;
 using Core.Persistence.Paging;
 using MediatR;
 using static Application.Features.Discounts.Constants.DiscountsOperationClaims;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features.Discounts.Queries.GetList;
 
@@ -39,8 +40,9 @@ public class GetListDiscountQuery : IRequest<GetListResponse<GetListDiscountList
             IPaginate<Discount> discounts = await _discountRepository.GetListAsync(
                 index: request.PageRequest.PageIndex,
                 size: request.PageRequest.PageSize, 
+                include:d=>d.Include(d=>d.Products),
                 cancellationToken: cancellationToken,
-                 enableTracking: false
+                 enableTracking: true
             );
 
             GetListResponse<GetListDiscountListItemDto> response = _mapper.Map<GetListResponse<GetListDiscountListItemDto>>(discounts);

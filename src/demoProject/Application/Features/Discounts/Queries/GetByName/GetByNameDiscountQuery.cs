@@ -4,6 +4,7 @@ using AutoMapper;
 using Core.Application.Pipelines.Authorization;
 using Domain.Entities;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using static Application.Features.Discounts.Constants.DiscountsOperationClaims;
 
 namespace Application.Features.Discounts.Queries.GetByName;
@@ -29,6 +30,7 @@ public class GetByNameDiscountQuery:IRequest<GetByNameDiscountResponse>//, ISecu
         {
             Discount? discount = await _discountRepository.GetAsync(
                 predicate: d =>string.Equals(d.Name,request.Name,StringComparison.OrdinalIgnoreCase),
+                include:d=>d.Include(d=>d.Products),
                 cancellationToken: cancellationToken,
                 enableTracking:false);
             await _discountBusinessRules.DiscountShouldExistWhenSelected(discount);

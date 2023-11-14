@@ -6,6 +6,7 @@ using Domain.Entities;
 using Core.Application.Pipelines.Authorization;
 using MediatR;
 using static Application.Features.Discounts.Constants.DiscountsOperationClaims;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features.Discounts.Queries.GetById;
 
@@ -33,6 +34,7 @@ public class GetByIdDiscountQuery : IRequest<GetByIdDiscountResponse>, ISecuredR
             Discount? discount = await _discountRepository.GetAsync(
                 predicate: d => d.Id == request.Id,
                 cancellationToken: cancellationToken,
+                include:d=>d.Include(d=>d.Products),
                  enableTracking: false);
             await _discountBusinessRules.DiscountShouldExistWhenSelected(discount);
 

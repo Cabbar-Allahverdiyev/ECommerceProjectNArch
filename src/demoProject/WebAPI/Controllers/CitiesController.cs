@@ -6,7 +6,7 @@ using Application.Features.Cities.Queries.GetList;
 using Core.Application.Requests;
 using Core.Application.Responses;
 using Microsoft.AspNetCore.Mvc;
-using Application.Features.Cities.Queries.GetByNameCity;
+using Application.Features.Cities.Queries.GetByName;
 
 namespace WebAPI.Controllers;
 

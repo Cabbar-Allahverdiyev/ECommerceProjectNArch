@@ -6,7 +6,7 @@ using Application.Features.Companies.Queries.GetList;
 using Core.Application.Requests;
 using Core.Application.Responses;
 using Microsoft.AspNetCore.Mvc;
-using Application.Features.Companies.Queries.GetByNameCompany;
+using Application.Features.Companies.Queries.GetByName;
 
 namespace WebAPI.Controllers;
 

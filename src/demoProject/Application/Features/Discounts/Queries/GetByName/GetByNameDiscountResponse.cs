@@ -1,4 +1,5 @@
-﻿using Core.Application.Responses;
+﻿using Application.Features.Discounts.Dtos;
+using Core.Application.Responses;
 
 namespace Application.Features.Discounts.Queries.GetByName;
 public class GetByNameDiscountResponse:IResponse
@@ -7,4 +8,5 @@ public class GetByNameDiscountResponse:IResponse
     public decimal DiscountPercent { get; set; }
     public string Name { get; set; }
     public string Description { get; set; }
+    public ICollection<GetProductsInDiscountDto>? Products { get; set; }
 }

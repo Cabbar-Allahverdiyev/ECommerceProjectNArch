@@ -18,6 +18,22 @@ public class DiscountConfiguration : IEntityTypeConfiguration<Discount>
         builder.Property(d => d.UpdatedDate).HasColumnName("UpdatedDate");
         builder.Property(d => d.DeletedDate).HasColumnName("DeletedDate");
 
+        builder.HasMany(d => d.Products);
+
         builder.HasQueryFilter(d => !d.DeletedDate.HasValue);
     }
+
+    private IEnumerable<Discount> getSeeds()
+    {
+        List<Discount> seeds = new List<Discount>() {
+        new(DiscountConfigIds[0],15,"Ucuz endirim"),
+        new(DiscountConfigIds[1],25, "Ela endirim")
+        };
+        return seeds.ToArray();
+    }
+
+    public static List<Guid> DiscountConfigIds = new() {
+        Guid.NewGuid(),
+        Guid.NewGuid()
+     };
 }
