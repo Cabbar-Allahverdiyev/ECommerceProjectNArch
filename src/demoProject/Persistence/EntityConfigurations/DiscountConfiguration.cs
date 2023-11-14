@@ -20,6 +20,8 @@ public class DiscountConfiguration : IEntityTypeConfiguration<Discount>
 
         builder.HasMany(d => d.Products);
 
+        builder.HasData(getSeeds());
+
         builder.HasQueryFilter(d => !d.DeletedDate.HasValue);
     }
 
