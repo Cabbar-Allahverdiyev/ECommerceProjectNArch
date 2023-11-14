@@ -8,6 +8,7 @@ using Core.Application.Responses;
 using Domain.Entities;
 using Core.Persistence.Paging;
 using Application.Features.ProductBrands.Queries.GetByName;
+using Application.Features.ProductBrands.Dtos;
 
 namespace Application.Features.ProductBrands.Profiles;
 
@@ -21,10 +22,11 @@ public class MappingProfiles : Profile
         CreateMap<ProductBrand, UpdatedProductBrandResponse>().ReverseMap();
         CreateMap<ProductBrand, DeleteProductBrandCommand>().ReverseMap();
         CreateMap<ProductBrand, DeletedProductBrandResponse>().ReverseMap();
-        CreateMap<ProductBrand, GetByIdProductBrandResponse>().ReverseMap();
-        //CreateMap<ProductBrand, GetByNameProductBrandResponse>().ReverseMap();
-        CreateMap<ProductBrand, GetByNameProductBrandResponse>().ForMember(dest=>dest.Products,opt=>opt.MapFrom(src=>src.Products));
-        CreateMap<ProductBrand, GetListProductBrandListItemDto>().ReverseMap();
+
+        CreateMap<Product, GetProductsInBrandDto>().ReverseMap();
+        CreateMap<ProductBrand, GetByIdProductBrandResponse>().ForMember(dest => dest.Products, opt => opt.MapFrom(src => src.Products)).ReverseMap();
+        CreateMap<ProductBrand, GetByNameProductBrandResponse>().ForMember(dest=>dest.Products,opt=>opt.MapFrom(src=>src.Products)).ReverseMap();
+        CreateMap<ProductBrand, GetListProductBrandListItemDto>().ForMember(dest => dest.Products, opt => opt.MapFrom(src => src.Products)).ReverseMap();
         CreateMap<IPaginate<ProductBrand>, GetListResponse<GetListProductBrandListItemDto>>().ReverseMap();
     }
 }
