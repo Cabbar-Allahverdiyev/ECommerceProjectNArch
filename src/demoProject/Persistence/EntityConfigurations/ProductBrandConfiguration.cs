@@ -17,6 +17,22 @@ public class ProductBrandConfiguration : IEntityTypeConfiguration<ProductBrand>
         builder.Property(pb => pb.UpdatedDate).HasColumnName("UpdatedDate");
         builder.Property(pb => pb.DeletedDate).HasColumnName("DeletedDate");
 
+        builder.HasMany(b => b.Products);
+        builder.HasData(getSeeds());
         builder.HasQueryFilter(pb => !pb.DeletedDate.HasValue);
     }
+    private IEnumerable<ProductBrand> getSeeds()
+    {
+        List<ProductBrand> seeds = new List<ProductBrand>()
+        {
+             new(ProductBrandConfigIds[0],"Azzaro"),
+             new(ProductBrandConfigIds[1],"Sauvage")
+        };
+        return seeds.ToArray();
+    }
+
+    public static List<Guid> ProductBrandConfigIds = new() {
+        Guid.NewGuid(),
+        Guid.NewGuid()
+     };
 }
