@@ -8,7 +8,7 @@ using Core.Application.Responses;
 using Domain.Entities;
 using Core.Persistence.Paging;
 using Application.Features.Companies.Dtos;
-using Application.Features.Companies.Queries.GetByNameCompany;
+using Application.Features.Companies.Queries.GetByName;
 
 namespace Application.Features.Companies.Profiles;
 
