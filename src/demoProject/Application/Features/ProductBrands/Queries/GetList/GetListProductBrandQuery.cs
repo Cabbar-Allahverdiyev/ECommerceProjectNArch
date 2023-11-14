@@ -41,7 +41,8 @@ public class GetListProductBrandQuery : IRequest<GetListResponse<GetListProductB
                 index: request.PageRequest.PageIndex,
                 size: request.PageRequest.PageSize, 
                 cancellationToken: cancellationToken,
-                include:pb=>pb.Include(pb=>pb.Products)
+                include:pb=>pb.Include(pb=>pb.Products),
+                enableTracking:true
             );
 
             GetListResponse<GetListProductBrandListItemDto> response = _mapper.Map<GetListResponse<GetListProductBrandListItemDto>>(productBrands);

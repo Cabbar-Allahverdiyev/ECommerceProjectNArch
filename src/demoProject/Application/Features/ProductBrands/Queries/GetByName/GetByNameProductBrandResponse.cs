@@ -1,3 +1,4 @@
+using Application.Features.ProductBrands.Dtos;
 using Core.Application.Responses;
 using Domain.Entities;
 
@@ -8,5 +9,5 @@ public class GetByNameProductBrandResponse : IResponse
     public Guid Id { get; set; }
     public string? Name { get; set; }
     public string? Description { get; set; }
-    public ICollection<Product>? Products { get; set; }
+    public ICollection<GetProductsInBrandDto>? Products { get; set; }
 }
