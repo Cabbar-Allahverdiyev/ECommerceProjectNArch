@@ -40,7 +40,7 @@ public class GetByNameProductCategoryQuery : IRequest<GetByNameProductCategoryRe
             ProductCategory? productCategory = await _productCategoryRepository.GetAsync(
                 predicate: pc => string.Equals(pc.Name,request.Name,StringComparison.OrdinalIgnoreCase) ,
                 enableTracking: false,
-                include: c => c.Include(c=>c.Parent),
+                include: c => c.Include(c=>c.Parent).Include(c=>c.Products),
                 cancellationToken: cancellationToken);
             await _productCategoryBusinessRules.ProductCategoryShouldExistWhenSelected(productCategory);
 
