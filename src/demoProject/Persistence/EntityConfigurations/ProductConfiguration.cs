@@ -29,6 +29,12 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
         builder.Property(p => p.UpdatedDate).HasColumnName("UpdatedDate");
         builder.Property(p => p.DeletedDate).HasColumnName("DeletedDate");
 
+        builder.HasOne(c => c.Brand);
+        builder.HasOne(c => c.Category);
+        builder.HasOne(c => c.Supplier);
+        builder.HasOne(c => c.Discount);
+        builder.HasOne(c => c.Inventor);
+
         builder.HasQueryFilter(p => !p.DeletedDate.HasValue);
     }
 }

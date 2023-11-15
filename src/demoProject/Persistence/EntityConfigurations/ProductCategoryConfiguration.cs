@@ -27,13 +27,19 @@ public class ProductCategoryConfiguration : IEntityTypeConfiguration<ProductCate
 
     private IEnumerable<ProductCategory> getSeeds()
     {
-        Guid id = Guid.NewGuid();
+       
         List<ProductCategory> data = new()
         {
-            new(id,"Elektronika","rahat dasimaq"),
-            new(Guid.NewGuid(),"Telefon","asan əlaqə"),
-            new(Guid.NewGuid(),"Telefon",id,"asan əlaqə"),
+            new(ProductCategoryConfigIds[0],"Elektronika","rahat dasimaq"),
+            new(ProductCategoryConfigIds[1],"Telefon","asan əlaqə"),
+            new(ProductCategoryConfigIds[2],"Telefon",ProductCategoryConfigIds[0],"asan əlaqə"),
         };
         return data;
     }
+
+    public static List<Guid> ProductCategoryConfigIds = new() {
+        Guid.NewGuid(),
+        Guid.NewGuid(),
+        Guid.NewGuid()
+     };
 }
