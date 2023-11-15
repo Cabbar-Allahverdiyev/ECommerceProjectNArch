@@ -5,6 +5,6 @@ public class GetByIdProductCategoryQueryValidator:AbstractValidator<GetByIdProdu
 {
     public GetByIdProductCategoryQueryValidator()
     {
-        RuleFor(c => c.Id).NotEmpty(); ;
+        RuleFor(c => c.Id).NotEmpty(); 
     }
 }
