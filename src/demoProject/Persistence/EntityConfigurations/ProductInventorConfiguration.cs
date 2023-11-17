@@ -16,6 +16,8 @@ public class ProductInventorConfiguration : IEntityTypeConfiguration<ProductInve
         builder.Property(pi => pi.UpdatedDate).HasColumnName("UpdatedDate");
         builder.Property(pi => pi.DeletedDate).HasColumnName("DeletedDate");
 
+        builder.HasMany(i => i.Products);
+
         builder.HasQueryFilter(pi => !pi.DeletedDate.HasValue);
         builder.HasData(getSeeds());
     }
@@ -25,12 +27,20 @@ public class ProductInventorConfiguration : IEntityTypeConfiguration<ProductInve
         
         List<ProductInventor> data = new()
         {
-            new(Guid.NewGuid(),1),
-            new(Guid.NewGuid(),2),
-            new(Guid.NewGuid(),4),
-            new(Guid.NewGuid(),8),
+            new(ProductInventorConfigIds[0],1),
+            new(ProductInventorConfigIds[0],2),
+            new(ProductInventorConfigIds[0],5),
+            new(ProductInventorConfigIds[0],8),
           
         };
         return data;
     }
+
+    public static List<Guid> ProductInventorConfigIds = new()
+    {
+        Guid.NewGuid(),
+        Guid.NewGuid(),
+        Guid.NewGuid(),
+        Guid.NewGuid()
+    };
 }
