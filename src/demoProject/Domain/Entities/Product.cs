@@ -7,7 +7,7 @@ public class Product : Entity<Guid>
     public Guid BrandId { get; set; }
     public Guid SupplierId { get; set; }
     public Guid DiscountId { get; set; }
-    public Guid InventorId { get; set; }
+    public Guid ProductInventorId { get; set; }//InventorId edib yoxla
     public int UnitsOnOrder { get; set; }
     public int ReorderLevel { get; set; }
     public decimal PurchasePrice { get; set; }
@@ -22,7 +22,7 @@ public class Product : Entity<Guid>
     public virtual ProductBrand? Brand { get; set; }
     public virtual Supplier? Supplier { get; set; }
     public virtual Discount? Discount { get; set; }
-    public virtual ProductInventor? Inventor { get; set; }
+    public virtual ProductInventor? ProductInventor { get; set; }
 
     public Product()
     {
@@ -51,7 +51,7 @@ public class Product : Entity<Guid>
         BrandId = brandId;
         SupplierId = supplierId;
         DiscountId = discountId;
-        InventorId = ınventorId;
+        ProductInventorId = ınventorId;
         UnitsOnOrder = unitsOnOrder;
         ReorderLevel = reorderLevel;
         PurchasePrice = purchasePrice;

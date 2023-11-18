@@ -15,7 +15,7 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
         builder.Property(p => p.BrandId).HasColumnName("BrandId");
         builder.Property(p => p.SupplierId).HasColumnName("SupplierId");
         builder.Property(p => p.DiscountId).HasColumnName("DiscountId");
-        builder.Property(p => p.InventorId).HasColumnName("InventorId");
+        builder.Property(p => p.ProductInventorId).HasColumnName("ProductInventorId");//InventorId edib yoxla
         builder.Property(p => p.UnitsOnOrder).HasColumnName("UnitsOnOrder");
         builder.Property(p => p.ReorderLevel).HasColumnName("ReorderLevel");
         builder.Property(p => p.PurchasePrice).HasColumnName("PurchasePrice");
@@ -33,7 +33,8 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
         builder.HasOne(c => c.Category);
         builder.HasOne(c => c.Supplier);
         builder.HasOne(c => c.Discount);
-        builder.HasOne(c => c.Inventor).WithOne(i=>i.Product);
+        //builder.HasOne(c => c.ProductInventor);
+        builder.HasOne(c => c.ProductInventor).WithOne(i => i.Product).HasForeignKey<ProductInventor>(i => i.Id);
 
         builder.HasQueryFilter(p => !p.DeletedDate.HasValue);
     }

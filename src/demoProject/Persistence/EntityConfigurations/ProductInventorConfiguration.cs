@@ -16,10 +16,11 @@ public class ProductInventorConfiguration : IEntityTypeConfiguration<ProductInve
         builder.Property(pi => pi.UpdatedDate).HasColumnName("UpdatedDate");
         builder.Property(pi => pi.DeletedDate).HasColumnName("DeletedDate");
 
-        builder.HasOne(i => i.Product).WithOne(p=>p.Inventor);
+        //builder.HasOne(i => i.Product);
+        builder.HasOne(i => i.Product).WithOne(p => p.ProductInventor).HasForeignKey<Product>(p => p.ProductInventorId);
 
         builder.HasQueryFilter(pi => !pi.DeletedDate.HasValue);
-       // builder.HasData(getSeeds());
+        builder.HasData(getSeeds());
     }
 
     private IEnumerable<ProductInventor> getSeeds()
@@ -28,9 +29,9 @@ public class ProductInventorConfiguration : IEntityTypeConfiguration<ProductInve
         List<ProductInventor> data = new()
         {
             new(ProductInventorConfigIds[0],1),
-            new(ProductInventorConfigIds[0],2),
-            new(ProductInventorConfigIds[0],5),
-            new(ProductInventorConfigIds[0],8),
+            new(ProductInventorConfigIds[1],2),
+            new(ProductInventorConfigIds[2],5),
+            new(ProductInventorConfigIds[3],8),
           
         };
         return data;
