@@ -5,11 +5,11 @@ public class ProductInventor : Entity<Guid>
 {
     public int Quantity { get; set; }
 
-    public ICollection<Product> Products { get; set; }
+    public virtual Product Product { get; set; }
 
     public ProductInventor()
     {
-        Products = new HashSet<Product>();
+        Product = new();
     }
 
     public ProductInventor(Guid id,

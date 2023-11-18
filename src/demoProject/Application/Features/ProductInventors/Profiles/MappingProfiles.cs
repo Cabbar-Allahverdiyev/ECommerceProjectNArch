@@ -7,6 +7,7 @@ using AutoMapper;
 using Core.Application.Responses;
 using Domain.Entities;
 using Core.Persistence.Paging;
+using Application.Features.ProductInventors.Dtos;
 
 namespace Application.Features.ProductInventors.Profiles;
 
@@ -20,8 +21,13 @@ public class MappingProfiles : Profile
         CreateMap<ProductInventor, UpdatedProductInventorResponse>().ReverseMap();
         CreateMap<ProductInventor, DeleteProductInventorCommand>().ReverseMap();
         CreateMap<ProductInventor, DeletedProductInventorResponse>().ReverseMap();
-        CreateMap<ProductInventor, GetByIdProductInventorResponse>().ReverseMap();
-        CreateMap<ProductInventor, GetListProductInventorListItemDto>().ReverseMap();
+
+        CreateMap<Product, GetProductInInventorDto>().ReverseMap();
+
+        CreateMap<ProductInventor, GetByIdProductInventorResponse>()
+            .ForMember(dest=>dest.Product,act=>act.MapFrom(i=>i.Product)).ReverseMap();
+        CreateMap<ProductInventor, GetListProductInventorListItemDto>()
+            .ForMember(dest => dest.Product, act => act.MapFrom(i => i.Product)).ReverseMap();
         CreateMap<IPaginate<ProductInventor>, GetListResponse<GetListProductInventorListItemDto>>().ReverseMap();
     }
 }

@@ -13,7 +13,7 @@ using static Application.Features.ProductInventors.Constants.ProductInventorsOpe
 
 namespace Application.Features.ProductInventors.Commands.Delete;
 
-public class DeleteProductInventorCommand : IRequest<DeletedProductInventorResponse>, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
+public class DeleteProductInventorCommand : IRequest<DeletedProductInventorResponse>//, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
 {
     public Guid Id { get; set; }
 

@@ -10,4 +10,5 @@ public static class ProductInventorsOperationClaims
     public const string Create = "ProductInventors.Create";
     public const string Update = "ProductInventors.Update";
     public const string Delete = "ProductInventors.Delete";
+    public const string GetByNameProductInventor = "ProductInventors.GetByNameProductInventor";
 }

@@ -6,10 +6,11 @@ using Domain.Entities;
 using Core.Application.Pipelines.Authorization;
 using MediatR;
 using static Application.Features.ProductInventors.Constants.ProductInventorsOperationClaims;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features.ProductInventors.Queries.GetById;
 
-public class GetByIdProductInventorQuery : IRequest<GetByIdProductInventorResponse>, ISecuredRequest
+public class GetByIdProductInventorQuery : IRequest<GetByIdProductInventorResponse>//, ISecuredRequest
 {
     public Guid Id { get; set; }
 
@@ -30,7 +31,11 @@ public class GetByIdProductInventorQuery : IRequest<GetByIdProductInventorRespon
 
         public async Task<GetByIdProductInventorResponse> Handle(GetByIdProductInventorQuery request, CancellationToken cancellationToken)
         {
-            ProductInventor? productInventor = await _productInventorRepository.GetAsync(predicate: pi => pi.Id == request.Id, cancellationToken: cancellationToken);
+            ProductInventor? productInventor = await _productInventorRepository.GetAsync(
+                predicate: pi => pi.Id == request.Id,
+                include: i => i.Include(i => i.Product),
+                enableTracking: false,
+                cancellationToken: cancellationToken);
             await _productInventorBusinessRules.ProductInventorShouldExistWhenSelected(productInventor);
 
             GetByIdProductInventorResponse response = _mapper.Map<GetByIdProductInventorResponse>(productInventor);

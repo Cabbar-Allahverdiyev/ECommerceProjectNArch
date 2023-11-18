@@ -33,7 +33,7 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
         builder.HasOne(c => c.Category);
         builder.HasOne(c => c.Supplier);
         builder.HasOne(c => c.Discount);
-        builder.HasOne(c => c.Inventor);
+        builder.HasOne(c => c.Inventor).WithOne(i=>i.Product);
 
         builder.HasQueryFilter(p => !p.DeletedDate.HasValue);
     }

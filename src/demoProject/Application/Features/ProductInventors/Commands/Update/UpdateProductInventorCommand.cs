@@ -12,7 +12,7 @@ using static Application.Features.ProductInventors.Constants.ProductInventorsOpe
 
 namespace Application.Features.ProductInventors.Commands.Update;
 
-public class UpdateProductInventorCommand : IRequest<UpdatedProductInventorResponse>, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
+public class UpdateProductInventorCommand : IRequest<UpdatedProductInventorResponse>//, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
 {
     public Guid Id { get; set; }
     public int Quantity { get; set; }

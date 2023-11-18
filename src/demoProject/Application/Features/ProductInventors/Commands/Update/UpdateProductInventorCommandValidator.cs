@@ -8,5 +8,6 @@ public class UpdateProductInventorCommandValidator : AbstractValidator<UpdatePro
     {
         RuleFor(c => c.Id).NotEmpty();
         RuleFor(c => c.Quantity).NotEmpty();
+        RuleFor(c => c.Quantity).GreaterThanOrEqualTo(1);
     }
 }

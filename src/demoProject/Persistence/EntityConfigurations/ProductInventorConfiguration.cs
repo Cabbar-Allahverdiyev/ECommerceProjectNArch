@@ -16,10 +16,10 @@ public class ProductInventorConfiguration : IEntityTypeConfiguration<ProductInve
         builder.Property(pi => pi.UpdatedDate).HasColumnName("UpdatedDate");
         builder.Property(pi => pi.DeletedDate).HasColumnName("DeletedDate");
 
-        builder.HasMany(i => i.Products);
+        builder.HasOne(i => i.Product).WithOne(p=>p.Inventor);
 
         builder.HasQueryFilter(pi => !pi.DeletedDate.HasValue);
-        builder.HasData(getSeeds());
+       // builder.HasData(getSeeds());
     }
 
     private IEnumerable<ProductInventor> getSeeds()

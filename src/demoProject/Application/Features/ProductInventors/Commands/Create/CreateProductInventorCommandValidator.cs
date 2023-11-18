@@ -7,5 +7,6 @@ public class CreateProductInventorCommandValidator : AbstractValidator<CreatePro
     public CreateProductInventorCommandValidator()
     {
         RuleFor(c => c.Quantity).NotEmpty();
+        RuleFor(c => c.Quantity).GreaterThanOrEqualTo(1);
     }
 }

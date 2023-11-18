@@ -51,4 +51,6 @@ public class ProductInventorsController : BaseController
         GetListResponse<GetListProductInventorListItemDto> response = await Mediator.Send(getListProductInventorQuery);
         return Ok(response);
     }
+    
+   
 }

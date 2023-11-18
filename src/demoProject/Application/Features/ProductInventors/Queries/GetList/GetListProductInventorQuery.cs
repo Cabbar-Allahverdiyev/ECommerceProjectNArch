@@ -9,6 +9,7 @@ using Core.Application.Responses;
 using Core.Persistence.Paging;
 using MediatR;
 using static Application.Features.ProductInventors.Constants.ProductInventorsOperationClaims;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features.ProductInventors.Queries.GetList;
 
@@ -39,6 +40,8 @@ public class GetListProductInventorQuery : IRequest<GetListResponse<GetListProdu
             IPaginate<ProductInventor> productInventors = await _productInventorRepository.GetListAsync(
                 index: request.PageRequest.PageIndex,
                 size: request.PageRequest.PageSize, 
+                include: i=>i.Include(i=>i.Product),
+                enableTracking:false,
                 cancellationToken: cancellationToken
             );
 
