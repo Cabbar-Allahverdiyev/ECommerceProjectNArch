@@ -7,4 +7,5 @@ public static class ValidationErrorCodes
     public static string MaxLengthValidator => "MaximumLengthValidator";
     public static string EmailValidator => "EmailValidator";
     public static string GreaterThanValidator => "GreaterThanValidator";
+    public static string GreaterThanOrEqualToValidator => "GreaterThanOrEqualToValidator";
 }
