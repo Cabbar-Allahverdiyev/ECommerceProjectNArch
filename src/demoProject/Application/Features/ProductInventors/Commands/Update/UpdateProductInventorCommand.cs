@@ -1,4 +1,4 @@
-using Application.Features.ProductInventors.Constants;
+﻿using Application.Features.ProductInventors.Constants;
 using Application.Features.ProductInventors.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
@@ -15,7 +15,7 @@ namespace Application.Features.ProductInventors.Commands.Update;
 public class UpdateProductInventorCommand : IRequest<UpdatedProductInventorResponse>//, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
 {
     public Guid Id { get; set; }
-    public int Quantity { get; set; }
+    public int Quantity { get; set; }//0 verməyi blok etmişəm gələcəkdə tam hazır olanda ehtiyyac olarsa aç validationdan
 
     public string[] Roles => new[] { Admin, Write, ProductInventorsOperationClaims.Update };
 
