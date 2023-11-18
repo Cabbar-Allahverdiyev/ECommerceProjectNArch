@@ -24,6 +24,7 @@ public class CompanyConfiguration : IEntityTypeConfiguration<Company>
         builder.HasQueryFilter(c => !c.DeletedDate.HasValue);
 
         builder.HasOne(c => c.City);
+        builder.HasMany(c => c.Suppliers);
 
         builder.HasData(getSeeds());
     }
@@ -34,9 +35,15 @@ public class CompanyConfiguration : IEntityTypeConfiguration<Company>
         List<Company> data = new()
         {
 
-            new(Guid.NewGuid(),CityConfiguration.CityConfigIds[0],"ABC","yyyyy","aaaa","aaa@aaa.com","0554696363"),
-            new(Guid.NewGuid(),CityConfiguration.CityConfigIds[1], "Telefon", "aaaaaa", "aaaaaa","avd@ads.com","0554446655"),
+            new(CompanyConfigIds[0],CityConfiguration.CityConfigIds[0],"ABC","yyyyy","aaaa","aaa@aaa.com","0554696363"),
+            new(CompanyConfigIds[1],CityConfiguration.CityConfigIds[1], "Telefon", "aaaaaa", "aaaaaa","avd@ads.com","0554446655"),
         };
         return data;
     }
+
+    public static List<Guid> CompanyConfigIds = new()
+    {
+         Guid.NewGuid(),
+        Guid.NewGuid()
+    };
 }
