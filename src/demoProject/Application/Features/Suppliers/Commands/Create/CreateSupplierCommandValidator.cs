@@ -9,5 +9,6 @@ public class CreateSupplierCommandValidator : AbstractValidator<CreateSupplierCo
         RuleFor(c => c.CompanyId).NotEmpty();
         RuleFor(c => c.UserId).NotEmpty();
         RuleFor(c => c.Description).NotEmpty();
+        RuleFor(c => c.Description).MaximumLength(100);
     }
 }

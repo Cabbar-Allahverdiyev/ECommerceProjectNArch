@@ -41,6 +41,9 @@ public class CreateSupplierCommand : IRequest<CreatedSupplierResponse>//, ISecur
         public async Task<CreatedSupplierResponse> Handle(CreateSupplierCommand request, CancellationToken cancellationToken)
         {
             Supplier supplier = _mapper.Map<Supplier>(request);
+           await _supplierBusinessRules.SupplierShouldExistWhenSelected(supplier);
+           await _supplierBusinessRules.UserIdShouldNotExistWhenCreated(supplier.UserId,cancellationToken);
+           await _supplierBusinessRules.CompanyIdShouldNotExistWhenCreated(supplier.CompanyId,cancellationToken);
 
             supplier.Id = Guid.NewGuid();
             await _supplierRepository.AddAsync(supplier);

@@ -12,7 +12,7 @@ using static Application.Features.Suppliers.Constants.SuppliersOperationClaims;
 
 namespace Application.Features.Suppliers.Commands.Update;
 
-public class UpdateSupplierCommand : IRequest<UpdatedSupplierResponse>, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
+public class UpdateSupplierCommand : IRequest<UpdatedSupplierResponse>//, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
 {
     public Guid Id { get; set; }
     public Guid CompanyId { get; set; }
@@ -43,6 +43,8 @@ public class UpdateSupplierCommand : IRequest<UpdatedSupplierResponse>, ISecured
         {
             Supplier? supplier = await _supplierRepository.GetAsync(predicate: s => s.Id == request.Id, cancellationToken: cancellationToken);
             await _supplierBusinessRules.SupplierShouldExistWhenSelected(supplier);
+            await _supplierBusinessRules.UserIdShouldNotExistWhenUpdated(supplier.Id,request.UserId,cancellationToken);
+            await _supplierBusinessRules.CompanyIdShouldNotExistWhenUpdated(supplier.Id,request.CompanyId,cancellationToken);
             supplier = _mapper.Map(request, supplier);
 
             await _supplierRepository.UpdateAsync(supplier!);

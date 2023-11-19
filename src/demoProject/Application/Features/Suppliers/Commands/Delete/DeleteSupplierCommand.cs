@@ -13,7 +13,7 @@ using static Application.Features.Suppliers.Constants.SuppliersOperationClaims;
 
 namespace Application.Features.Suppliers.Commands.Delete;
 
-public class DeleteSupplierCommand : IRequest<DeletedSupplierResponse>, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
+public class DeleteSupplierCommand : IRequest<DeletedSupplierResponse>//, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
 {
     public Guid Id { get; set; }
 
