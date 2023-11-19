@@ -12,4 +12,5 @@ public class GetByIdCompanyResponse : IResponse
     public string? Email { get; set; }
     public string? PhoneNumber { get; set; }
     public GetCityInCompanyDto? City { get; set; }
+    public IList<GetSuppliersInCompanyQueryDto>? Suppliers { get; set; }
 }

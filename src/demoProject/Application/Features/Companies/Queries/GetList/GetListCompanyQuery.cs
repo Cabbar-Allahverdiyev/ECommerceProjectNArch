@@ -40,7 +40,7 @@ public class GetListCompanyQuery : IRequest<GetListResponse<GetListCompanyListIt
             IPaginate<Company> companies = await _companyRepository.GetListAsync(
                 index: request.PageRequest.PageIndex,
                 size: request.PageRequest.PageSize, 
-                include:c=>c.Include(c=>c.City),
+                include:c=>c.Include(c=>c.City).Include(c=>c.Suppliers),
                 cancellationToken: cancellationToken
             );
 

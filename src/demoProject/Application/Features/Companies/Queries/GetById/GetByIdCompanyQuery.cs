@@ -32,7 +32,7 @@ public class GetByIdCompanyQuery : IRequest<GetByIdCompanyResponse>//, ISecuredR
         public async Task<GetByIdCompanyResponse> Handle(GetByIdCompanyQuery request, CancellationToken cancellationToken)
         {
             Company? company = await _companyRepository.GetAsync(predicate: c => c.Id == request.Id,
-                                                                 include: c=>c.Include(c=>c.City),
+                                                                 include: c=>c.Include(c=>c.City).Include(c=>c.Suppliers),
                                                                  cancellationToken: cancellationToken,
                                                                  enableTracking: false);
             await _companyBusinessRules.CompanyShouldExistWhenSelected(company);

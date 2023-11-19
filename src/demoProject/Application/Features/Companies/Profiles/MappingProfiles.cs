@@ -24,11 +24,21 @@ public class MappingProfiles : Profile
         CreateMap<Company, DeletedCompanyResponse>().ReverseMap();
 
         CreateMap<City, GetCityInCompanyDto>().ReverseMap();
+        CreateMap<Supplier, GetSuppliersInCompanyQueryDto>().ReverseMap();
 
-        CreateMap<Company, GetByIdCompanyResponse>().ForMember(dest=>dest.City, opt=>opt.MapFrom(src=>src.City)).ReverseMap();
-        CreateMap<Company, GetByNameCompanyResponse>().ForMember(dest=>dest.City, opt=>opt.MapFrom(src=>src.City)).ReverseMap();
+        CreateMap<Company, GetByIdCompanyResponse>()
+            .ForMember(dest=>dest.City, opt=>opt.MapFrom(src=>src.City))
+            .ForMember(dest=>dest.Suppliers, opt=>opt.MapFrom(src=>src.Suppliers))
+            .ReverseMap();
+        CreateMap<Company, GetByNameCompanyResponse>()
+            .ForMember(dest=>dest.City, opt=>opt.MapFrom(src=>src.City))
+            .ForMember(dest => dest.Suppliers, opt => opt.MapFrom(src => src.Suppliers))
+            .ReverseMap();
 
-        CreateMap<Company, GetListCompanyListItemDto>().ForMember(dest => dest.City, opt => opt.MapFrom(src => src.City)).ReverseMap();
+        CreateMap<Company, GetListCompanyListItemDto>()
+            .ForMember(dest => dest.City, opt => opt.MapFrom(src => src.City))
+            .ForMember(dest => dest.Suppliers, opt => opt.MapFrom(src => src.Suppliers))
+            .ReverseMap();
         CreateMap<IPaginate<Company>, GetListResponse<GetListCompanyListItemDto>>().ReverseMap();
     }
 }
