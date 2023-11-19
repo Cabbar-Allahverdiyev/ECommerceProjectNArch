@@ -173,6 +173,10 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
        seeds.Add(new OperationClaim { Id = ++id, Name = "Suppliers.Add" });
        seeds.Add(new OperationClaim { Id = ++id, Name = "Suppliers.Update" });
        seeds.Add(new OperationClaim { Id = ++id, Name = "Suppliers.Delete" });
+       seeds.Add(new OperationClaim { Id = ++id, Name = "Suppliers.GetByUserIdSupplier" });
+
+       seeds.Add(new OperationClaim { Id = ++id, Name = "Suppliers.GetByCompanyIdSuppier" });
+
        
        #endregion
        

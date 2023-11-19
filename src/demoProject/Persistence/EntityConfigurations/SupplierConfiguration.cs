@@ -30,8 +30,7 @@ public class SupplierConfiguration : IEntityTypeConfiguration<Supplier>
 
         List<Supplier> data = new()
         {
-            new(SupplierConfigIds[0],CompanyConfiguration.CompanyConfigIds[0],1,"stajci satici"),
-            //new(Guid.NewGuid(),"Telefon",id,"asan əlaqə"),
+            new(SupplierConfigIds[0],1,CompanyConfiguration.CompanyConfigIds[0],"stajci satici")
         };
         return data;
     }
