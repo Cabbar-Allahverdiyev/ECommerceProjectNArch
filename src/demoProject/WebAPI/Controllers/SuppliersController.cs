@@ -6,6 +6,8 @@ using Application.Features.Suppliers.Queries.GetList;
 using Core.Application.Requests;
 using Core.Application.Responses;
 using Microsoft.AspNetCore.Mvc;
+using Application.Features.Suppliers.Queries.GetByUserId;
+using Application.Features.Suppliers.Queries.GetByCompanyId;
 
 namespace WebAPI.Controllers;
 
@@ -49,6 +51,20 @@ public class SuppliersController : BaseController
     {
         GetListSupplierQuery getListSupplierQuery = new() { PageRequest = pageRequest };
         GetListResponse<GetListSupplierListItemDto> response = await Mediator.Send(getListSupplierQuery);
+        return Ok(response);
+    }
+    
+    [HttpGet("GetByUserIdSupplier")]
+    public async Task<IActionResult> GetByUserIdSupplier([FromQuery] GetByUserIdSupplierQuery getByUserIdSupplierQuery)
+    {
+        GetByUserIdSupplierResponse response = await Mediator.Send(getByUserIdSupplierQuery);
+        return Ok(response);
+    }
+    
+    [HttpGet("GetByCompanyIdSuppier")]
+    public async Task<IActionResult> GetByCompanyIdSuppier([FromQuery] GetByCompanyIdSupplierQuery getByCompanyIdSuppierQuery)
+    {
+        GetByCompanyIdSupplierResponse response = await Mediator.Send(getByCompanyIdSuppierQuery);
         return Ok(response);
     }
 }
