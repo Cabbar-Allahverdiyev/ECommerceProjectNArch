@@ -10,4 +10,6 @@ public static class SuppliersOperationClaims
     public const string Create = "Suppliers.Create";
     public const string Update = "Suppliers.Update";
     public const string Delete = "Suppliers.Delete";
+    public const string GetByUserIdSupplier = "Suppliers.GetByUserIdSupplier";
+    public const string GetByCompanyIdSuppier = "Suppliers.GetByCompanyIdSuppier";
 }
