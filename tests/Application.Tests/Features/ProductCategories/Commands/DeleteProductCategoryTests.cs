@@ -10,15 +10,13 @@ using static Application.Features.ProductCategories.Commands.Delete.DeleteProduc
 namespace Application.Tests.Features.ProductCategories.Commands;
 public class DeleteProductCategoryTests:ProductCategoryMockRepository
 {
-    private readonly DeleteProductCategoryCommandValidator _validator;
+    
     private readonly DeleteProductCategoryCommand _command;
     private readonly DeleteProductCategoryCommandHandler _handler;
 
     public DeleteProductCategoryTests(ProductCategoryFakeData fakeData,
-                                      DeleteProductCategoryCommandValidator validator,
                                       DeleteProductCategoryCommand command) : base(fakeData)
     {
-        _validator = validator;
         _command = command;
         _handler = new(Mapper, MockRepository.Object, BusinessRules);
     }
