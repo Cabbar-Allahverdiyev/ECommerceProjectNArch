@@ -11,7 +11,7 @@ public class Company : Entity<Guid>
     public string? PhoneNumber { get; set; }
 
     public virtual City? City { get; set; }
-    public ICollection<Supplier>? Suppliers { get; set; }// butun queryleri duzelt
+    public ICollection<Supplier>? Suppliers { get; set; }
     public Company()
     {
         Suppliers = new HashSet<Supplier>();

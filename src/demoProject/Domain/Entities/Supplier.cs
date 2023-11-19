@@ -18,8 +18,8 @@ public class Supplier : Entity<Guid>
     }
 
     public Supplier(Guid id,
-                    Guid companyId,
                     int userId,
+                    Guid companyId,
                     string description) : this()
     {
         Id = id;
