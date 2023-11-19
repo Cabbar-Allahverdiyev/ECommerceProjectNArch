@@ -6,10 +6,11 @@ using Domain.Entities;
 using Core.Application.Pipelines.Authorization;
 using MediatR;
 using static Application.Features.Suppliers.Constants.SuppliersOperationClaims;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features.Suppliers.Queries.GetById;
 
-public class GetByIdSupplierQuery : IRequest<GetByIdSupplierResponse>, ISecuredRequest
+public class GetByIdSupplierQuery : IRequest<GetByIdSupplierResponse>//, ISecuredRequest
 {
     public Guid Id { get; set; }
 
@@ -30,7 +31,11 @@ public class GetByIdSupplierQuery : IRequest<GetByIdSupplierResponse>, ISecuredR
 
         public async Task<GetByIdSupplierResponse> Handle(GetByIdSupplierQuery request, CancellationToken cancellationToken)
         {
-            Supplier? supplier = await _supplierRepository.GetAsync(predicate: s => s.Id == request.Id, cancellationToken: cancellationToken);
+            Supplier? supplier = await _supplierRepository.GetAsync(
+                predicate: s => s.Id == request.Id,
+                include:s=>s.Include(s=>s.User).Include(s=>s.Company).Include(s=>s.Products),
+                enableTracking:false,
+                cancellationToken: cancellationToken);
             await _supplierBusinessRules.SupplierShouldExistWhenSelected(supplier);
 
             GetByIdSupplierResponse response = _mapper.Map<GetByIdSupplierResponse>(supplier);

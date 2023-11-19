@@ -9,10 +9,11 @@ using Core.Application.Responses;
 using Core.Persistence.Paging;
 using MediatR;
 using static Application.Features.Suppliers.Constants.SuppliersOperationClaims;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features.Suppliers.Queries.GetList;
 
-public class GetListSupplierQuery : IRequest<GetListResponse<GetListSupplierListItemDto>>, ISecuredRequest, ICachableRequest
+public class GetListSupplierQuery : IRequest<GetListResponse<GetListSupplierListItemDto>>//, ISecuredRequest, ICachableRequest
 {
     public PageRequest PageRequest { get; set; }
 
@@ -38,7 +39,9 @@ public class GetListSupplierQuery : IRequest<GetListResponse<GetListSupplierList
         {
             IPaginate<Supplier> suppliers = await _supplierRepository.GetListAsync(
                 index: request.PageRequest.PageIndex,
-                size: request.PageRequest.PageSize, 
+                size: request.PageRequest.PageSize,
+                include: s => s.Include(s => s.User).Include(s => s.Company).Include(s => s.Products),
+                enableTracking: false,
                 cancellationToken: cancellationToken
             );
 

@@ -21,6 +21,12 @@ public class SupplierBusinessRules : BaseBusinessRules
             throw new BusinessException(SuppliersBusinessMessages.SupplierNotExists);
         return Task.CompletedTask;
     }
+    public Task SupplierShouldNotExistWhenSelected(Supplier? supplier,string errorMessage= SuppliersBusinessMessages.SupplierExists)
+    {
+        if (supplier != null)
+            throw new BusinessException(errorMessage);
+        return Task.CompletedTask;
+    }
 
     public async Task SupplierIdShouldExistWhenSelected(Guid id, CancellationToken cancellationToken)
     {
@@ -30,5 +36,43 @@ public class SupplierBusinessRules : BaseBusinessRules
             cancellationToken: cancellationToken
         );
         await SupplierShouldExistWhenSelected(supplier);
+    }
+    public async Task UserIdShouldNotExistWhenCreated(int userId, CancellationToken cancellationToken)
+    {
+        Supplier? supplier = await _supplierRepository.GetAsync(
+            predicate: s => s.UserId == userId,
+            enableTracking: false,
+            cancellationToken: cancellationToken
+        );
+        await SupplierShouldNotExistWhenSelected(supplier,SuppliersBusinessMessages.UserIdAlreadyExists);
+    }
+    public async Task UserIdShouldNotExistWhenUpdated(Guid supplierId,int userId, CancellationToken cancellationToken)
+    {
+        Supplier? supplier = await _supplierRepository.GetAsync(
+            predicate: s => s.UserId == userId && s.Id!=supplierId,
+            enableTracking: false,
+            cancellationToken: cancellationToken
+        );
+        await SupplierShouldNotExistWhenSelected(supplier, SuppliersBusinessMessages.UserIdAlreadyExists);
+    }
+
+    public async Task CompanyIdShouldNotExistWhenCreated(Guid companyId, CancellationToken cancellationToken)
+    {
+        Supplier? supplier = await _supplierRepository.GetAsync(
+            predicate: s => s.CompanyId == companyId,
+            enableTracking: false,
+            cancellationToken: cancellationToken
+        );
+        await SupplierShouldNotExistWhenSelected(supplier, SuppliersBusinessMessages.CompanyIdAlreadyExists);
+    }
+
+    public async Task CompanyIdShouldNotExistWhenUpdated(Guid supplierId,Guid companyId, CancellationToken cancellationToken)
+    {
+        Supplier? supplier = await _supplierRepository.GetAsync(
+            predicate: s => s.CompanyId == companyId && s.Id!=supplierId,
+            enableTracking: false,
+            cancellationToken: cancellationToken
+        );
+        await SupplierShouldNotExistWhenSelected(supplier, SuppliersBusinessMessages.CompanyIdAlreadyExists);
     }
 }

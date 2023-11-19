@@ -1,9 +1,9 @@
 using Application.Features.Suppliers.Dtos;
-using Core.Application.Dtos;
+using Core.Application.Responses;
 
-namespace Application.Features.Suppliers.Queries.GetList;
+namespace Application.Features.Suppliers.Queries.GetByCompanyId;
 
-public class GetListSupplierListItemDto : IDto
+public class GetByCompanyIdSupplierResponse : IResponse
 {
     public Guid Id { get; set; }
     public string? Description { get; set; }
