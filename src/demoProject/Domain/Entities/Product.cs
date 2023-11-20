@@ -5,16 +5,16 @@ public class Product : Entity<Guid>
 {
     public Guid CategoryId { get; set; }
     public Guid BrandId { get; set; }
-    public Guid SupplierId { get; set; }
+    public Guid SupplierId { get; set; }//eyni supplier id ucun eyni adda mehsul olmasin
     public Guid DiscountId { get; set; }
     public Guid ProductInventorId { get; set; }//InventorId edib yoxla
     public int UnitsOnOrder { get; set; }
     public int ReorderLevel { get; set; }
-    public decimal PurchasePrice { get; set; }
+    public decimal PurchasePrice { get; set; }//unit pricedan boyuk ve ya beraber ola bilmez
     public decimal UnitPrice { get; set; }
     public string Name { get; set; }
     public string QuantityPerUnit { get; set; }
-    public string SKU { get; set; }
+    public string SKU { get; set; }//istifade olunmamalidir yeni unique ve program avtomatik duzeltmelidir
     public string Description { get; set; }
     public bool IsDiscontinued { get; set; }
 

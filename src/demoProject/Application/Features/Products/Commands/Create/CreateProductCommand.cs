@@ -9,6 +9,8 @@ using Core.Application.Pipelines.Logging;
 using Core.Application.Pipelines.Transaction;
 using MediatR;
 using static Application.Features.Products.Constants.ProductsOperationClaims;
+using Application.Services.ProductInventors;
+using Nest;
 
 namespace Application.Features.Products.Commands.Create;
 
@@ -18,16 +20,19 @@ public class CreateProductCommand : IRequest<CreatedProductResponse>//, ISecured
     public Guid BrandId { get; set; }
     public Guid SupplierId { get; set; }
     public Guid DiscountId { get; set; }
-    public Guid InventorId { get; set; }
-    public int UnitsOnOrder { get; set; }
-    public int ReorderLevel { get; set; }
+    public int Quantity { get; set; }
+    public int UnitsOnOrder { get; set; } = 0;
+    public int ReorderLevel { get; set; } = 0;
     public decimal PurchasePrice { get; set; }
     public decimal UnitPrice { get; set; }
-    public string Name { get; set; }
-    public string QuantityPerUnit { get; set; }
-    public string SKU { get; set; }
-    public string Description { get; set; }
-    public bool IsDiscontinued { get; set; }
+    public string? Name { get; set; }
+    public string? QuantityPerUnit { get; set; }
+    public string? Description { get; set; }
+    public bool IsDiscontinued { get; set; } = true;
+
+   
+    //public Guid InventorId { get; set; } v
+   // public string SKU { get; set; }
 
     public string[] Roles => new[] { Admin, Write, ProductsOperationClaims.Create };
 
@@ -40,20 +45,27 @@ public class CreateProductCommand : IRequest<CreatedProductResponse>//, ISecured
         private readonly IMapper _mapper;
         private readonly IProductRepository _productRepository;
         private readonly ProductBusinessRules _productBusinessRules;
+        private readonly IProductInventorsService _productInventorsService;
 
         public CreateProductCommandHandler(IMapper mapper, IProductRepository productRepository,
-                                         ProductBusinessRules productBusinessRules)
+                                         ProductBusinessRules productBusinessRules,
+                                         IProductInventorsService productInventorsService)
         {
             _mapper = mapper;
             _productRepository = productRepository;
             _productBusinessRules = productBusinessRules;
+            _productInventorsService = productInventorsService;
         }
 
         public async Task<CreatedProductResponse> Handle(CreateProductCommand request, CancellationToken cancellationToken)
         {
             Product product = _mapper.Map<Product>(request);
+            await _productBusinessRules.ProductPurchasePriceLessThanUnitPrice(request.PurchasePrice, request.UnitPrice);
+            await _productBusinessRules.productNameShouldNotHasSupplierUsedAlreadyWhenInsert(request.Name,request.SupplierId,cancellationToken);
 
             product.Id = Guid.NewGuid();
+            ProductInventor productInventor=await _productInventorsService.AddAsync(new(Guid.NewGuid(), quantity: request.Quantity));
+            product.ProductInventorId=productInventor.Id;
             await _productRepository.AddAsync(product);
 
             CreatedProductResponse response = _mapper.Map<CreatedProductResponse>(product);

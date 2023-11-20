@@ -180,6 +180,20 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
        
        #endregion
        
+       
+       #region ProductColors
+       
+       seeds.Add(new OperationClaim { Id = ++id, Name = "ProductColors.Admin" });
+       
+       seeds.Add(new OperationClaim { Id = ++id, Name = "ProductColors.Read" });
+       seeds.Add(new OperationClaim { Id = ++id, Name = "ProductColors.Write" });
+       
+       seeds.Add(new OperationClaim { Id = ++id, Name = "ProductColors.Add" });
+       seeds.Add(new OperationClaim { Id = ++id, Name = "ProductColors.Update" });
+       seeds.Add(new OperationClaim { Id = ++id, Name = "ProductColors.Delete" });
+       
+       #endregion
+       
         return seeds;
     }
 }

@@ -24,6 +24,7 @@ using Application.Services.ProductCategories;
 using Application.Services.ProductInventors;
 using Application.Services.Products;
 using Application.Services.Suppliers;
+using Application.Services.ProductColors;
 
 namespace Application;
 
@@ -62,6 +63,7 @@ public static class ApplicationServiceRegistration
         services.AddScoped<IProductInventorsService, ProductInventorsManager>();
         services.AddScoped<IProductsService, ProductsManager>();
         services.AddScoped<ISuppliersService, SuppliersManager>();
+        services.AddScoped<IProductColorsService, ProductColorsManager>();
         return services;
     }
 

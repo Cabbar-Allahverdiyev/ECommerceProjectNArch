@@ -24,6 +24,7 @@ public class BaseDbContext : DbContext
     public DbSet<ProductInventor> ProductInventors { get; set; }
     public DbSet<Product> Products { get; set; }
     public DbSet<Supplier> Suppliers { get; set; }
+    public DbSet<ProductColor> ProductColors { get; set; }
     
 
     public BaseDbContext(DbContextOptions dbContextOptions, IConfiguration configuration)
