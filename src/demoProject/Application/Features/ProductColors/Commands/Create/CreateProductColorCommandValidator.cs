@@ -6,8 +6,6 @@ public class CreateProductColorCommandValidator : AbstractValidator<CreateProduc
 {
     public CreateProductColorCommandValidator()
     {
-        RuleFor(c => c.Red).NotEmpty();
-        RuleFor(c => c.Green).NotEmpty();
-        RuleFor(c => c.Blue).NotEmpty();
+        RuleFor(c => c.Name).NotEmpty();
     }
 }

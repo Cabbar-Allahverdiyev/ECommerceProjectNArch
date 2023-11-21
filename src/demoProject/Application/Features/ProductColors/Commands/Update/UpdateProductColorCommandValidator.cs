@@ -7,8 +7,6 @@ public class UpdateProductColorCommandValidator : AbstractValidator<UpdateProduc
     public UpdateProductColorCommandValidator()
     {
         RuleFor(c => c.Id).NotEmpty();
-        RuleFor(c => c.Red).NotEmpty();
-        RuleFor(c => c.Green).NotEmpty();
-        RuleFor(c => c.Blue).NotEmpty();
+        RuleFor(c => c.Name).NotEmpty();
     }
 }

@@ -15,9 +15,7 @@ namespace Application.Features.ProductColors.Commands.Update;
 public class UpdateProductColorCommand : IRequest<UpdatedProductColorResponse>, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
 {
     public Guid Id { get; set; }
-    public int Red { get; set; }
-    public int Green { get; set; }
-    public int Blue { get; set; }
+    public string? Name { get; set; }
 
     public string[] Roles => new[] { Admin, Write, ProductColorsOperationClaims.Update };
 
