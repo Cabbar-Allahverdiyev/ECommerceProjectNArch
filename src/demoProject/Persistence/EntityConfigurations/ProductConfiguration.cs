@@ -15,6 +15,7 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
         builder.Property(p => p.BrandId).HasColumnName("BrandId").IsRequired();
         builder.Property(p => p.SupplierId).HasColumnName("SupplierId").IsRequired();
         builder.Property(p => p.DiscountId).HasColumnName("DiscountId").IsRequired();
+        builder.Property(p => p.ProductColorId).HasColumnName("ProductColorId").IsRequired();
         builder.Property(p => p.ProductInventorId).HasColumnName("ProductInventorId").IsRequired();//InventorId edib yoxla
         builder.Property(p => p.UnitsOnOrder).HasColumnName("UnitsOnOrder");
         builder.Property(p => p.ReorderLevel).HasColumnName("ReorderLevel");
@@ -33,6 +34,7 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
         builder.HasOne(c => c.Category);
         builder.HasOne(c => c.Supplier);
         builder.HasOne(c => c.Discount);
+        builder.HasOne(c => c.ProductColor);
         builder.HasOne(c => c.ProductInventor).WithOne(i => i.Product).HasForeignKey<ProductInventor>(i => i.Id);
 
         builder.HasQueryFilter(p => !p.DeletedDate.HasValue);

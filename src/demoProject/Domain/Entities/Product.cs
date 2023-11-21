@@ -8,6 +8,7 @@ public class Product : Entity<Guid>
     public Guid SupplierId { get; set; }//eyni supplier id ucun eyni adda mehsul olmasin
     public Guid DiscountId { get; set; }
     public Guid ProductInventorId { get; set; }//InventorId edib yoxla
+    public Guid ProductColorId { get; set; }
     public int UnitsOnOrder { get; set; }
     public int ReorderLevel { get; set; }
     public decimal PurchasePrice { get; set; }//unit pricedan boyuk ve ya beraber ola bilmez
@@ -23,6 +24,7 @@ public class Product : Entity<Guid>
     public virtual Supplier? Supplier { get; set; }
     public virtual Discount? Discount { get; set; }
     public virtual ProductInventor? ProductInventor { get; set; }
+    public virtual ProductColor? ProductColor { get; set; }
 
     public Product()
     {
@@ -35,6 +37,7 @@ public class Product : Entity<Guid>
                  Guid supplierId,
                  Guid discountId,
                  Guid ınventorId,
+                 Guid productColorId,
                  int unitsOnOrder,
                  int reorderLevel,
                  decimal purchasePrice,
@@ -52,6 +55,7 @@ public class Product : Entity<Guid>
         SupplierId = supplierId;
         DiscountId = discountId;
         ProductInventorId = ınventorId;
+        ProductColorId = productColorId;
         UnitsOnOrder = unitsOnOrder;
         ReorderLevel = reorderLevel;
         PurchasePrice = purchasePrice;

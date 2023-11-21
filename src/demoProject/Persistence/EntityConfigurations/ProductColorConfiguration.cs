@@ -11,9 +11,7 @@ public class ProductColorConfiguration : IEntityTypeConfiguration<ProductColor>
         builder.ToTable("ProductColors").HasKey(pc => pc.Id);
 
         builder.Property(pc => pc.Id).HasColumnName("Id").IsRequired();
-        builder.Property(pc => pc.Red).HasColumnName("Red").IsRequired();
-        builder.Property(pc => pc.Green).HasColumnName("Green").IsRequired(); 
-        builder.Property(pc => pc.Blue).HasColumnName("Blue").IsRequired();
+        builder.Property(pc => pc.Name).HasColumnName("Name").IsRequired();
         builder.Property(pc => pc.CreatedDate).HasColumnName("CreatedDate").IsRequired();
         builder.Property(pc => pc.UpdatedDate).HasColumnName("UpdatedDate");
         builder.Property(pc => pc.DeletedDate).HasColumnName("DeletedDate");
@@ -21,18 +19,17 @@ public class ProductColorConfiguration : IEntityTypeConfiguration<ProductColor>
         builder.HasMany(c => c.Products);
 
         builder.HasQueryFilter(pc => !pc.DeletedDate.HasValue);
+
         builder.HasData(getSeeds());
     }
-
-     private IEnumerable<ProductColor> getSeeds()
+    private IEnumerable<ProductColor> getSeeds()
     {
-       
+
         List<ProductColor> data = new()
         {
-            new(ProductColorConfigIds[0],255,0,0),
-            new(ProductColorConfigIds[0],0,255,0),
-            new(ProductColorConfigIds[0],0,0,255),
-           
+            new(ProductColorConfigIds[0],"Red"),
+            new(ProductColorConfigIds[1],"Blue"),
+            new(ProductColorConfigIds[2],"Orange"),
         };
         return data;
     }

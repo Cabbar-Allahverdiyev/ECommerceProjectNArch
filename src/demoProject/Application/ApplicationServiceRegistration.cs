@@ -64,6 +64,7 @@ public static class ApplicationServiceRegistration
         services.AddScoped<IProductsService, ProductsManager>();
         services.AddScoped<ISuppliersService, SuppliersManager>();
         services.AddScoped<IProductColorsService, ProductColorsManager>();
+        services.AddScoped<IProductColorsService, ProductColorsManager>();
         return services;
     }
 

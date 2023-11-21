@@ -31,4 +31,15 @@ public class ProductBusinessRules : BaseBusinessRules
         );
         await ProductShouldExistWhenSelected(product);
     }
+
+    public   Task ProductPurchasePriceShouldBeLessThanUnitPrice(decimal purchasePrice, decimal unitPrice)
+    {
+        if (purchasePrice >= unitPrice) throw new BusinessException(ProductsBusinessMessages.PurchasePriceShouldBeLessThanOrEqualUnitPrice);
+        return Task.CompletedTask;
+    }
+
+    public Task ProductNameShouldNotHasSupplierAndColorUsedAlreadyWhenInsert(string? name, Guid supplierId, Guid productColorId, CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
+    }
 }
