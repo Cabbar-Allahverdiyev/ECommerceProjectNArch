@@ -7,6 +7,7 @@ public class UpdatedProductResponse : IResponse
     public Guid Id { get; set; }
     public Guid CategoryId { get; set; }
     public Guid BrandId { get; set; }
+    public Guid ColorId { get; set; }
     public Guid SupplierId { get; set; }
     public Guid DiscountId { get; set; }
     public Guid InventorId { get; set; }

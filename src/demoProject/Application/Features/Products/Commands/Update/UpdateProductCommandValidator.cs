@@ -9,6 +9,7 @@ public class UpdateProductCommandValidator : AbstractValidator<UpdateProductComm
         RuleFor(c => c.Id).NotEmpty();
         RuleFor(c => c.CategoryId).NotEmpty();
         RuleFor(c => c.BrandId).NotEmpty();
+        RuleFor(c => c.ColorId).NotEmpty();
         RuleFor(c => c.SupplierId).NotEmpty();
         RuleFor(c => c.DiscountId).NotEmpty();
         RuleFor(c => c.InventorId).NotEmpty();
@@ -17,9 +18,5 @@ public class UpdateProductCommandValidator : AbstractValidator<UpdateProductComm
         RuleFor(c => c.PurchasePrice).NotEmpty();
         RuleFor(c => c.UnitPrice).NotEmpty();
         RuleFor(c => c.Name).NotEmpty();
-        RuleFor(c => c.QuantityPerUnit).NotEmpty();
-        RuleFor(c => c.SKU).NotEmpty();
-        RuleFor(c => c.Description).NotEmpty();
-        RuleFor(c => c.IsDiscontinued).NotEmpty();
     }
 }
