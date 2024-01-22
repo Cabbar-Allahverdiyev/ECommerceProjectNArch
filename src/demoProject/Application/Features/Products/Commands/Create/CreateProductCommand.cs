@@ -61,12 +61,12 @@ public class CreateProductCommand : IRequest<CreatedProductResponse>//, ISecured
         public async Task<CreatedProductResponse> Handle(CreateProductCommand request, CancellationToken cancellationToken)
         {
             Product product = _mapper.Map<Product>(request);
-           // await _productBusinessRules.ProductPurchasePriceLessThanUnitPrice(request.PurchasePrice, request.UnitPrice);
-          //  await _productBusinessRules.ProductNameShouldNotHasSupplierAndColorUsedAlreadyWhenInsert(
-                //request.Name,
-                //request.SupplierId,
-                //request.ProductColorId,
-                //cancellationToken);
+            await _productBusinessRules.ProductPurchasePriceShouldBeLessThanUnitPrice(request.PurchasePrice, request.UnitPrice);
+            await _productBusinessRules.ProductNameShouldNotHasSupplierAndColorUsedAlreadyWhenInsert(
+                request.Name,
+                request.SupplierId,
+                request.ProductColorId,
+                cancellationToken);
 
             product.Id = Guid.NewGuid();
             ProductInventor productInventor=await _productInventorsService.AddAsync(new(Guid.NewGuid(), quantity: request.Quantity));
