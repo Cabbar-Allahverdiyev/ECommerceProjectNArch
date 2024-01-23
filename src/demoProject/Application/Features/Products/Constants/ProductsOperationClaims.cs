@@ -10,4 +10,5 @@ public static class ProductsOperationClaims
     public const string Create = "Products.Create";
     public const string Update = "Products.Update";
     public const string Delete = "Products.Delete";
+    public const string GetByNameProduct = "Products.GetByNameProduct";
 }
