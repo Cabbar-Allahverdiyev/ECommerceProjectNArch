@@ -6,6 +6,7 @@ using Domain.Entities;
 using Core.Application.Pipelines.Authorization;
 using MediatR;
 using static Application.Features.Products.Constants.ProductsOperationClaims;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features.Products.Queries.GetById;
 
@@ -30,7 +31,16 @@ public class GetByIdProductQuery : IRequest<GetByIdProductResponse>//, ISecuredR
 
         public async Task<GetByIdProductResponse> Handle(GetByIdProductQuery request, CancellationToken cancellationToken)
         {
-            Product? product = await _productRepository.GetAsync(predicate: p => p.Id == request.Id, cancellationToken: cancellationToken);
+            Product? product = await _productRepository.GetAsync(
+                predicate: p => p.Id == request.Id,
+                include : p=>p.Include(p=>p.Brand)
+                                .Include(p=>p.Category)
+                                .Include(p=>p.Discount)
+                                .Include(p=>p.ProductColor)
+                                .Include(p=>p.ProductInventor)
+                                .Include(p=>p.Supplier),
+                enableTracking: false,
+                cancellationToken: cancellationToken);
             await _productBusinessRules.ProductShouldExistWhenSelected(product);
 
             GetByIdProductResponse response = _mapper.Map<GetByIdProductResponse>(product);
