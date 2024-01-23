@@ -159,6 +159,8 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
        seeds.Add(new OperationClaim { Id = ++id, Name = "Products.Add" });
        seeds.Add(new OperationClaim { Id = ++id, Name = "Products.Update" });
        seeds.Add(new OperationClaim { Id = ++id, Name = "Products.Delete" });
+       seeds.Add(new OperationClaim { Id = ++id, Name = "Products.GetByNameProduct" });
+
        
        #endregion
        
