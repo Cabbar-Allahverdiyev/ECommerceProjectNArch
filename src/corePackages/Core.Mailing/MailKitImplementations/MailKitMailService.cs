@@ -91,7 +91,7 @@ public class MailKitMailService : IMailService
         string pemEncodedKey = "-----BEGIN RSA PRIVATE KEY-----\n" + _mailSettings.DkimPrivateKey + "\n-----END RSA PRIVATE KEY-----";
         using (StringReader stringReader = new(pemEncodedKey))
         {
-            PemReader pemReader = new(stringReader);
+            PemReader pemReader = new(stringReader);//burda authentication xetasi verir, boyuk ehtimal maili dkim key ile imzalaya bilmirem
             object? pemObject = pemReader.ReadObject();
             result = ((AsymmetricCipherKeyPair)pemObject).Private;
         }

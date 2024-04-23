@@ -1,4 +1,5 @@
 ﻿using Core.Security.Entities;
+using Core.Security.Enums;
 using Core.Security.Hashing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -38,7 +39,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         List<User> users = new();
 
         HashingHelper.CreatePasswordHash(
-            password: "Passw0rd",
+            password: "12345",
             passwordHash: out byte[] passwordHash,
             passwordSalt: out byte[] passwordSalt
         );
@@ -53,7 +54,19 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
                 PasswordHash = passwordHash,
                 PasswordSalt = passwordSalt
             };
+        User user1 = new()
+        {
+            Id = 2,
+            FirstName = "Cabbar",
+            LastName = "Allahverdiyev",
+            Email = "cabbar.allahverdiyev@gmail.com",
+           // AuthenticatorType = AuthenticatorType.Email,
+            Status = true,
+            PasswordHash = passwordHash,
+            PasswordSalt = passwordSalt
+        };
         users.Add(adminUser);
+        users.Add(user1);
 
         return users.ToArray();
     }

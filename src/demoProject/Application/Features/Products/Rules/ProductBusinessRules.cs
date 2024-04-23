@@ -54,8 +54,8 @@ public class ProductBusinessRules : BaseBusinessRules
             cancellationToken: cancellationToken);
         await ProductShouldNotExistWhenSelected(product);
     }
-    public async Task ProductNameShouldNotHasSupplierAndColorUsedAlreadyWhenUpdate(Guid productId, 
-        string? name, Guid supplierId, Guid productColorId, CancellationToken cancellationToken)
+    public async Task ProductNameShouldNotHasSupplierAndColorUsedAlreadyWhenUpdate(Guid? productId, 
+        string? name, Guid? supplierId, Guid? productColorId, CancellationToken cancellationToken)
     {
         Product? product = await _productRepository.GetAsync(
             predicate: p => p.ProductColorId == productColorId && p.SupplierId == supplierId && p.Name == name && p.Id != productId,

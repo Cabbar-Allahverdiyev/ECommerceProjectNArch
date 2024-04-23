@@ -56,7 +56,7 @@ public class UpdateProductCommand : IRequest<UpdatedProductResponse>//, ISecured
             Product? product = await _productRepository.GetAsync(predicate: p => p.Id == request.Id, cancellationToken: cancellationToken);
             await _productBusinessRules.ProductShouldExistWhenSelected(product);
             await _productBusinessRules.ProductPurchasePriceShouldBeLessThanUnitPriceWhenUpdated(request.PurchasePrice, request.UnitPrice);
-            await _productBusinessRules.ProductNameShouldNotHasSupplierAndColorUsedAlreadyWhenUpdate(product.Id,request.Name,request.SupplierId,request.ColorId);
+            await _productBusinessRules.ProductNameShouldNotHasSupplierAndColorUsedAlreadyWhenUpdate(product!.Id,request.Name,request!.SupplierId,request!.ColorId,cancellationToken);
             product = _mapper.Map(request, product);
 
             await _productRepository.UpdateAsync(product!);
