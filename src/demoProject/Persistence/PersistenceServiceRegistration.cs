@@ -30,6 +30,7 @@ public static class PersistenceServiceRegistration
         services.AddScoped<ISupplierRepository, SupplierRepository>();
         services.AddScoped<IProductColorRepository, ProductColorRepository>();
         services.AddScoped<IProductColorRepository, ProductColorRepository>();
+        services.AddScoped<IBarcodeRepository, BarcodeRepository>();
         return services;
     }
 }

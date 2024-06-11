@@ -210,6 +210,20 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
        
        #endregion
        
+       
+       #region Barcodes
+       
+       seeds.Add(new OperationClaim { Id = ++id, Name = "Barcodes.Admin" });
+       
+       seeds.Add(new OperationClaim { Id = ++id, Name = "Barcodes.Read" });
+       seeds.Add(new OperationClaim { Id = ++id, Name = "Barcodes.Write" });
+       
+       seeds.Add(new OperationClaim { Id = ++id, Name = "Barcodes.Add" });
+       seeds.Add(new OperationClaim { Id = ++id, Name = "Barcodes.Update" });
+       seeds.Add(new OperationClaim { Id = ++id, Name = "Barcodes.Delete" });
+       
+       #endregion
+       
         return seeds;
     }
 }
