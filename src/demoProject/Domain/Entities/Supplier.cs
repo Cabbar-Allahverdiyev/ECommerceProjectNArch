@@ -10,7 +10,7 @@ public class Supplier : Entity<Guid>
 
     public virtual Company? Company { get; set; }
     public virtual User? User { get; set; }
-    public ICollection<Product> Products { get; set; }
+    public virtual ICollection<Product> Products { get; set; }
 
     public Supplier()
     {

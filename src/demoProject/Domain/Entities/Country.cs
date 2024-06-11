@@ -5,7 +5,7 @@ public  class Country:Entity<Guid>
 {
     public string? Name { get; set; }
 
-    public ICollection<City>? Cities { get; set; }
+    public virtual ICollection<City>? Cities { get; set; }
 
     public Country(Guid id,string name):this()
     {
