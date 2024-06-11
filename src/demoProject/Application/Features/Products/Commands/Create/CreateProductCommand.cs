@@ -69,10 +69,11 @@ public class CreateProductCommand : IRequest<CreatedProductResponse>//, ISecured
                 cancellationToken);
 
             product.Id = Guid.NewGuid();
-            ProductInventor productInventor=await _productInventorsService.AddAsync(new(Guid.NewGuid(), quantity: request.Quantity));
-            product.ProductInventorId=productInventor.Id;
+            //ProductInventor productInventor=await _productInventorsService.AddAsync(new(Guid.NewGuid(), quantity: request.Quantity));
+            //product.ProductInventorId=productInventor.Id;
             product.SKU =await product.GenerateSKU();
             await _productRepository.AddAsync(product);
+            ProductInventor productInventor = await _productInventorsService.AddAsync(new(Guid.NewGuid(),product.Id, quantity: request.Quantity));
 
             CreatedProductResponse response = _mapper.Map<CreatedProductResponse>(product);
             return response;

@@ -25,6 +25,7 @@ using Application.Services.ProductInventors;
 using Application.Services.Products;
 using Application.Services.Suppliers;
 using Application.Services.ProductColors;
+using Application.Services.Barcodes;
 
 namespace Application;
 
@@ -65,6 +66,7 @@ public static class ApplicationServiceRegistration
         services.AddScoped<ISuppliersService, SuppliersManager>();
         services.AddScoped<IProductColorsService, ProductColorsManager>();
         services.AddScoped<IProductColorsService, ProductColorsManager>();
+        services.AddScoped<IBarcodesService, BarcodesManager>();
         return services;
     }
 
