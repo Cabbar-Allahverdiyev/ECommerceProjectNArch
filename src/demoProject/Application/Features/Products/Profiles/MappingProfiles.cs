@@ -8,6 +8,7 @@ using Core.Application.Responses;
 using Domain.Entities;
 using Core.Persistence.Paging;
 using Application.Features.Products.Queries.GetByName;
+using Application.Features.Products.Dtos;
 
 namespace Application.Features.Products.Profiles;
 
@@ -21,6 +22,12 @@ public class MappingProfiles : Profile
         CreateMap<Product, UpdatedProductResponse>().ReverseMap();
         CreateMap<Product, DeleteProductCommand>().ReverseMap();
         CreateMap<Product, DeletedProductResponse>().ReverseMap();
+
+        CreateMap<Product, GetInventorInProductQueryDto>().ReverseMap();
+        CreateMap<Product, GetDiscountInProductQueryDto>().ReverseMap();
+        CreateMap<Product, GetSupplierInProductQueryDto>().ReverseMap();
+        CreateMap<Product, GetBrandInProductQueryDto>().ReverseMap();
+        CreateMap<Product, GetCategoryInProductQueryDto>().ReverseMap();
 
         CreateMap<Product, GetByIdProductResponse>().ReverseMap();
         CreateMap<Product, GetByIdProductResponse>().ForMember(dest=>dest.Brand,act=>act.MapFrom(src=>src.Brand)).ReverseMap();

@@ -12,12 +12,11 @@ using static Application.Features.Barcodes.Constants.BarcodesOperationClaims;
 
 namespace Application.Features.Barcodes.Commands.Update;
 
-public class UpdateBarcodeCommand : IRequest<UpdatedBarcodeResponse>, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
+public class UpdateBarcodeCommand : IRequest<UpdatedBarcodeResponse>//, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
 {
     public Guid Id { get; set; }
     public Guid ProductId { get; set; }
     public string? BarcodeNumber { get; set; }
-    public Product? Product { get; set; }
 
     public string[] Roles => new[] { Admin, Write, BarcodesOperationClaims.Update };
 

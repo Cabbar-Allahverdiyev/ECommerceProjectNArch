@@ -9,6 +9,5 @@ public class UpdateBarcodeCommandValidator : AbstractValidator<UpdateBarcodeComm
         RuleFor(c => c.Id).NotEmpty();
         RuleFor(c => c.ProductId).NotEmpty();
         RuleFor(c => c.BarcodeNumber).NotEmpty();
-        RuleFor(c => c.Product).NotEmpty();
     }
 }
