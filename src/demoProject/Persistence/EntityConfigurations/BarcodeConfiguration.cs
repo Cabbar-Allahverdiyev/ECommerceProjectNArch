@@ -13,7 +13,6 @@ public class BarcodeConfiguration : IEntityTypeConfiguration<Barcode>
         builder.Property(b => b.Id).HasColumnName("Id").IsRequired();
         builder.Property(b => b.ProductId).HasColumnName("ProductId").IsRequired();
         builder.Property(b => b.BarcodeNumber).HasColumnName("BarcodeNumber").IsRequired();
-        builder.Property(b => b.Product).HasColumnName("Product");
         builder.Property(b => b.CreatedDate).HasColumnName("CreatedDate").IsRequired();
         builder.Property(b => b.UpdatedDate).HasColumnName("UpdatedDate");
         builder.Property(b => b.DeletedDate).HasColumnName("DeletedDate");

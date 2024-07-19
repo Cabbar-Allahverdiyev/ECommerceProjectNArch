@@ -36,8 +36,8 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
         builder.HasOne(c => c.Supplier);
         builder.HasOne(c => c.Discount);
         builder.HasOne(c => c.ProductColor);
-        builder.HasOne(c => c.ProductInventor).WithOne(i => i.Product).HasForeignKey<ProductInventor>(i => i.Id);
-        builder.HasOne(c => c.Barcode).WithOne(i => i.Product).HasForeignKey<Barcode>(i => i.Id);
+        builder.HasOne(c => c.ProductInventor).WithOne(i => i.Product).HasForeignKey<ProductInventor>(i => i.ProductId);
+        builder.HasOne(c => c.Barcode).WithOne(b => b.Product).HasForeignKey<Barcode>(b => b.ProductId);
 
         builder.HasQueryFilter(p => !p.DeletedDate.HasValue);
     }
