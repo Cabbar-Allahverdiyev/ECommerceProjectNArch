@@ -47,7 +47,7 @@ public class GetByNameProductQuery : IRequest<GetByNameProductResponse>, ISecure
                                 .Include(p => p.Category)
                                 .Include(p => p.Discount)
                                 .Include(p => p.ProductColor)
-                                .Include(p => p.ProductInventor)
+                                .Include(p => p.Inventor)
                                 .Include(p => p.Supplier),
                 enableTracking: false,
                 cancellationToken: cancellationToken);

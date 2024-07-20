@@ -6,7 +6,7 @@ namespace Application.Features.Products.Queries.GetList;
 public class GetListProductListItemDto : IDto
 {
     public Guid Id { get; set; }
-    public GetCategoryInProductQueryDto Category { get; set; }
+    public GetCategoryInProductQueryDto? Category { get; set; }
     public GetBrandInProductQueryDto Brand { get; set; }
     public GetSupplierInProductQueryDto Supplier { get; set; }
     public GetDiscountInProductQueryDto Discount { get; set; }

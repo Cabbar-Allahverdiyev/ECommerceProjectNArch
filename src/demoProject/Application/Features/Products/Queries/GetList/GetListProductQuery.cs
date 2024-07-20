@@ -9,6 +9,7 @@ using Core.Application.Responses;
 using Core.Persistence.Paging;
 using MediatR;
 using static Application.Features.Products.Constants.ProductsOperationClaims;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features.Products.Queries.GetList;
 
@@ -39,6 +40,13 @@ public class GetListProductQuery : IRequest<GetListResponse<GetListProductListIt
             IPaginate<Product> products = await _productRepository.GetListAsync(
                 index: request.PageRequest.PageIndex,
                 size: request.PageRequest.PageSize, 
+                include: p=>p.Include(p=>p.Barcode)
+                                .Include(p=>p.Brand)
+                                .Include(p=>p.Category)
+                                .Include(p=>p.Discount)
+                                .Include(p=>p.ProductColor)
+                                .Include(p=>p.Supplier)
+                                .Include(p=>p.Inventor),
                 cancellationToken: cancellationToken
             );
 
