@@ -24,7 +24,7 @@ public class Product : Entity<Guid>
     public virtual ProductBrand? Brand { get; set; }
     public virtual Supplier? Supplier { get; set; }
     public virtual Discount? Discount { get; set; }
-    public virtual ProductInventor? ProductInventor { get; set; }
+    public virtual ProductInventor? Inventor { get; set; }
     public virtual ProductColor? ProductColor { get; set; }
     public virtual Barcode? Barcode { get; set; }
 
