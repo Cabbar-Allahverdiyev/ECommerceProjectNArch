@@ -56,6 +56,9 @@ public class BarcodesManager : IBarcodesService
 
     public async Task<Barcode> AddAsync(Barcode barcode)
     {
+        if (string.IsNullOrWhiteSpace(barcode.BarcodeNumber))
+            barcode.BarcodeNumber = BarcodeHelpers.CreateBarcode();
+        
         Barcode addedBarcode = await _barcodeRepository.AddAsync(barcode);
 
         return addedBarcode;
