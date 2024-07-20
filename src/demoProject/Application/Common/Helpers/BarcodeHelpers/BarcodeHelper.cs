@@ -1,0 +1,70 @@
+﻿
+using Application.Services.Repositories;
+using Core.Persistence.Paging;
+using Domain.Entities;
+
+namespace Application.Common.Helpers.BarcodeHelpers;
+public class BarcodeHelper : IBarcodeHelper
+{
+    private readonly IBarcodeRepository _barcodeRepository;
+
+    public BarcodeHelper(IBarcodeRepository barcodeRepository)
+    {
+        _barcodeRepository = barcodeRepository;
+    }
+
+    public async Task<string> CreateBarcodeNumberEan13(int countryCode, int supplierCode)
+    {
+        IPaginate<Barcode> barcodes = await _barcodeRepository.GetListAsync(
+             b => b.BarcodeNumber.StartsWith(countryCode.ToString()) && b.BarcodeNumber.Substring(3, 4) == supplierCode.ToString());
+
+        IList<int> productCodes = barcodes.Items
+            .Select(b => int.Parse(b.BarcodeNumber.Substring(7, 5)))
+            .ToList();
+
+        int newProductCode = productCodes.Any() ? productCodes.Max() + 1 : 0;
+        string formattedProductCode = newProductCode.ToString("D5");
+
+        string barcodeNumber = CalculateEan13(countryCode.ToString(),supplierCode.ToString(),formattedProductCode);
+        return barcodeNumber;
+    }
+
+    public Task<string> CreateBarcodeNumber()
+    {
+        return CreateBarcodeNumberEan13();
+    }
+
+    private string CalculateEan13(string country, string manufacturer, string product)
+    {
+
+        string barcodeWithoutChecksum = $"{country}{manufacturer}{product}";
+        int sum = 0;
+        for (int i = 0; i < barcodeWithoutChecksum.Length; i++)
+        {
+            int digit = int.Parse(barcodeWithoutChecksum[i].ToString());
+            sum += (i % 2 == 0) ? digit : digit * 3;
+        }
+        int mod = sum % 10;
+        int checkSum=(mod == 0) ? 0 : 10 - mod;
+        return $"{barcodeWithoutChecksum}{checkSum}";
+
+        //string temp = $"{country}{manufacturer}{product}";    
+        //int sum = 0;
+        //int digit = 0;
+        //for (int i = temp.Length; i >= 1; i--)
+        //{
+        //    digit = Convert.ToInt32(temp.Substring(i - 1, 1));
+
+        //    if (i % 2 == 0)
+        //    {
+        //        sum += digit * 3;
+        //    }
+        //    else
+        //    {
+        //        sum += digit * 1;
+        //    }
+        //}
+        //int checkSum = (10 - (sum % 10)) % 10;
+        //return $"{temp}{checkSum}";
+    }
+}
