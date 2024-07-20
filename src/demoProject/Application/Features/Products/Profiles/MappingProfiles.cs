@@ -23,31 +23,31 @@ public class MappingProfiles : Profile
         CreateMap<Product, DeleteProductCommand>().ReverseMap();
         CreateMap<Product, DeletedProductResponse>().ReverseMap();
 
-        CreateMap<Product, GetInventorInProductQueryDto>().ReverseMap();
-        CreateMap<Product, GetDiscountInProductQueryDto>().ReverseMap();
-        CreateMap<Product, GetSupplierInProductQueryDto>().ReverseMap();
-        CreateMap<Product, GetBrandInProductQueryDto>().ReverseMap();
-        CreateMap<Product, GetCategoryInProductQueryDto>().ReverseMap();
+        CreateMap<ProductInventor, GetInventorInProductQueryDto>().ReverseMap();
+        CreateMap<Discount, GetDiscountInProductQueryDto>().ReverseMap();
+        CreateMap<Supplier, GetSupplierInProductQueryDto>().ReverseMap();
+        CreateMap<ProductBrand, GetBrandInProductQueryDto>().ReverseMap();
+        CreateMap<ProductCategory, GetCategoryInProductQueryDto>().ReverseMap();
 
         CreateMap<Product, GetByIdProductResponse>().ReverseMap();
         CreateMap<Product, GetByIdProductResponse>().ForMember(dest=>dest.Brand,act=>act.MapFrom(src=>src.Brand)).ReverseMap();
         CreateMap<Product, GetByIdProductResponse>().ForMember(dest=>dest.Category,act=>act.MapFrom(src=>src.Category)).ReverseMap();
         CreateMap<Product, GetByIdProductResponse>().ForMember(dest=>dest.Discount,act=>act.MapFrom(src=>src.Discount)).ReverseMap();
-        CreateMap<Product, GetByIdProductResponse>().ForMember(dest=>dest.Inventor,act=>act.MapFrom(src=>src.ProductInventor)).ReverseMap();
+        CreateMap<Product, GetByIdProductResponse>().ForMember(dest=>dest.Inventor,act=>act.MapFrom(src=>src.Inventor)).ReverseMap();
         CreateMap<Product, GetByIdProductResponse>().ForMember(dest=>dest.Supplier,act=>act.MapFrom(src=>src.Supplier)).ReverseMap();
 
         CreateMap<Product, GetByNameProductResponse>().ReverseMap();
         CreateMap<Product, GetByNameProductResponse>().ForMember(dest => dest.Brand, act => act.MapFrom(src => src.Brand)).ReverseMap();
         CreateMap<Product, GetByNameProductResponse>().ForMember(dest => dest.Category, act => act.MapFrom(src => src.Category)).ReverseMap();
         CreateMap<Product, GetByNameProductResponse>().ForMember(dest => dest.Discount, act => act.MapFrom(src => src.Discount)).ReverseMap();
-        CreateMap<Product, GetByNameProductResponse>().ForMember(dest => dest.Inventor, act => act.MapFrom(src => src.ProductInventor)).ReverseMap();
+        CreateMap<Product, GetByNameProductResponse>().ForMember(dest => dest.Inventor, act => act.MapFrom(src => src.Inventor)).ReverseMap();
         CreateMap<Product, GetByNameProductResponse>().ForMember(dest => dest.Supplier, act => act.MapFrom(src => src.Supplier)).ReverseMap();
 
         CreateMap<Product, GetListProductListItemDto>().ReverseMap();
         CreateMap<Product, GetListProductListItemDto>().ForMember(dest => dest.Brand, act => act.MapFrom(src => src.Brand)).ReverseMap();
         CreateMap<Product, GetListProductListItemDto>().ForMember(dest => dest.Category, act => act.MapFrom(src => src.Category)).ReverseMap();
         CreateMap<Product, GetListProductListItemDto>().ForMember(dest => dest.Discount, act => act.MapFrom(src => src.Discount)).ReverseMap();
-        CreateMap<Product, GetListProductListItemDto>().ForMember(dest => dest.Inventor, act => act.MapFrom(src => src.ProductInventor)).ReverseMap();
+        CreateMap<Product, GetListProductListItemDto>().ForMember(dest => dest.Inventor, act => act.MapFrom(src => src.Inventor)).ReverseMap();
         CreateMap<Product, GetListProductListItemDto>().ForMember(dest => dest.Supplier, act => act.MapFrom(src => src.Supplier)).ReverseMap();
         CreateMap<IPaginate<Product>, GetListResponse<GetListProductListItemDto>>().ReverseMap();
     }
