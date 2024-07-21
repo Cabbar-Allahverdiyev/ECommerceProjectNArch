@@ -2,6 +2,7 @@ using Application.Features.Suppliers.Rules;
 using Application.Services.Repositories;
 using Core.Persistence.Paging;
 using Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
 using System.Linq.Expressions;
 
@@ -28,6 +29,21 @@ public class SuppliersManager : ISuppliersService
     {
         Supplier? supplier = await _supplierRepository.GetAsync(predicate, include, withDeleted, enableTracking, cancellationToken);
         return supplier;
+    }
+
+    public async Task<Country?> GetCountryAsync(
+        Expression<Func<Supplier, bool>> predicate,
+        Func<IQueryable<Supplier>, IIncludableQueryable<Supplier, object>>? include = null,
+        bool withDeleted = false,
+        bool enableTracking = true,
+        CancellationToken cancellationToken = default)
+    {
+        Supplier? supplier = await _supplierRepository.GetAsync(
+            predicate, 
+            s=>s.Include(s=>s.Company).ThenInclude(c => c.City).ThenInclude(city => city.Country)
+            , withDeleted, enableTracking, cancellationToken);
+        Country? country = supplier.Company.City.Country;
+        return country;
     }
 
     public async Task<IPaginate<Supplier>?> GetListAsync(

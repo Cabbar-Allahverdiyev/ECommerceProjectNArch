@@ -1,5 +1,4 @@
-﻿
-using Application.Services.Repositories;
+﻿using Application.Services.Repositories;
 using Core.Persistence.Paging;
 using Domain.Entities;
 
@@ -16,7 +15,8 @@ public class BarcodeHelper : IBarcodeHelper
     public async Task<string> CreateBarcodeNumberEan13(int countryCode, int supplierCode)
     {
         IPaginate<Barcode> barcodes = await _barcodeRepository.GetListAsync(
-             b => b.BarcodeNumber.StartsWith(countryCode.ToString()) && b.BarcodeNumber.Substring(3, 4) == supplierCode.ToString());
+             b => b.BarcodeNumber.StartsWith(countryCode.ToString())
+             && b.BarcodeNumber.Substring(3, 4) == supplierCode.ToString());
 
         IList<int> productCodes = barcodes.Items
             .Select(b => int.Parse(b.BarcodeNumber.Substring(7, 5)))
@@ -29,11 +29,25 @@ public class BarcodeHelper : IBarcodeHelper
         return barcodeNumber;
     }
 
-    public Task<string> CreateBarcodeNumber()
+    public Task<string> GenerateBarcodeNumber(int countryCode,int supplierCode)
     {
-        return CreateBarcodeNumberEan13();
+        return CreateBarcodeNumberEan13(countryCode,supplierCode);
     }
 
+    public int SeparateBarcodeNumberByCountryCode(string barcodeNumber)
+    {
+        return int.Parse(barcodeNumber[..3]);
+
+    }
+    
+    public int SeparateBarcodeNumberBySupplierCode(string barcodeNumber)
+    {
+        return int.Parse(barcodeNumber.Substring(3, 4));
+    }
+    public int SeparateBarcodeNumberByProductCode(string barcodeNumber)
+    {
+        return int.Parse(barcodeNumber.Substring(7, 5));
+    }
     private string CalculateEan13(string country, string manufacturer, string product)
     {
 

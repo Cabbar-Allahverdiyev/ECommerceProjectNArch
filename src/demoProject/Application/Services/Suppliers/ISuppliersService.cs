@@ -14,6 +14,13 @@ public interface ISuppliersService
         bool enableTracking = true,
         CancellationToken cancellationToken = default
     );
+    Task<Country?> GetCountryAsync(
+       Expression<Func<Supplier, bool>> predicate,
+       Func<IQueryable<Supplier>, IIncludableQueryable<Supplier, object>>? include = null,
+       bool withDeleted = false,
+       bool enableTracking = true,
+       CancellationToken cancellationToken = default
+   );
     Task<IPaginate<Supplier>?> GetListAsync(
         Expression<Func<Supplier, bool>>? predicate = null,
         Func<IQueryable<Supplier>, IOrderedQueryable<Supplier>>? orderBy = null,

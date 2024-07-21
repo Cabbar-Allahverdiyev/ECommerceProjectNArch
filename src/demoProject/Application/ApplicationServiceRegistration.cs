@@ -26,6 +26,7 @@ using Application.Services.Products;
 using Application.Services.Suppliers;
 using Application.Services.ProductColors;
 using Application.Services.Barcodes;
+using Application.Common.Helpers.BarcodeHelpers;
 
 namespace Application;
 
@@ -67,6 +68,8 @@ public static class ApplicationServiceRegistration
         services.AddScoped<IProductColorsService, ProductColorsManager>();
         services.AddScoped<IProductColorsService, ProductColorsManager>();
         services.AddScoped<IBarcodesService, BarcodesManager>();
+
+        services.AddScoped<IBarcodeHelper, BarcodeHelper>();
         return services;
     }
 

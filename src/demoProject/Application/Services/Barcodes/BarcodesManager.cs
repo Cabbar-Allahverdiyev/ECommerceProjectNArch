@@ -1,5 +1,7 @@
+using Application.Common.Helpers.BarcodeHelpers;
 using Application.Features.Barcodes.Rules;
 using Application.Services.Repositories;
+using Application.Services.Suppliers;
 using Core.Persistence.Paging;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore.Query;
@@ -11,11 +13,18 @@ public class BarcodesManager : IBarcodesService
 {
     private readonly IBarcodeRepository _barcodeRepository;
     private readonly BarcodeBusinessRules _barcodeBusinessRules;
+    private readonly IBarcodeHelper _barcodeHelper;
+    private readonly ISuppliersService _suppliersService;
 
-    public BarcodesManager(IBarcodeRepository barcodeRepository, BarcodeBusinessRules barcodeBusinessRules)
+    public BarcodesManager(IBarcodeRepository barcodeRepository,
+                           BarcodeBusinessRules barcodeBusinessRules,
+                           IBarcodeHelper barcodeHelper,
+                           ISuppliersService suppliersService)
     {
         _barcodeRepository = barcodeRepository;
         _barcodeBusinessRules = barcodeBusinessRules;
+        _barcodeHelper = barcodeHelper;
+        _suppliersService = suppliersService;
     }
 
     public async Task<Barcode?> GetAsync(
@@ -54,10 +63,14 @@ public class BarcodesManager : IBarcodesService
         return barcodeList;
     }
 
-    public async Task<Barcode> AddAsync(Barcode barcode)
+    public async Task<Barcode> AddAsync(Barcode barcode,Guid? supplierId)
     {
-        if (string.IsNullOrWhiteSpace(barcode.BarcodeNumber))
-            barcode.BarcodeNumber = BarcodeHelpers.CreateBarcode();
+        if (string.IsNullOrWhiteSpace(barcode.BarcodeNumber) && supplierId!=null)
+        {
+            Country? country = await _suppliersService.GetCountryAsync(predicate: s => s.Id == supplierId);
+            Supplier supplier= await _suppliersService.GetAsync(predicate: s => s.Id == supplierId);
+            barcode.BarcodeNumber = await _barcodeHelper.GenerateBarcodeNumber(country.Code,supplier.Code);
+        }
         
         Barcode addedBarcode = await _barcodeRepository.AddAsync(barcode);
 
