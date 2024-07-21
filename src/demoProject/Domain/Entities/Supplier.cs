@@ -6,6 +6,7 @@ public class Supplier : Entity<Guid>
 {
     public Guid CompanyId { get; set; }
     public int UserId { get; set; }//sales Representative
+    public string? BarcodeCode { get; set; }
     public string? Description { get; set; }//ehtiyyac olarsa isRequired-i configirationdan cixart
 
     public virtual Company? Company { get; set; }
@@ -20,11 +21,13 @@ public class Supplier : Entity<Guid>
     public Supplier(Guid id,
                     int userId,
                     Guid companyId,
+                    string barcodeCode,
                     string description) : this()
     {
         Id = id;
         CompanyId = companyId;
         UserId = userId;
+        BarcodeCode = barcodeCode;
         Description = description;
     }
 }
