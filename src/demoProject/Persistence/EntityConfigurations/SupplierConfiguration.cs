@@ -13,6 +13,7 @@ public class SupplierConfiguration : IEntityTypeConfiguration<Supplier>
         builder.Property(s => s.Id).HasColumnName("Id").IsRequired();
         builder.Property(s => s.CompanyId).HasColumnName("CompanyId").IsRequired();
         builder.Property(s => s.UserId).HasColumnName("UserId").IsRequired();
+        builder.Property(s => s.BarcodeCode).HasColumnName("BarcodeCode").IsRequired();
         builder.Property(s => s.Description).HasColumnName("Description");
         builder.Property(s => s.CreatedDate).HasColumnName("CreatedDate").IsRequired();
         builder.Property(s => s.UpdatedDate).HasColumnName("UpdatedDate");
@@ -30,7 +31,7 @@ public class SupplierConfiguration : IEntityTypeConfiguration<Supplier>
 
         List<Supplier> data = new()
         {
-            new(SupplierConfigIds[0],1,CompanyConfiguration.CompanyConfigIds[0],"stajci satici")
+            new(SupplierConfigIds[0],1,CompanyConfiguration.CompanyConfigIds[0],"0001","stajci satici")
         };
         return data;
     }

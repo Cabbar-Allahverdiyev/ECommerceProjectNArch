@@ -12,6 +12,7 @@ public class CountryConfiguration : IEntityTypeConfiguration<Country>
 
         builder.Property(c => c.Id).HasColumnName("Id").IsRequired();
         builder.Property(c => c.Name).HasColumnName("Name").IsRequired();
+        builder.Property(c => c.BarcodeCode).HasColumnName("BarcodeCode").IsRequired();
         builder.Property(c => c.CreatedDate).HasColumnName("CreatedDate").IsRequired();
         builder.Property(c => c.UpdatedDate).HasColumnName("UpdatedDate");
         builder.Property(c => c.DeletedDate).HasColumnName("DeletedDate");
@@ -26,8 +27,8 @@ public class CountryConfiguration : IEntityTypeConfiguration<Country>
     private IEnumerable<Country> getSeeds()
     {
         List<Country> seeds = new List<Country>() {
-        new(CountryConfigIds[0],"Azerbaijan"),
-        new(CountryConfigIds[1],"Turkey")
+        new(CountryConfigIds[0],"Azerbaijan","476"),
+        new(CountryConfigIds[1],"Turkey","869")
         };
         return seeds.ToArray();
     }
