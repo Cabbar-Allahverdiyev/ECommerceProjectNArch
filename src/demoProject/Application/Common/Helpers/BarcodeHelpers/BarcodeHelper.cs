@@ -12,11 +12,11 @@ public class BarcodeHelper : IBarcodeHelper
         _barcodeRepository = barcodeRepository;
     }
 
-    public async Task<string> CreateBarcodeNumberEan13(int countryCode, int supplierCode)
+    public async Task<string> CreateBarcodeNumberEan13(string countryCode, string supplierCode)
     {
         IPaginate<Barcode> barcodes = await _barcodeRepository.GetListAsync(
-             b => b.BarcodeNumber.StartsWith(countryCode.ToString())
-             && b.BarcodeNumber.Substring(3, 4) == supplierCode.ToString());
+             b => b.BarcodeNumber.StartsWith(countryCode)
+             && b.BarcodeNumber.Substring(3, 4) == supplierCode);
 
         IList<int> productCodes = barcodes.Items
             .Select(b => int.Parse(b.BarcodeNumber.Substring(7, 5)))
@@ -25,11 +25,11 @@ public class BarcodeHelper : IBarcodeHelper
         int newProductCode = productCodes.Any() ? productCodes.Max() + 1 : 0;
         string formattedProductCode = newProductCode.ToString("D5");
 
-        string barcodeNumber = CalculateEan13(countryCode.ToString(),supplierCode.ToString(),formattedProductCode);
+        string barcodeNumber = CalculateEan13(countryCode,supplierCode,formattedProductCode);
         return barcodeNumber;
     }
 
-    public Task<string> GenerateBarcodeNumber(int countryCode,int supplierCode)
+    public Task<string> GenerateBarcodeNumber(string countryCode,string supplierCode)
     {
         return CreateBarcodeNumberEan13(countryCode,supplierCode);
     }
@@ -59,10 +59,10 @@ public class BarcodeHelper : IBarcodeHelper
             sum += (i % 2 == 0) ? digit : digit * 3;
         }
         int mod = sum % 10;
-        int checkSum=(mod == 0) ? 0 : 10 - mod;
+        int checkSum = (mod == 0) ? 0 : 10 - mod;
         return $"{barcodeWithoutChecksum}{checkSum}";
 
-        //string temp = $"{country}{manufacturer}{product}";    
+        //string temp = $"{country}{manufacturer}{product}";
         //int sum = 0;
         //int digit = 0;
         //for (int i = temp.Length; i >= 1; i--)
