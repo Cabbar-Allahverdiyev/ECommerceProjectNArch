@@ -16,6 +16,7 @@ public class CreateSupplierCommand : IRequest<CreatedSupplierResponse>//, ISecur
 {
     public Guid CompanyId { get; set; }
     public int UserId { get; set; }
+    public string BarcodeCode { get; set; }
     public string? Description { get; set; }
 
     public string[] Roles => new[] { Admin, Write, SuppliersOperationClaims.Create };

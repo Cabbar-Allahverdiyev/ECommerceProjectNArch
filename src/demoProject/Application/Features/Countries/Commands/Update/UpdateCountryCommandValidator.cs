@@ -8,6 +8,9 @@ public class UpdateCountryCommandValidator : AbstractValidator<UpdateCountryComm
     {
         RuleFor(c => c.Id).NotEmpty();
 
+        RuleFor(c => c.BarcodeCode).NotEmpty();
+        RuleFor(c => c.BarcodeCode).Length(3);
+
         RuleFor(c => c.Name).NotEmpty();
         RuleFor(c => c.Name).MinimumLength(4);
     }

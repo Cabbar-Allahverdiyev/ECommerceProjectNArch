@@ -69,7 +69,8 @@ public class BarcodesManager : IBarcodesService
         {
             Country? country = await _suppliersService.GetCountryAsync(predicate: s => s.Id == supplierId);
             Supplier supplier= await _suppliersService.GetAsync(predicate: s => s.Id == supplierId);
-            barcode.BarcodeNumber = await _barcodeHelper.GenerateBarcodeNumber(country.Code,supplier.Code);
+            barcode.BarcodeNumber = await _barcodeHelper.GenerateBarcodeNumber(country.BarcodeCode
+                , supplier.BarcodeCode);
         }
         
         Barcode addedBarcode = await _barcodeRepository.AddAsync(barcode);

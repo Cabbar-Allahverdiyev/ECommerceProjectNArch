@@ -15,7 +15,7 @@ namespace Application.Features.Countries.Commands.Create;
 public class CreateCountryCommand : IRequest<CreatedCountryResponse>//, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
 {
     public string Name { get; set; }
-
+    public string BarcodeCode { get; set; }
     public string[] Roles => new[] { Admin, Write, CountriesOperationClaims.Create };
 
     public bool BypassCache { get; }
@@ -41,6 +41,7 @@ public class CreateCountryCommand : IRequest<CreatedCountryResponse>//, ISecured
             Country country = _mapper.Map<Country>(request);
             await _countryBusinessRules.CountryShouldExistWhenSelected(country);
             await _countryBusinessRules.CountryNameShouldNotExistWhenSelected(country.Name,cancellationToken);
+            await _countryBusinessRules.BarcodeCodeShouldNotExistWhenSelected(country.BarcodeCode,cancellationToken);
 
             await _countryRepository.AddAsync(country);
 

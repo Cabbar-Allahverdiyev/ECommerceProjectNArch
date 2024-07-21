@@ -24,7 +24,7 @@ public interface IBarcodesService
         bool enableTracking = true,
         CancellationToken cancellationToken = default
     );
-    Task<Barcode> AddAsync(Barcode barcode);
+    Task<Barcode> AddAsync(Barcode barcode,Guid? supplierId);
     Task<Barcode> UpdateAsync(Barcode barcode);
     Task<Barcode> DeleteAsync(Barcode barcode, bool permanent = false);
 }

@@ -17,6 +17,7 @@ public class UpdateSupplierCommand : IRequest<UpdatedSupplierResponse>//, ISecur
     public Guid Id { get; set; }
     public Guid CompanyId { get; set; }
     public int UserId { get; set; }
+    public string? BarcodeCode { get; set; }
     public string? Description { get; set; }
 
     public string[] Roles => new[] { Admin, Write, SuppliersOperationClaims.Update };

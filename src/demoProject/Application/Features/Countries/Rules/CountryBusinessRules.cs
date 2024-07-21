@@ -49,6 +49,17 @@ public class CountryBusinessRules : BaseBusinessRules
         );
         await CountryShouldNotExistWhenSelected(country);
     }
+     public async Task BarcodeCodeShouldNotExistWhenSelected(string? barcodeCode,CancellationToken cancellationToken)
+    {
+        Country? country = await _countryRepository.GetAsync(
+            predicate: c => c.BarcodeCode == barcodeCode,
+            enableTracking: false,
+            cancellationToken: cancellationToken
+        );
+        await CountryShouldNotExistWhenSelected(country);
+    }
+
+
 
     public async Task CountryNameShouldNotExistWhenUpdated(Country? country, string newCountryName, CancellationToken cancellationToken)
     {

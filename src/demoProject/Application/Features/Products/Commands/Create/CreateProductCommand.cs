@@ -79,7 +79,7 @@ public class CreateProductCommand : IRequest<CreatedProductResponse>//, ISecured
             product.SKU = await product.GenerateSKU();
             await _productRepository.AddAsync(product);
             ProductInventor productInventor = await _productInventorsService.AddAsync(new(Guid.NewGuid(), product.Id, quantity: request.Quantity));
-            Barcode barcode = await _barcodesService.AddAsync(new(Guid.NewGuid(),product.Id,request.BarcodeNumber));
+            Barcode barcode = await _barcodesService.AddAsync(new(Guid.NewGuid(),product.Id,request.BarcodeNumber),request.SupplierId);
             CreatedProductResponse response = _mapper.Map<CreatedProductResponse>(product);
             return response;
         }
