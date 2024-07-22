@@ -8,4 +8,5 @@ public interface IBarcodeHelper
     int SeparateBarcodeNumberByProductCode(string barcodeNumber);
     int SeparateBarcodeNumberBySupplierCode(string barcodeNumber);
     int SeparateBarcodeNumberByCountryCode(string barcodeNumber);
+    bool CheckChecksum(string barcodeNumber);
 }
