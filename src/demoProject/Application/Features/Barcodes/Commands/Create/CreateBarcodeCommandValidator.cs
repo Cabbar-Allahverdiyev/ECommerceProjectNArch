@@ -1,3 +1,4 @@
+using Application.Features.Barcodes.Constants;
 using FluentValidation;
 
 namespace Application.Features.Barcodes.Commands.Create;
@@ -8,5 +9,6 @@ public class CreateBarcodeCommandValidator : AbstractValidator<CreateBarcodeComm
     {
         RuleFor(c => c.ProductId).NotEmpty();
         RuleFor(c => c.BarcodeNumber).NotEmpty();
+        RuleFor(c => c.BarcodeNumber).Matches("^[0-9]+$").WithMessage(BarcodesBusinessMessages.BarcodeNumberMustContainOnlyDigits);
     }
 }

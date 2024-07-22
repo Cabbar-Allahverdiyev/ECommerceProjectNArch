@@ -12,7 +12,7 @@ using static Application.Features.Barcodes.Constants.BarcodesOperationClaims;
 
 namespace Application.Features.Barcodes.Commands.Create;
 
-public class CreateBarcodeCommand : IRequest<CreatedBarcodeResponse>//, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
+public class CreateBarcodeCommand : IRequest<CreatedBarcodeResponse>, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
 {
     public Guid ProductId { get; set; }
     public string? BarcodeNumber { get; set; }
@@ -40,6 +40,10 @@ public class CreateBarcodeCommand : IRequest<CreatedBarcodeResponse>//, ISecured
         public async Task<CreatedBarcodeResponse> Handle(CreateBarcodeCommand request, CancellationToken cancellationToken)
         {
             Barcode barcode = _mapper.Map<Barcode>(request);
+            await _barcodeBusinessRules.BarcodeShouldExistWhenSelected(barcode);
+            await _barcodeBusinessRules.BarcodeNumberShouldExistWhenSelected(request.BarcodeNumber,cancellationToken);
+            await _barcodeBusinessRules.ChekSumMustCorrect(request.BarcodeNumber);
+
             barcode.Id=Guid.NewGuid();
             await _barcodeRepository.AddAsync(barcode);
 
