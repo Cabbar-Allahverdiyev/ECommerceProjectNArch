@@ -10,4 +10,5 @@ public static class BarcodesOperationClaims
     public const string Create = "Barcodes.Create";
     public const string Update = "Barcodes.Update";
     public const string Delete = "Barcodes.Delete";
+    public const string GetByBarcodeNumber = "Barcodes.GetByBarcodeNumber";
 }

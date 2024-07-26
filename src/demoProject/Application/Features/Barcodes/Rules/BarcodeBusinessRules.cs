@@ -31,6 +31,18 @@ public class BarcodeBusinessRules : BaseBusinessRules
             throw new BusinessException(message);
         return Task.CompletedTask;
     }
+    public async Task BarcodeNumberShouldNotExistWhenUpdated(Barcode? barcode, string? newBarcodeNumber, CancellationToken cancellationToken)
+    {
+
+        if (barcode == null)
+            throw new BusinessException(BarcodesBusinessMessages.BarcodeIsNull);
+        Barcode? result = await _barcodeRepository.GetAsync(
+        predicate: b => string.Equals(b.BarcodeNumber, newBarcodeNumber, StringComparison.OrdinalIgnoreCase)
+        && b.Id != barcode.Id,
+        enableTracking: false,
+        cancellationToken: cancellationToken);
+        await BarcodeShouldNotExistWhenSelected(result, BarcodesBusinessMessages.BarcodeNumberAlreadyExists);
+    }
 
     public async Task BarcodeIdShouldExistWhenSelected(Guid id, CancellationToken cancellationToken)
     {
@@ -42,16 +54,18 @@ public class BarcodeBusinessRules : BaseBusinessRules
         await BarcodeShouldExistWhenSelected(barcode);
     }
 
-    public async Task BarcodeNumberShouldExistWhenSelected(string? barcodeNumber, CancellationToken cancellationToken)
+    public async Task BarcodeNumberShouldNotExistWhenSelected(string? barcodeNumber, CancellationToken cancellationToken)
     {
         Barcode? barcode = await _barcodeRepository.GetAsync(
-            predicate: b => b.BarcodeNumber == barcodeNumber,
+            predicate: b => string.Equals( b.BarcodeNumber , barcodeNumber, StringComparison.OrdinalIgnoreCase),
             enableTracking: false,
             cancellationToken: cancellationToken
         );
 
         await BarcodeShouldNotExistWhenSelected(barcode,BarcodesBusinessMessages.BarcodeNumberAlreadyExists); 
     }
+
+  
 
     public Task ChekSumMustCorrect(string ? chekSum)
     {
@@ -60,5 +74,5 @@ public class BarcodeBusinessRules : BaseBusinessRules
         return Task.CompletedTask;
     }
 
-    
+   
 }

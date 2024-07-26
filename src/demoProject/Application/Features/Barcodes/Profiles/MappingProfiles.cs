@@ -7,6 +7,8 @@ using AutoMapper;
 using Core.Application.Responses;
 using Domain.Entities;
 using Core.Persistence.Paging;
+using Application.Features.Barcodes.Dtos;
+using Application.Features.Barcodes.Queries.GetByBarcodeNumber;
 
 namespace Application.Features.Barcodes.Profiles;
 
@@ -17,11 +19,15 @@ public class MappingProfiles : Profile
         CreateMap<Barcode, CreateBarcodeCommand>().ReverseMap();
         CreateMap<Barcode, CreatedBarcodeResponse>().ReverseMap();
         CreateMap<Barcode, UpdateBarcodeCommand>().ReverseMap();
-        CreateMap<Barcode, UpdatedBarcodeResponse>().ReverseMap();
+        CreateMap<Barcode, UpdatedBarcodeResponse>().ReverseMap(); 
         CreateMap<Barcode, DeleteBarcodeCommand>().ReverseMap();
         CreateMap<Barcode, DeletedBarcodeResponse>().ReverseMap();
-        CreateMap<Barcode, GetByIdBarcodeResponse>().ReverseMap();
-        CreateMap<Barcode, GetListBarcodeListItemDto>().ReverseMap();
+
+        CreateMap<Product, GetProductInBarcodeDto>().ReverseMap();
+        
+        CreateMap<Barcode, GetByIdBarcodeResponse>().ForMember(dest=>dest.Product,opt=>opt.MapFrom(src=>src.Product)).ReverseMap();
+        CreateMap<Barcode, GetByBarcodeNumberResponse>().ForMember(dest=>dest.Product,opt=>opt.MapFrom(src=>src.Product)).ReverseMap();
+        CreateMap<Barcode, GetListBarcodeListItemDto>().ForMember(dest => dest.Product, opt => opt.MapFrom(src => src.Product)).ReverseMap();
         CreateMap<IPaginate<Barcode>, GetListResponse<GetListBarcodeListItemDto>>().ReverseMap();
     }
 }
