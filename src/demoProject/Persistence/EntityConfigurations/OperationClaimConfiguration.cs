@@ -221,6 +221,8 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
        seeds.Add(new OperationClaim { Id = ++id, Name = "Barcodes.Add" });
        seeds.Add(new OperationClaim { Id = ++id, Name = "Barcodes.Update" });
        seeds.Add(new OperationClaim { Id = ++id, Name = "Barcodes.Delete" });
+       seeds.Add(new OperationClaim { Id = ++id, Name = "Barcodes.GetByBarcodeNumber" });
+
        
        #endregion
        
