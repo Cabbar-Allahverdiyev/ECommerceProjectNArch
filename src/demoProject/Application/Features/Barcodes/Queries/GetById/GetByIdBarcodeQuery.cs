@@ -6,6 +6,7 @@ using Domain.Entities;
 using Core.Application.Pipelines.Authorization;
 using MediatR;
 using static Application.Features.Barcodes.Constants.BarcodesOperationClaims;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features.Barcodes.Queries.GetById;
 
@@ -30,7 +31,10 @@ public class GetByIdBarcodeQuery : IRequest<GetByIdBarcodeResponse>, ISecuredReq
 
         public async Task<GetByIdBarcodeResponse> Handle(GetByIdBarcodeQuery request, CancellationToken cancellationToken)
         {
-            Barcode? barcode = await _barcodeRepository.GetAsync(predicate: b => b.Id == request.Id, cancellationToken: cancellationToken);
+            Barcode? barcode = await _barcodeRepository.GetAsync(predicate: b => b.Id == request.Id,
+                include: b => b.Include(b => b.Product),
+                enableTracking: false,
+                cancellationToken: cancellationToken);
             await _barcodeBusinessRules.BarcodeShouldExistWhenSelected(barcode);
 
             GetByIdBarcodeResponse response = _mapper.Map<GetByIdBarcodeResponse>(barcode);

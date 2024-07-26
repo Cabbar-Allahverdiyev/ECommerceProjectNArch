@@ -9,6 +9,7 @@ using Core.Application.Responses;
 using Core.Persistence.Paging;
 using MediatR;
 using static Application.Features.Barcodes.Constants.BarcodesOperationClaims;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features.Barcodes.Queries.GetList;
 
@@ -38,7 +39,9 @@ public class GetListBarcodeQuery : IRequest<GetListResponse<GetListBarcodeListIt
         {
             IPaginate<Barcode> barcodes = await _barcodeRepository.GetListAsync(
                 index: request.PageRequest.PageIndex,
-                size: request.PageRequest.PageSize, 
+                size: request.PageRequest.PageSize,
+                include: b => b.Include(b => b.Product),
+                enableTracking:false,
                 cancellationToken: cancellationToken
             );
 
