@@ -28,6 +28,7 @@ public class MappingProfiles : Profile
         CreateMap<Supplier, GetSupplierInProductQueryDto>().ReverseMap();
         CreateMap<ProductBrand, GetBrandInProductQueryDto>().ReverseMap();
         CreateMap<ProductCategory, GetCategoryInProductQueryDto>().ReverseMap();
+        CreateMap<Barcode, GetBarcodeInProductQueryDto>().ReverseMap();
 
         CreateMap<Product, GetByIdProductResponse>().ReverseMap();
         CreateMap<Product, GetByIdProductResponse>().ForMember(dest=>dest.Brand,act=>act.MapFrom(src=>src.Brand)).ReverseMap();
@@ -35,6 +36,7 @@ public class MappingProfiles : Profile
         CreateMap<Product, GetByIdProductResponse>().ForMember(dest=>dest.Discount,act=>act.MapFrom(src=>src.Discount)).ReverseMap();
         CreateMap<Product, GetByIdProductResponse>().ForMember(dest=>dest.Inventor,act=>act.MapFrom(src=>src.Inventor)).ReverseMap();
         CreateMap<Product, GetByIdProductResponse>().ForMember(dest=>dest.Supplier,act=>act.MapFrom(src=>src.Supplier)).ReverseMap();
+        CreateMap<Product, GetByIdProductResponse>().ForMember(dest=>dest.Barcode,act=>act.MapFrom(src=>src.Barcode)).ReverseMap();
 
         CreateMap<Product, GetByNameProductResponse>().ReverseMap();
         CreateMap<Product, GetByNameProductResponse>().ForMember(dest => dest.Brand, act => act.MapFrom(src => src.Brand)).ReverseMap();
@@ -42,6 +44,7 @@ public class MappingProfiles : Profile
         CreateMap<Product, GetByNameProductResponse>().ForMember(dest => dest.Discount, act => act.MapFrom(src => src.Discount)).ReverseMap();
         CreateMap<Product, GetByNameProductResponse>().ForMember(dest => dest.Inventor, act => act.MapFrom(src => src.Inventor)).ReverseMap();
         CreateMap<Product, GetByNameProductResponse>().ForMember(dest => dest.Supplier, act => act.MapFrom(src => src.Supplier)).ReverseMap();
+        CreateMap<Product, GetByNameProductResponse>().ForMember(dest => dest.Barcode, act => act.MapFrom(src => src.Barcode)).ReverseMap();
 
         CreateMap<Product, GetListProductListItemDto>().ReverseMap();
         CreateMap<Product, GetListProductListItemDto>().ForMember(dest => dest.Brand, act => act.MapFrom(src => src.Brand)).ReverseMap();
@@ -49,6 +52,7 @@ public class MappingProfiles : Profile
         CreateMap<Product, GetListProductListItemDto>().ForMember(dest => dest.Discount, act => act.MapFrom(src => src.Discount)).ReverseMap();
         CreateMap<Product, GetListProductListItemDto>().ForMember(dest => dest.Inventor, act => act.MapFrom(src => src.Inventor)).ReverseMap();
         CreateMap<Product, GetListProductListItemDto>().ForMember(dest => dest.Supplier, act => act.MapFrom(src => src.Supplier)).ReverseMap();
+        CreateMap<Product, GetListProductListItemDto>().ForMember(dest => dest.Barcode, act => act.MapFrom(src => src.Barcode)).ReverseMap();
         CreateMap<IPaginate<Product>, GetListResponse<GetListProductListItemDto>>().ReverseMap();
     }
 }

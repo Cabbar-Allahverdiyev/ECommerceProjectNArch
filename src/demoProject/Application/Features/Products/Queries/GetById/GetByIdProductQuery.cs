@@ -38,6 +38,7 @@ public class GetByIdProductQuery : IRequest<GetByIdProductResponse>//, ISecuredR
                                 .Include(p=>p.Discount)
                                 .Include(p=>p.ProductColor)
                                 .Include(p=>p.Inventor)
+                                .Include(p=>p.Barcode)
                                 .Include(p=>p.Supplier),
                 enableTracking: false,
                 cancellationToken: cancellationToken);

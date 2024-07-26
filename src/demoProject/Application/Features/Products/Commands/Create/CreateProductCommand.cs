@@ -15,7 +15,7 @@ using Application.Services.Barcodes;
 
 namespace Application.Features.Products.Commands.Create;
 
-public class CreateProductCommand : IRequest<CreatedProductResponse>//, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
+public class CreateProductCommand : IRequest<CreatedProductResponse>, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
 {
     public Guid CategoryId { get; set; }
     public Guid BrandId { get; set; }

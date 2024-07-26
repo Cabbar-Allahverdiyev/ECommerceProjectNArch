@@ -6,11 +6,12 @@ namespace Application.Features.Products.Queries.GetByName;
 public class GetByNameProductResponse : IResponse
 {
     public Guid Id { get; set; }
-    public GetCategoryInProductQueryDto Category { get; set; }
-    public GetBrandInProductQueryDto Brand { get; set; }
-    public GetSupplierInProductQueryDto Supplier { get; set; }
-    public GetDiscountInProductQueryDto Discount { get; set; }
-    public GetInventorInProductQueryDto Inventor { get; set; }
+    public GetCategoryInProductQueryDto? Category { get; set; }
+    public GetBrandInProductQueryDto? Brand { get; set; }
+    public GetSupplierInProductQueryDto? Supplier { get; set; }
+    public GetDiscountInProductQueryDto? Discount { get; set; }
+    public GetInventorInProductQueryDto? Inventor { get; set; }
+    public GetBarcodeInProductQueryDto? Barcode { get; set; }
     public int UnitsOnOrder { get; set; }
     public int ReorderLevel { get; set; }
     public decimal PurchasePrice { get; set; }
