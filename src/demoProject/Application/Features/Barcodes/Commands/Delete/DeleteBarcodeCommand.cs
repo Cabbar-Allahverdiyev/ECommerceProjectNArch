@@ -13,7 +13,7 @@ using static Application.Features.Barcodes.Constants.BarcodesOperationClaims;
 
 namespace Application.Features.Barcodes.Commands.Delete;
 
-public class DeleteBarcodeCommand : IRequest<DeletedBarcodeResponse>//, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
+public class DeleteBarcodeCommand : IRequest<DeletedBarcodeResponse>, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
 {
     public Guid Id { get; set; }
 

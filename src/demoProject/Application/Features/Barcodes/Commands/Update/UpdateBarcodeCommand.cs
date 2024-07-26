@@ -12,7 +12,7 @@ using static Application.Features.Barcodes.Constants.BarcodesOperationClaims;
 
 namespace Application.Features.Barcodes.Commands.Update;
 
-public class UpdateBarcodeCommand : IRequest<UpdatedBarcodeResponse>//, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
+public class UpdateBarcodeCommand : IRequest<UpdatedBarcodeResponse>, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
 {
     public Guid Id { get; set; }
     public Guid ProductId { get; set; }
@@ -42,6 +42,8 @@ public class UpdateBarcodeCommand : IRequest<UpdatedBarcodeResponse>//, ISecured
         {
             Barcode? barcode = await _barcodeRepository.GetAsync(predicate: b => b.Id == request.Id, cancellationToken: cancellationToken);
             await _barcodeBusinessRules.BarcodeShouldExistWhenSelected(barcode);
+            await _barcodeBusinessRules.BarcodeNumberShouldNotExistWhenUpdated(barcode, request.BarcodeNumber,cancellationToken);
+
             barcode = _mapper.Map(request, barcode);
 
             await _barcodeRepository.UpdateAsync(barcode!);
