@@ -39,8 +39,12 @@ public class UpdateProductColorCommand : IRequest<UpdatedProductColorResponse>, 
 
         public async Task<UpdatedProductColorResponse> Handle(UpdateProductColorCommand request, CancellationToken cancellationToken)
         {
-            ProductColor? productColor = await _productColorRepository.GetAsync(predicate: pc => pc.Id == request.Id, cancellationToken: cancellationToken);
+            ProductColor? productColor = await _productColorRepository.GetAsync(
+                predicate: pc => pc.Id == request.Id,
+                cancellationToken: cancellationToken);
             await _productColorBusinessRules.ProductColorShouldExistWhenSelected(productColor);
+            await _productColorBusinessRules.ProductColorNameShouldNotExistWhenUpdated(productColor!.Id, request.Name, cancellationToken);
+
             productColor = _mapper.Map(request, productColor);
 
             await _productColorRepository.UpdateAsync(productColor!);

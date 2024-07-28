@@ -15,10 +15,17 @@ public class ProductColorBusinessRules : BaseBusinessRules
         _productColorRepository = productColorRepository;
     }
 
-    public Task ProductColorShouldExistWhenSelected(ProductColor? productColor)
+    public Task ProductColorShouldExistWhenSelected(ProductColor? productColor,string? message= ProductColorsBusinessMessages.ProductColorNotExists)
     {
         if (productColor == null)
-            throw new BusinessException(ProductColorsBusinessMessages.ProductColorNotExists);
+            throw new BusinessException(message);
+        return Task.CompletedTask;
+    }
+
+    public Task ProductColorShouldNotExistWhenSelected(ProductColor? productColor, string? message = ProductColorsBusinessMessages.ProductColorAlreadyExists)
+    {
+        if (productColor != null)
+            throw new BusinessException(message);
         return Task.CompletedTask;
     }
 
@@ -30,5 +37,25 @@ public class ProductColorBusinessRules : BaseBusinessRules
             cancellationToken: cancellationToken
         );
         await ProductColorShouldExistWhenSelected(productColor);
+    }
+
+    public async Task ProductColorNameShouldNotExistWhenSelected(string? name,CancellationToken cancellationToken)
+    {
+        ProductColor? productColor = await _productColorRepository.GetAsync(
+            predicate: pc => string.Equals(pc.Name, name, StringComparison.OrdinalIgnoreCase),
+            enableTracking: false,
+            cancellationToken: cancellationToken
+        );
+
+        await ProductColorShouldNotExistWhenSelected(productColor, ProductColorsBusinessMessages.ColorNameAlreadyExists);
+    }
+
+    public async Task ProductColorNameShouldNotExistWhenUpdated(Guid id, string? name, CancellationToken cancellationToken)
+    {  ProductColor? productColor = await _productColorRepository.GetAsync(
+            predicate: pb => string.Equals(pb.Name, name, StringComparison.OrdinalIgnoreCase) && pb.Id !=id,
+            enableTracking: false,
+            cancellationToken: cancellationToken
+        );
+        await ProductColorShouldNotExistWhenSelected(productColor, ProductColorsBusinessMessages.ColorNameAlreadyExists);
     }
 }

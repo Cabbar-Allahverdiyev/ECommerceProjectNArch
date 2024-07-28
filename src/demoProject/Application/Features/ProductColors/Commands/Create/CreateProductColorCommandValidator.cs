@@ -7,5 +7,6 @@ public class CreateProductColorCommandValidator : AbstractValidator<CreateProduc
     public CreateProductColorCommandValidator()
     {
         RuleFor(c => c.Name).NotEmpty();
+        RuleFor(c => c.Name).MinimumLength(3);
     }
 }

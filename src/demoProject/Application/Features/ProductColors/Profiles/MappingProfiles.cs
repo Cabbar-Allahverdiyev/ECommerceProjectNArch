@@ -7,6 +7,7 @@ using AutoMapper;
 using Core.Application.Responses;
 using Domain.Entities;
 using Core.Persistence.Paging;
+using Application.Features.ProductColors.Dtos;
 
 namespace Application.Features.ProductColors.Profiles;
 
@@ -20,8 +21,12 @@ public class MappingProfiles : Profile
         CreateMap<ProductColor, UpdatedProductColorResponse>().ReverseMap();
         CreateMap<ProductColor, DeleteProductColorCommand>().ReverseMap();
         CreateMap<ProductColor, DeletedProductColorResponse>().ReverseMap();
-        CreateMap<ProductColor, GetByIdProductColorResponse>().ReverseMap();
-        CreateMap<ProductColor, GetListProductColorListItemDto>().ReverseMap();
+
+        CreateMap<Product, GetProductsInProductColorDto>().ReverseMap();
+
+        CreateMap<ProductColor, GetByIdProductColorResponse>().ReverseMap().ForMember(dest => dest.Products, opt => opt.MapFrom(src => src.Products)).ReverseMap();
+        CreateMap<ProductColor, GetByNameProductColorResponse>().ReverseMap().ForMember(dest => dest.Products, opt => opt.MapFrom(src => src.Products)).ReverseMap();
+        CreateMap<ProductColor, GetListProductColorListItemDto>().ReverseMap().ForMember(dest => dest.Products, opt => opt.MapFrom(src => src.Products)).ReverseMap();
         CreateMap<IPaginate<ProductColor>, GetListResponse<GetListProductColorListItemDto>>().ReverseMap();
     }
 }

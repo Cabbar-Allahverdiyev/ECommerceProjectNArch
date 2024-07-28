@@ -39,7 +39,9 @@ public class CreateProductColorCommand : IRequest<CreatedProductColorResponse>, 
         public async Task<CreatedProductColorResponse> Handle(CreateProductColorCommand request, CancellationToken cancellationToken)
         {
             ProductColor productColor = _mapper.Map<ProductColor>(request);
+            await _productColorBusinessRules.ProductColorNameShouldNotExistWhenSelected(request.Name,cancellationToken);
 
+            productColor.Id=Guid.NewGuid();
             await _productColorRepository.AddAsync(productColor);
 
             CreatedProductColorResponse response = _mapper.Map<CreatedProductColorResponse>(productColor);

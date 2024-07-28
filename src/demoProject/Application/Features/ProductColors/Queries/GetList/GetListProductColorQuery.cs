@@ -12,9 +12,9 @@ using static Application.Features.ProductColors.Constants.ProductColorsOperation
 
 namespace Application.Features.ProductColors.Queries.GetList;
 
-public class GetListProductColorQuery : IRequest<GetListResponse<GetListProductColorListItemDto>>//, ISecuredRequest, ICachableRequest
+public class GetListProductColorQuery : IRequest<GetListResponse<GetListProductColorListItemDto>>, ISecuredRequest, ICachableRequest
 {
-    public PageRequest PageRequest { get; set; }
+    public PageRequest? PageRequest { get; set; }
 
     public string[] Roles => new[] { Admin, Read };
 
