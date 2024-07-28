@@ -12,7 +12,7 @@ using static Application.Features.ProductInventors.Constants.ProductInventorsOpe
 
 namespace Application.Features.ProductInventors.Commands.Create;
 
-public class CreateProductInventorCommand : IRequest<CreatedProductInventorResponse>//, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
+public class CreateProductInventorCommand : IRequest<CreatedProductInventorResponse>, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
 {
     public int Quantity { get; set; }
 
@@ -39,6 +39,8 @@ public class CreateProductInventorCommand : IRequest<CreatedProductInventorRespo
         public async Task<CreatedProductInventorResponse> Handle(CreateProductInventorCommand request, CancellationToken cancellationToken)
         {
             ProductInventor productInventor = _mapper.Map<ProductInventor>(request);
+           await _productInventorBusinessRules.ProductInventorShouldExistWhenSelected(productInventor);
+
             productInventor.Id=Guid.NewGuid();
 
             await _productInventorRepository.AddAsync(productInventor);
