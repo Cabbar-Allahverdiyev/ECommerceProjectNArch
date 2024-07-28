@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features.ProductInventors.Queries.GetById;
 
-public class GetByIdProductInventorQuery : IRequest<GetByIdProductInventorResponse>//, ISecuredRequest
+public class GetByIdProductInventorQuery : IRequest<GetByIdProductInventorResponse>, ISecuredRequest
 {
     public Guid Id { get; set; }
 
