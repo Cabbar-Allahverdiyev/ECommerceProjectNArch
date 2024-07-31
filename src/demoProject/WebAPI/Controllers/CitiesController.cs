@@ -7,6 +7,7 @@ using Core.Application.Requests;
 using Core.Application.Responses;
 using Microsoft.AspNetCore.Mvc;
 using Application.Features.Cities.Queries.GetByName;
+using Application.Features.Cities.Queries.GetListByDynamicCity;
 
 namespace WebAPI.Controllers;
 
@@ -61,4 +62,11 @@ public class CitiesController : BaseController
         GetByNameCityResponse response = await Mediator.Send(getByNameCityQuery);
         return Ok(response);
     }
+   
+   [HttpGet("GetListByDynamicCity")]
+   public async Task<IActionResult> GetListByDynamicCity([FromQuery] GetListByDynamicCityQuery getListByDynamicCityQuery)
+   {
+       GetListResponse<GetListByDynamicCityItemDto> response = await Mediator.Send(getListByDynamicCityQuery);
+       return Ok(response);
+   }
 }

@@ -6,6 +6,7 @@ using Application.Features.Barcodes.Queries.GetList;
 using Core.Application.Requests;
 using Core.Application.Responses;
 using Microsoft.AspNetCore.Mvc;
+using Application.Features.Barcodes.Queries.GetByBarcodeNumber;
 
 namespace WebAPI.Controllers;
 
@@ -49,6 +50,13 @@ public class BarcodesController : BaseController
     {
         GetListBarcodeQuery getListBarcodeQuery = new() { PageRequest = pageRequest };
         GetListResponse<GetListBarcodeListItemDto> response = await Mediator.Send(getListBarcodeQuery);
+        return Ok(response);
+    }
+    
+    [HttpGet("GetByBarcodeNumber")]
+    public async Task<IActionResult> GetByBarcodeNumber([FromQuery] GetByBarcodeNumberQuery getByBarcodeNumberQuery)
+    {
+        GetByBarcodeNumberResponse response = await Mediator.Send(getByBarcodeNumberQuery);
         return Ok(response);
     }
 }

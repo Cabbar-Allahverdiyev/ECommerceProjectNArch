@@ -67,6 +67,8 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
 
        seeds.Add(new OperationClaim { Id = ++id, Name = "Cities.GetByNameCity" });
 
+       seeds.Add(new OperationClaim { Id = ++id, Name = "Cities.GetListByDynamicCity" });
+
        
        #endregion
        
