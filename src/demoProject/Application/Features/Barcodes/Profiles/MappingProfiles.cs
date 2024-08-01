@@ -9,6 +9,7 @@ using Domain.Entities;
 using Core.Persistence.Paging;
 using Application.Features.Barcodes.Dtos;
 using Application.Features.Barcodes.Queries.GetByBarcodeNumber;
+using Application.Features.Barcodes.Queries.GetListByDynamicBarcode;
 
 namespace Application.Features.Barcodes.Profiles;
 
@@ -29,5 +30,8 @@ public class MappingProfiles : Profile
         CreateMap<Barcode, GetByBarcodeNumberResponse>().ForMember(dest=>dest.Product,opt=>opt.MapFrom(src=>src.Product)).ReverseMap();
         CreateMap<Barcode, GetListBarcodeListItemDto>().ForMember(dest => dest.Product, opt => opt.MapFrom(src => src.Product)).ReverseMap();
         CreateMap<IPaginate<Barcode>, GetListResponse<GetListBarcodeListItemDto>>().ReverseMap();
+
+        CreateMap<IPaginate<Barcode>, GetListResponse<GetListByDynamicBarcodeItemDto>>().ReverseMap();
+        CreateMap<Barcode, GetListByDynamicBarcodeItemDto>().ForMember(dest => dest.Product, opt => opt.MapFrom(src => src.Product)).ReverseMap();
     }
 }

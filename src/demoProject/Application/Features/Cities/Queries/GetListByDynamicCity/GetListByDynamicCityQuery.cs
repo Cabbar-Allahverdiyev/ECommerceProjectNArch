@@ -50,7 +50,8 @@ public class GetListByDynamicCityQuery : IRequest<GetListResponse<GetListByDynam
                 request.DynamicQuery,
                 include: c => c.Include(c => c.Companies).Include(c => c.Country),
                 index: request.PageRequest.PageIndex,
-                size: request.PageRequest.PageSize
+                size: request.PageRequest.PageSize,
+                cancellationToken:cancellationToken
                 );
 
             GetListResponse<GetListByDynamicCityItemDto>? response = _mapper.Map<GetListResponse<GetListByDynamicCityItemDto>>(cities);
