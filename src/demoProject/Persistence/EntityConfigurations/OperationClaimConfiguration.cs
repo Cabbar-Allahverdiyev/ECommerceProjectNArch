@@ -49,6 +49,8 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
        seeds.Add(new OperationClaim { Id = ++id, Name = "Companies.Delete" });
        seeds.Add(new OperationClaim { Id = ++id, Name = "Companies.GetByNameCompany" });
 
+       seeds.Add(new OperationClaim { Id = ++id, Name = "Companies.GetListByDynamicCompany" });
+
        
        #endregion
        

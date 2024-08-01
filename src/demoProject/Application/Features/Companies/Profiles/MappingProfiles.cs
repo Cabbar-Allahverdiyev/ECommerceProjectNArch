@@ -9,6 +9,7 @@ using Domain.Entities;
 using Core.Persistence.Paging;
 using Application.Features.Companies.Dtos;
 using Application.Features.Companies.Queries.GetByName;
+using Application.Features.Companies.Queries.GetListByDynamicCompany;
 
 namespace Application.Features.Companies.Profiles;
 
@@ -40,5 +41,11 @@ public class MappingProfiles : Profile
             .ForMember(dest => dest.Suppliers, opt => opt.MapFrom(src => src.Suppliers))
             .ReverseMap();
         CreateMap<IPaginate<Company>, GetListResponse<GetListCompanyListItemDto>>().ReverseMap();
+
+        CreateMap<Company, GetListByDynamicCompanyItemDto>()
+            .ForMember(dest => dest.City, opt => opt.MapFrom(src => src.City))
+            .ForMember(dest => dest.Suppliers, opt => opt.MapFrom(src => src.Suppliers))
+            .ReverseMap();
+        CreateMap<IPaginate<Company>, GetListResponse<GetListByDynamicCompanyItemDto>>().ReverseMap();
     }
 }

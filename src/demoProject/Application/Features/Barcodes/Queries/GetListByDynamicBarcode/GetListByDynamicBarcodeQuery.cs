@@ -19,7 +19,7 @@ namespace Application.Features.Barcodes.Queries.GetListByDynamicBarcode;
 public class GetListByDynamicBarcodeQuery : IRequest<GetListResponse<GetListByDynamicBarcodeItemDto>>, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest
 {
     public PageRequest PageRequest { get; set; }
-    public DynamicQuery? DynamicQuery { get; set; }
+    public DynamicQuery DynamicQuery { get; set; }
 
     public string[] Roles => new[] { Admin, Read, BarcodesOperationClaims.GetListByDynamicBarcode };
 
