@@ -9,6 +9,7 @@ using Domain.Entities;
 using Core.Persistence.Paging;
 using Application.Features.Discounts.Queries.GetByName;
 using Application.Features.Discounts.Dtos;
+using Application.Features.Discounts.Queries.GetListByDynamicDiscount;
 
 namespace Application.Features.Discounts.Profiles;
 
@@ -29,5 +30,8 @@ public class MappingProfiles : Profile
         CreateMap<Discount, GetByNameDiscountResponse>().ForMember(dest => dest.Products, act => act.MapFrom(src => src.Products)).ReverseMap();
         CreateMap<Discount, GetListDiscountListItemDto>().ForMember(dest => dest.Products, act => act.MapFrom(src => src.Products)).ReverseMap();
         CreateMap<IPaginate<Discount>, GetListResponse<GetListDiscountListItemDto>>().ReverseMap();
+        
+        CreateMap<Discount, GetListByDynamicDiscountItemDto>().ForMember(dest => dest.Products, act => act.MapFrom(src => src.Products)).ReverseMap();
+        CreateMap<IPaginate<Discount>, GetListResponse<GetListByDynamicDiscountItemDto>>().ReverseMap();
     }
 }

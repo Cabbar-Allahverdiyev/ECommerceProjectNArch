@@ -1,9 +1,8 @@
-using Application.Features.Discounts.Dtos;
+﻿using Application.Features.Discounts.Dtos;
 using Core.Application.Dtos;
 
-namespace Application.Features.Discounts.Queries.GetList;
-
-public class GetListDiscountListItemDto : IDto
+namespace Application.Features.Discounts.Queries.GetListByDynamicDiscount;
+public class GetListByDynamicDiscountItemDto:IDto
 {
     public Guid Id { get; set; }
     public decimal DiscountPercent { get; set; }

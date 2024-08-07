@@ -103,6 +103,8 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
        seeds.Add(new OperationClaim { Id = ++id, Name = "Discounts.Add" });
        seeds.Add(new OperationClaim { Id = ++id, Name = "Discounts.Update" });
        seeds.Add(new OperationClaim { Id = ++id, Name = "Discounts.Delete" });
+       seeds.Add(new OperationClaim { Id = ++id, Name = "Discounts.GetListByDynamicDiscount" });
+
        
        #endregion
        

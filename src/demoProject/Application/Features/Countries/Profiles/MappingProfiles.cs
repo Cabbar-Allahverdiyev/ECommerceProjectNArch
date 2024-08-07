@@ -32,6 +32,6 @@ public class MappingProfiles : Profile
         CreateMap<IPaginate<Country>, GetListResponse<GetListCountryListItemDto>>().ReverseMap();
 
         CreateMap<Country, GetListByDynamicCountryItemDto>().ForMember(dest => dest.Cities, act => act.MapFrom(c => c.Cities)).ReverseMap();
-        CreateMap<IPaginate<Country>, GetListResponse<GetListCountryListItemDto>>().ReverseMap();
+        CreateMap<IPaginate<Country>, GetListResponse<GetListByDynamicCountryItemDto>>().ReverseMap();
     }
 }

@@ -10,4 +10,5 @@ public static class DiscountsOperationClaims
     public const string Create = "Discounts.Create";
     public const string Update = "Discounts.Update";
     public const string Delete = "Discounts.Delete";
+    public const string GetListByDynamicDiscount = "Discounts.GetListByDynamicDiscount";
 }
