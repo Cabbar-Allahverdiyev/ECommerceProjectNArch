@@ -157,6 +157,8 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
        seeds.Add(new OperationClaim { Id = ++id, Name = "ProductInventors.Delete" });
        seeds.Add(new OperationClaim { Id = ++id, Name = "ProductInventors.GetByNameProductInventor" });
 
+       seeds.Add(new OperationClaim { Id = ++id, Name = "ProductInventors.GetListByDynamicProductInventor" });
+
        
        #endregion
        

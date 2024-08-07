@@ -6,6 +6,7 @@ using Domain.Entities;
 using Core.Application.Pipelines.Authorization;
 using MediatR;
 using static Application.Features.ProductColors.Constants.ProductColorsOperationClaims;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features.ProductColors.Queries.GetById;
 
@@ -30,7 +31,10 @@ public class GetByIdProductColorQuery : IRequest<GetByIdProductColorResponse>, I
 
         public async Task<GetByIdProductColorResponse> Handle(GetByIdProductColorQuery request, CancellationToken cancellationToken)
         {
-            ProductColor? productColor = await _productColorRepository.GetAsync(predicate: pc => pc.Id == request.Id, cancellationToken: cancellationToken);
+            ProductColor? productColor = await _productColorRepository.GetAsync(predicate: pc => pc.Id == request.Id,
+                                                                                include: c => c.Include(c => c.Products),
+                                                                                enableTracking: false,
+                                                                                cancellationToken: cancellationToken);
             await _productColorBusinessRules.ProductColorShouldExistWhenSelected(productColor);
 
             GetByIdProductColorResponse response = _mapper.Map<GetByIdProductColorResponse>(productColor);

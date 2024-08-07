@@ -50,6 +50,7 @@ public class GetListByDynamicProductCategoryQuery : IRequest<GetListResponse<Get
                 index: request.PageRequest.PageIndex,
                 size: request.PageRequest.PageSize,
                 include: c => c.Include(c => c.Products).Include(c => c.Parent),
+                enableTracking:false,
                 cancellationToken: cancellationToken
             );
             GetListResponse<GetListByDynamicProductCategoryItemDto> response = _mapper.Map<GetListResponse<GetListByDynamicProductCategoryItemDto>>(null);

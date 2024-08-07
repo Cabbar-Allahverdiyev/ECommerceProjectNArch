@@ -11,4 +11,5 @@ public static class ProductInventorsOperationClaims
     public const string Update = "ProductInventors.Update";
     public const string Delete = "ProductInventors.Delete";
     public const string GetByNameProductInventor = "ProductInventors.GetByNameProductInventor";
+    public const string GetListByDynamicProductInventor = "ProductInventors.GetListByDynamicProductInventor";
 }

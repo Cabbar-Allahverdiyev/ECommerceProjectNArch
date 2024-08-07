@@ -7,7 +7,7 @@ using Core.Application.Requests;
 using Core.Application.Responses;
 using Microsoft.AspNetCore.Mvc;
 using Application.Features.ProductColors.Queries.GetListByDynamicProductColor;
-using Application.Features.ProductColors.Queries.GetByNameProductColor;
+using Application.Features.ProductColors.Queries.GetByName;
 
 namespace WebAPI.Controllers;
 

@@ -8,6 +8,7 @@ using Core.Application.Responses;
 using Domain.Entities;
 using Core.Persistence.Paging;
 using Application.Features.ProductInventors.Dtos;
+using Application.Features.ProductInventors.Queries.GetListByDynamicProductInventor;
 
 namespace Application.Features.ProductInventors.Profiles;
 
@@ -29,5 +30,9 @@ public class MappingProfiles : Profile
         CreateMap<ProductInventor, GetListProductInventorListItemDto>()
             .ForMember(dest => dest.Product, act => act.MapFrom(i => i.Product)).ReverseMap();
         CreateMap<IPaginate<ProductInventor>, GetListResponse<GetListProductInventorListItemDto>>().ReverseMap();
+
+        CreateMap<ProductInventor, GetListByDynamicProductInventorItemDto>()
+            .ForMember(dest => dest.Product, act => act.MapFrom(i => i.Product)).ReverseMap();
+        CreateMap<IPaginate<ProductInventor>, GetListResponse<GetListByDynamicProductInventorItemDto>>().ReverseMap();
     }
 }

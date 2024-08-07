@@ -6,6 +6,7 @@ using Application.Features.ProductInventors.Queries.GetList;
 using Core.Application.Requests;
 using Core.Application.Responses;
 using Microsoft.AspNetCore.Mvc;
+using Application.Features.ProductInventors.Queries.GetListByDynamicProductInventor;
 
 namespace WebAPI.Controllers;
 
@@ -53,4 +54,11 @@ public class ProductInventorsController : BaseController
     }
     
    
+   
+   [HttpGet("GetListByDynamicProductInventor")]
+   public async Task<IActionResult> GetListByDynamicProductInventor([FromQuery] GetListByDynamicProductInventorQuery getListByDynamicProductInventorQuery)
+   {
+       GetListByDynamicProductInventorResponse response = await Mediator.Send(getListByDynamicProductInventorQuery);
+       return Ok(response);
+   }
 }
