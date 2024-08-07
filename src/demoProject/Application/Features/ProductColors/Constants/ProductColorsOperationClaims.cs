@@ -10,6 +10,4 @@ public static class ProductColorsOperationClaims
     public const string Create = "ProductColors.Create";
     public const string Update = "ProductColors.Update";
     public const string Delete = "ProductColors.Delete";
-    public const string GetListByDynamicProductColor = "ProductColors.GetListByDynamicProductColor";
-    public const string GetByNameProductColor = "ProductColors.GetByNameProductColor";
 }

@@ -41,7 +41,7 @@ public class UpdateProductInventorTests: ProductInventorMockRepository
     public async Task UpdateShouldSuccessfully()
     {
         Guid id = Guid.NewGuid();
-        //await MockRepository.Object.AddAsync(new(id, 10));
+        await MockRepository.Object.AddAsync(new(id, 10));
 
         _command.Id = id;
         _command.Quantity = 5;

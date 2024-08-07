@@ -205,12 +205,6 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
        seeds.Add(new OperationClaim { Id = ++id, Name = "ProductColors.Add" });
        seeds.Add(new OperationClaim { Id = ++id, Name = "ProductColors.Update" });
        seeds.Add(new OperationClaim { Id = ++id, Name = "ProductColors.Delete" });
-       seeds.Add(new OperationClaim { Id = ++id, Name = "ProductColors.GetListByDynamicProductColor" });
-
-       seeds.Add(new OperationClaim { Id = ++id, Name = "ProductColors.GetListByDynamicProductColor" });
-
-       seeds.Add(new OperationClaim { Id = ++id, Name = "ProductColors.GetByNameProductColor" });
-
        
        #endregion
        

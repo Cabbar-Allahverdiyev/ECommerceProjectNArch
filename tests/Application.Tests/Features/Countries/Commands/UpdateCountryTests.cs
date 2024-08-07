@@ -56,7 +56,7 @@ public class UpdateCountryTests:CountryMockRepository
     [Fact]
     public async Task UpdateShouldSuccessfully()
     {
-        var createdCity = await MockRepository.Object.AddAsync(new(System.Guid.NewGuid(), "Italy","333"));
+        var createdCity = await MockRepository.Object.AddAsync(new(System.Guid.NewGuid(), "Italy"));
 
         _command.Id = createdCity.Id;
         _command.Name = "Ispany";
