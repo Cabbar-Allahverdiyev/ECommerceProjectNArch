@@ -11,4 +11,5 @@ public static class CountriesOperationClaims
     public const string Update = "Countries.Update";
     public const string Delete = "Countries.Delete";
     public const string GetByNameCountry = "Countries.GetByNameCountry";
+    public const string GetListByDynamicCountry = "Countries.GetListByDynamicCountry";
 }

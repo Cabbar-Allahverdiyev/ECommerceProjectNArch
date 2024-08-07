@@ -9,6 +9,7 @@ using Domain.Entities;
 using Core.Persistence.Paging;
 using Application.Features.Countries.Dtos;
 using Application.Features.Countries.Queries.GetByName;
+using Application.Features.Countries.Queries.GetListByDynamicCountry;
 
 namespace Application.Features.Countries.Profiles;
 
@@ -28,6 +29,9 @@ public class MappingProfiles : Profile
         CreateMap<Country, GetByIdCountryResponse>().ForMember(dest=>dest.Cities,act=>act.MapFrom(c=>c.Cities)).ReverseMap();
         CreateMap<Country, GetByNameCountryResponse>().ForMember(dest=>dest.Cities,act=>act.MapFrom(c=>c.Cities)).ReverseMap();
         CreateMap<Country, GetListCountryListItemDto>().ForMember(dest => dest.Cities, act => act.MapFrom(c => c.Cities)).ReverseMap();
+        CreateMap<IPaginate<Country>, GetListResponse<GetListCountryListItemDto>>().ReverseMap();
+
+        CreateMap<Country, GetListByDynamicCountryItemDto>().ForMember(dest => dest.Cities, act => act.MapFrom(c => c.Cities)).ReverseMap();
         CreateMap<IPaginate<Country>, GetListResponse<GetListCountryListItemDto>>().ReverseMap();
     }
 }

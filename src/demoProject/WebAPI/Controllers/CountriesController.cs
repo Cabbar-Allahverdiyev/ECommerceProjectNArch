@@ -7,6 +7,7 @@ using Core.Application.Requests;
 using Core.Application.Responses;
 using Microsoft.AspNetCore.Mvc;
 using Application.Features.Countries.Queries.GetByName;
+using Application.Features.Countries.Queries.GetListByDynamicCountry;
 
 namespace WebAPI.Controllers;
 
@@ -57,6 +58,13 @@ public class CountriesController : BaseController
     public async Task<IActionResult> GetByNameCountry([FromQuery] GetByNameCountryQuery getByNameCountryQuery)
     {
         GetByNameCountryResponse response = await Mediator.Send(getByNameCountryQuery);
+        return Ok(response);
+    }
+    
+    [HttpGet("GetListByDynamicCountry")]
+    public async Task<IActionResult> GetListByDynamicCountry([FromQuery] GetListByDynamicCountryQuery getListByDynamicCountryQuery)
+    {
+        GetListByDynamicCountryResponse response = await Mediator.Send(getListByDynamicCountryQuery);
         return Ok(response);
     }
 }

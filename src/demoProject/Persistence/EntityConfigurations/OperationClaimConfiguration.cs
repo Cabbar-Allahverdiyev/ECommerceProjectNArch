@@ -87,6 +87,8 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
        seeds.Add(new OperationClaim { Id = ++id, Name = "Countries.Delete" });
        seeds.Add(new OperationClaim { Id = ++id, Name = "Countries.GetByNameCountry" });
 
+       seeds.Add(new OperationClaim { Id = ++id, Name = "Countries.GetListByDynamicCountry" });
+
        
        #endregion
        
