@@ -8,6 +8,8 @@ using Core.Application.Responses;
 using Domain.Entities;
 using Core.Persistence.Paging;
 using Application.Features.ProductColors.Dtos;
+using Application.Features.ProductColors.Queries.GetListByDynamicProductColor;
+using Application.Features.ProductColors.Queries.GetByNameProductColor;
 
 namespace Application.Features.ProductColors.Profiles;
 
@@ -25,8 +27,13 @@ public class MappingProfiles : Profile
         CreateMap<Product, GetProductsInProductColorDto>().ReverseMap();
 
         CreateMap<ProductColor, GetByIdProductColorResponse>().ReverseMap().ForMember(dest => dest.Products, opt => opt.MapFrom(src => src.Products)).ReverseMap();
-       // CreateMap<ProductColor,LIST<> GetByNameProductColorResponse>().ReverseMap().ForMember(dest => dest.Products, opt => opt.MapFrom(src => src.Products)).ReverseMap();
+       // CreateMap<ProductColor, GetByNameProductColorResponse>().ReverseMap().ForMember(dest => dest.Products, opt => opt.MapFrom(src => src.Products)).ReverseMap();
+
         CreateMap<ProductColor, GetListProductColorListItemDto>().ReverseMap().ForMember(dest => dest.Products, opt => opt.MapFrom(src => src.Products)).ReverseMap();
         CreateMap<IPaginate<ProductColor>, GetListResponse<GetListProductColorListItemDto>>().ReverseMap();
+
+        CreateMap<ProductColor, GetListByDynamicProductColorItemDto>().ReverseMap()
+            .ForMember(dest => dest.Products, opt => opt.MapFrom(src => src.Products)).ReverseMap();
+        CreateMap<IPaginate<ProductColor>, GetListResponse<GetListResponse<GetListByDynamicProductColorItemDto>>>().ReverseMap();
     }
 }
