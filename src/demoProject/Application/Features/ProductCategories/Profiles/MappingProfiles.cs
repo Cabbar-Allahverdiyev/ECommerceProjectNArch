@@ -9,6 +9,7 @@ using Domain.Entities;
 using Core.Persistence.Paging;
 using Application.Features.ProductCategories.Queries.GetByName;
 using Application.Features.ProductCategories.Dtos;
+using Application.Features.ProductCategories.Queries.GetListByDynamicProductCategory;
 
 namespace Application.Features.ProductCategories.Profiles;
 
@@ -37,7 +38,13 @@ public class MappingProfiles : Profile
         CreateMap<ProductCategory, GetListProductCategoryListItemDto>()
             .ForMember(dest => dest.Parent, act => act.MapFrom(src => src.Parent))
             .ForMember(dest => dest.Products, act => act.MapFrom(src => src.Products))
-            .ReverseMap();
+            .ReverseMap(); 
         CreateMap<IPaginate<ProductCategory>, GetListResponse<GetListProductCategoryListItemDto>>().ReverseMap();
+
+        CreateMap<ProductCategory, GetListByDynamicProductCategoryItemDto>()
+            .ForMember(dest => dest.Parent, act => act.MapFrom(src => src.Parent))
+            .ForMember(dest => dest.Products, act => act.MapFrom(src => src.Products))
+            .ReverseMap();
+        CreateMap<IPaginate<ProductCategory>, GetListResponse<GetListByDynamicProductCategoryItemDto>>().ReverseMap();
     }
 }
