@@ -11,4 +11,5 @@ public static class ProductBrandsOperationClaims
     public const string Update = "ProductBrands.Update";
     public const string Delete = "ProductBrands.Delete";
     public const string GetByName = "ProductBrands.GetByName";
+    public const string GetListByDynamicProductBrand = "ProductBrands.GetListByDynamicProductBrand";
 }

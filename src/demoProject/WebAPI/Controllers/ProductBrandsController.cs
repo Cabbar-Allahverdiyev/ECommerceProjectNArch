@@ -7,6 +7,7 @@ using Core.Application.Requests;
 using Core.Application.Responses;
 using Microsoft.AspNetCore.Mvc;
 using Application.Features.ProductBrands.Queries.GetByName;
+using Application.Features.ProductBrands.Queries.GetListByDynamicProductBrand;
 
 namespace WebAPI.Controllers;
 
@@ -57,6 +58,13 @@ public class ProductBrandsController : BaseController
     public async Task<IActionResult> GetByName([FromQuery] GetByNameProductBrandQuery getByNameQuery)
     {
         GetByNameProductBrandResponse response = await Mediator.Send(getByNameQuery);
+        return Ok(response);
+    }
+    
+    [HttpGet("GetListByDynamicProductBrand")]
+    public async Task<IActionResult> GetListByDynamicProductBrand([FromQuery] GetListByDynamicProductBrandQuery getListByDynamicProductBrandQuery)
+    {
+        GetListByDynamicProductBrandResponse response = await Mediator.Send(getListByDynamicProductBrandQuery);
         return Ok(response);
     }
 }

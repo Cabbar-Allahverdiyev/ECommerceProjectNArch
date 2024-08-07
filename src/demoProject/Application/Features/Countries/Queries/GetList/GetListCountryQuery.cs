@@ -9,6 +9,7 @@ using Core.Application.Responses;
 using Core.Persistence.Paging;
 using MediatR;
 using static Application.Features.Countries.Constants.CountriesOperationClaims;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features.Countries.Queries.GetList;
 
@@ -39,6 +40,7 @@ public class GetListCountryQuery : IRequest<GetListResponse<GetListCountryListIt
             IPaginate<Country> countries = await _countryRepository.GetListAsync(
                 index: request.PageRequest.PageIndex,
                 size: request.PageRequest.PageSize, 
+                include: c=>c.Include(c=>c.Cities),
                 cancellationToken: cancellationToken,
                 enableTracking:false
             );

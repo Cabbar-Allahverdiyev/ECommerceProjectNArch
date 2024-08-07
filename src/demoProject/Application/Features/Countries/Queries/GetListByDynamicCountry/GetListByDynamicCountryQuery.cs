@@ -11,6 +11,7 @@ using Core.Persistence.Dynamic;
 using Core.Persistence.Paging;
 using Domain.Entities;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using static Application.Features.Countries.Constants.CountriesOperationClaims;
 
 namespace Application.Features.Countries.Queries.GetListByDynamicCountry;
@@ -48,6 +49,7 @@ public class GetListByDynamicCountryQuery : IRequest<GetListResponse<GetListByDy
                            dynamic: request.DynamicQuery,
                            index: request.PageRequest.PageIndex,
                            size: request.PageRequest.PageSize,
+                           include: c=>c.Include(c=>c.Cities),
                            cancellationToken: cancellationToken,
                            enableTracking: false
                        );

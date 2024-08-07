@@ -28,5 +28,8 @@ public class MappingProfiles : Profile
         CreateMap<ProductBrand, GetByNameProductBrandResponse>().ForMember(dest=>dest.Products,opt=>opt.MapFrom(src=>src.Products)).ReverseMap();
         CreateMap<ProductBrand, GetListProductBrandListItemDto>().ForMember(dest => dest.Products, opt => opt.MapFrom(src => src.Products)).ReverseMap();
         CreateMap<IPaginate<ProductBrand>, GetListResponse<GetListProductBrandListItemDto>>().ReverseMap();
+
+        CreateMap<ProductBrand, GetListProductBrandListItemDto>().ForMember(dest => dest.Products, opt => opt.MapFrom(src => src.Products)).ReverseMap();
+        CreateMap<IPaginate<ProductBrand>, GetListResponse<GetListProductBrandListItemDto>>().ReverseMap();
     }
 }
