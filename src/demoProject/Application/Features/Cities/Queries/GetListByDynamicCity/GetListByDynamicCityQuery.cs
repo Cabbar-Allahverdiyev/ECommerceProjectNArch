@@ -51,6 +51,7 @@ public class GetListByDynamicCityQuery : IRequest<GetListResponse<GetListByDynam
                 include: c => c.Include(c => c.Companies).Include(c => c.Country),
                 index: request.PageRequest.PageIndex,
                 size: request.PageRequest.PageSize,
+                enableTracking:true,
                 cancellationToken:cancellationToken
                 );
 

@@ -40,9 +40,9 @@ public class GetListCityQuery : IRequest<GetListResponse<GetListCityListItemDto>
             IPaginate<City> cities = await _cityRepository.GetListAsync(
                 index: request.PageRequest.PageIndex,
                 size: request.PageRequest.PageSize,
-                 include: c => c.Include(c => c.Companies).Include(c => c.Country),
+                include: c => c.Include(c => c.Companies).Include(c => c.Country),
+                enableTracking: false,
                 cancellationToken: cancellationToken
-                //enableTracking:false
             );
 
             GetListResponse<GetListCityListItemDto> response = _mapper.Map<GetListResponse<GetListCityListItemDto>>(cities);

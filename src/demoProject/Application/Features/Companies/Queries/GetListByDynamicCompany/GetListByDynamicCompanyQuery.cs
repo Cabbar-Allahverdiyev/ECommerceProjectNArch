@@ -49,6 +49,7 @@ public class GetListByDynamicCompanyQuery : IRequest<GetListResponse<GetListByDy
                  index: request.PageRequest.PageIndex,
                 size: request.PageRequest.PageSize,
                 include: c => c.Include(c => c.City).Include(c => c.Suppliers),
+                enableTracking :true,
                 cancellationToken: cancellationToken
                 );
 
