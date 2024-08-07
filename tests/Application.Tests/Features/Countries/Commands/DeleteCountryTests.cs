@@ -25,7 +25,7 @@ public class DeleteCountryTests:CountryMockRepository
     [Fact]
     public async void DeleteShouldSuccessfuly()
     {
-        Country createdCountry = await MockRepository.Object.AddAsync(new (Guid.NewGuid(),"Germany"));
+        Country createdCountry = await MockRepository.Object.AddAsync(new (Guid.NewGuid(),"Germany","444"));
 
         _command.Id = createdCountry.Id;
         DeletedCountryResponse result = await _handler.Handle(_command, CancellationToken.None);

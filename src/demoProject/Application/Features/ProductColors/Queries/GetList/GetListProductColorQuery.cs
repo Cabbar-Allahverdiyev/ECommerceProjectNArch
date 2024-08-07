@@ -9,6 +9,7 @@ using Core.Application.Responses;
 using Core.Persistence.Paging;
 using MediatR;
 using static Application.Features.ProductColors.Constants.ProductColorsOperationClaims;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features.ProductColors.Queries.GetList;
 
@@ -39,6 +40,8 @@ public class GetListProductColorQuery : IRequest<GetListResponse<GetListProductC
             IPaginate<ProductColor> productColors = await _productColorRepository.GetListAsync(
                 index: request.PageRequest.PageIndex,
                 size: request.PageRequest.PageSize, 
+                include:c=>c.Include(c=>c.Products),
+                enableTracking:false,
                 cancellationToken: cancellationToken
             );
 

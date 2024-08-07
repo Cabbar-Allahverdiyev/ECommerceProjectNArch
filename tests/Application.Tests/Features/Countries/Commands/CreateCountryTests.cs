@@ -63,7 +63,7 @@ public class CreateCountryTests:CountryMockRepository
     public async void DuplicatedCountryNameShouldReturnError()
     {
         _command.Name = "Iran";
-        Country createdCountry = await MockRepository.Object.AddAsync(new(Guid.NewGuid(),_command.Name));
+        Country createdCountry = await MockRepository.Object.AddAsync(new(Guid.NewGuid(),_command.Name,"555"));
 
         await Assert.ThrowsAsync<BusinessException>(async () => await _handler.Handle(_command,CancellationToken.None));
     }

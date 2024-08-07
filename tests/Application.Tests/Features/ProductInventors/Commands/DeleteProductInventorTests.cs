@@ -27,7 +27,7 @@ public class DeleteProductInventorTests: ProductInventorMockRepository
     public async Task DeleteShouldSuccessfully()
     {
         Guid id = Guid.NewGuid();
-        await MockRepository.Object.AddAsync(new(id, 10));
+        //await MockRepository.Object.AddAsync(new(id, 10));
 
         _command.Id = id;
 

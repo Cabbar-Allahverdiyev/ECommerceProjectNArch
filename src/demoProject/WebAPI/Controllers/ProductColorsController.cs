@@ -6,6 +6,8 @@ using Application.Features.ProductColors.Queries.GetList;
 using Core.Application.Requests;
 using Core.Application.Responses;
 using Microsoft.AspNetCore.Mvc;
+using Application.Features.ProductColors.Queries.GetListByDynamicProductColor;
+using Application.Features.ProductColors.Queries.GetByNameProductColor;
 
 namespace WebAPI.Controllers;
 
@@ -49,6 +51,27 @@ public class ProductColorsController : BaseController
     {
         GetListProductColorQuery getListProductColorQuery = new() { PageRequest = pageRequest };
         GetListResponse<GetListProductColorListItemDto> response = await Mediator.Send(getListProductColorQuery);
+        return Ok(response);
+    }
+    
+    [HttpGet("GetListByDynamicProductColor")]
+    public async Task<IActionResult> GetListByDynamicProductColor([FromQuery] GetListByDynamicProductColorQuery getListByDynamicProductColorQuery)
+    {
+        GetListByDynamicProductColorResponse response = await Mediator.Send(getListByDynamicProductColorQuery);
+        return Ok(response);
+    }
+    
+    [HttpGet("GetListByDynamicProductColor")]
+    public async Task<IActionResult> GetListByDynamicProductColor([FromQuery] GetListByDynamicProductColorQuery getListByDynamicProductColorQuery)
+    {
+        GetListByDynamicProductColorResponse response = await Mediator.Send(getListByDynamicProductColorQuery);
+        return Ok(response);
+    }
+    
+    [HttpGet("GetByNameProductColor")]
+    public async Task<IActionResult> GetByNameProductColor([FromQuery] GetByNameProductColorQuery getByNameProductColorQuery)
+    {
+        GetByNameProductColorResponse response = await Mediator.Send(getByNameProductColorQuery);
         return Ok(response);
     }
 }
