@@ -8,6 +8,7 @@ public class GetByIdProductResponse : IResponse
     public Guid Id { get; set; }
     public GetCategoryInProductQueryDto? Category { get; set; }
     public GetBrandInProductQueryDto? Brand { get; set; }
+    public GetColorInProductQueryDto? Color { get; set; }
     public GetSupplierInProductQueryDto? Supplier { get; set; }
     public GetDiscountInProductQueryDto? Discount { get; set; }
     public GetInventorInProductQueryDto? Inventor { get; set; }

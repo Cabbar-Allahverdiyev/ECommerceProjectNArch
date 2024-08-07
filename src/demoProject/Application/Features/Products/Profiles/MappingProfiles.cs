@@ -37,6 +37,7 @@ public class MappingProfiles : Profile
         CreateMap<Product, GetByIdProductResponse>().ForMember(dest=>dest.Inventor,act=>act.MapFrom(src=>src.Inventor)).ReverseMap();
         CreateMap<Product, GetByIdProductResponse>().ForMember(dest=>dest.Supplier,act=>act.MapFrom(src=>src.Supplier)).ReverseMap();
         CreateMap<Product, GetByIdProductResponse>().ForMember(dest=>dest.Barcode,act=>act.MapFrom(src=>src.Barcode)).ReverseMap();
+        CreateMap<Product, GetByIdProductResponse>().ForMember(dest=>dest.Color,act=>act.MapFrom(src=>src.ProductColor)).ReverseMap();
 
         CreateMap<Product, GetByNameProductResponse>().ReverseMap();
         CreateMap<Product, GetByNameProductResponse>().ForMember(dest => dest.Brand, act => act.MapFrom(src => src.Brand)).ReverseMap();
@@ -45,6 +46,7 @@ public class MappingProfiles : Profile
         CreateMap<Product, GetByNameProductResponse>().ForMember(dest => dest.Inventor, act => act.MapFrom(src => src.Inventor)).ReverseMap();
         CreateMap<Product, GetByNameProductResponse>().ForMember(dest => dest.Supplier, act => act.MapFrom(src => src.Supplier)).ReverseMap();
         CreateMap<Product, GetByNameProductResponse>().ForMember(dest => dest.Barcode, act => act.MapFrom(src => src.Barcode)).ReverseMap();
+        CreateMap<Product, GetByNameProductResponse>().ForMember(dest => dest.Color, act => act.MapFrom(src => src.ProductColor)).ReverseMap();
 
         CreateMap<Product, GetListProductListItemDto>().ReverseMap();
         CreateMap<Product, GetListProductListItemDto>().ForMember(dest => dest.Brand, act => act.MapFrom(src => src.Brand)).ReverseMap();
@@ -53,6 +55,7 @@ public class MappingProfiles : Profile
         CreateMap<Product, GetListProductListItemDto>().ForMember(dest => dest.Inventor, act => act.MapFrom(src => src.Inventor)).ReverseMap();
         CreateMap<Product, GetListProductListItemDto>().ForMember(dest => dest.Supplier, act => act.MapFrom(src => src.Supplier)).ReverseMap();
         CreateMap<Product, GetListProductListItemDto>().ForMember(dest => dest.Barcode, act => act.MapFrom(src => src.Barcode)).ReverseMap();
+        CreateMap<Product, GetListProductListItemDto>().ForMember(dest => dest.Color, act => act.MapFrom(src => src.ProductColor)).ReverseMap();
         CreateMap<IPaginate<Product>, GetListResponse<GetListProductListItemDto>>().ReverseMap();
     }
 }
