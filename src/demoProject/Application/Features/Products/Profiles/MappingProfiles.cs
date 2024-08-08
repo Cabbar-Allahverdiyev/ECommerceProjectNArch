@@ -9,6 +9,7 @@ using Domain.Entities;
 using Core.Persistence.Paging;
 using Application.Features.Products.Queries.GetByName;
 using Application.Features.Products.Dtos;
+using Application.Features.Products.Queries.GetListByDynamicProduct;
 
 namespace Application.Features.Products.Profiles;
 
@@ -57,5 +58,15 @@ public class MappingProfiles : Profile
         CreateMap<Product, GetListProductListItemDto>().ForMember(dest => dest.Barcode, act => act.MapFrom(src => src.Barcode)).ReverseMap();
         CreateMap<Product, GetListProductListItemDto>().ForMember(dest => dest.Color, act => act.MapFrom(src => src.ProductColor)).ReverseMap();
         CreateMap<IPaginate<Product>, GetListResponse<GetListProductListItemDto>>().ReverseMap();
+
+        CreateMap<Product, GetListByDynamicProductItemDto>().ReverseMap();
+        CreateMap<Product, GetListByDynamicProductItemDto>().ForMember(dest => dest.Brand, act => act.MapFrom(src => src.Brand)).ReverseMap();
+        CreateMap<Product, GetListByDynamicProductItemDto>().ForMember(dest => dest.Category, act => act.MapFrom(src => src.Category)).ReverseMap();
+        CreateMap<Product, GetListByDynamicProductItemDto>().ForMember(dest => dest.Discount, act => act.MapFrom(src => src.Discount)).ReverseMap();
+        CreateMap<Product, GetListByDynamicProductItemDto>().ForMember(dest => dest.Inventor, act => act.MapFrom(src => src.Inventor)).ReverseMap();
+        CreateMap<Product, GetListByDynamicProductItemDto>().ForMember(dest => dest.Supplier, act => act.MapFrom(src => src.Supplier)).ReverseMap();
+        CreateMap<Product, GetListByDynamicProductItemDto>().ForMember(dest => dest.Barcode, act => act.MapFrom(src => src.Barcode)).ReverseMap();
+        CreateMap<Product, GetListByDynamicProductItemDto>().ForMember(dest => dest.Color, act => act.MapFrom(src => src.ProductColor)).ReverseMap();
+        CreateMap<IPaginate<Product>, GetListResponse<GetListByDynamicProductItemDto>>().ReverseMap();
     }
 }

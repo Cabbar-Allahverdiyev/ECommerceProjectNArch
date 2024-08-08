@@ -175,6 +175,8 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
        seeds.Add(new OperationClaim { Id = ++id, Name = "Products.Delete" });
        seeds.Add(new OperationClaim { Id = ++id, Name = "Products.GetByNameProduct" });
 
+       seeds.Add(new OperationClaim { Id = ++id, Name = "Products.GetListByDynamicProduct" });
+
        
        #endregion
        
