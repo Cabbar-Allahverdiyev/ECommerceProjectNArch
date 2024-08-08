@@ -7,6 +7,7 @@ using Core.Application.Requests;
 using Core.Application.Responses;
 using Microsoft.AspNetCore.Mvc;
 using Application.Features.Discounts.Queries.GetListByDynamicDiscount;
+using Core.Persistence.Dynamic;
 
 namespace WebAPI.Controllers;
 
@@ -54,9 +55,10 @@ public class DiscountsController : BaseController
     }
     
     [HttpGet("GetListByDynamicDiscount")]
-    public async Task<IActionResult> GetListByDynamicDiscount([FromQuery] GetListByDynamicDiscountQuery getListByDynamicDiscountQuery)
+    public async Task<IActionResult> GetListByDynamicDiscount([FromQuery] PageRequest pageRequest, [FromBody] DynamicQuery dynamicQuery)
     {
-        GetListByDynamicDiscountResponse response = await Mediator.Send(getListByDynamicDiscountQuery);
+        GetListByDynamicDiscountQuery getListByDynamicDiscountQuery = new(pageRequest, dynamicQuery);
+        var response = await Mediator.Send(getListByDynamicDiscountQuery);
         return Ok(response);
     }
 }

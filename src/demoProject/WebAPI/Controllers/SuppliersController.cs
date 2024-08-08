@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Application.Features.Suppliers.Queries.GetByUserId;
 using Application.Features.Suppliers.Queries.GetByCompanyId;
 using Application.Features.Suppliers.Queries.GetListByDynamicSupplier;
+using Core.Persistence.Dynamic;
 
 namespace WebAPI.Controllers;
 
@@ -70,9 +71,10 @@ public class SuppliersController : BaseController
     }
     
     [HttpGet("GetListByDynamicSupplier")]
-    public async Task<IActionResult> GetListByDynamicSupplier([FromQuery] GetListByDynamicSupplierQuery getListByDynamicSupplierQuery)
+    public async Task<IActionResult> GetListByDynamicSupplier([FromQuery] PageRequest pageRequest, [FromBody] DynamicQuery dynamicQuery)
     {
-        GetListByDynamicSupplierResponse response = await Mediator.Send(getListByDynamicSupplierQuery);
+        GetListByDynamicSupplierQuery getListByDynamicSupplierQuery = new(pageRequest, dynamicQuery);
+        GetListResponse<GetListByDynamicSupplierItemDto> response = await Mediator.Send(getListByDynamicSupplierQuery);
         return Ok(response);
     }
 }

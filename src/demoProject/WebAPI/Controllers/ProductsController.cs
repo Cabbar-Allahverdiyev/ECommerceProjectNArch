@@ -8,6 +8,7 @@ using Core.Application.Responses;
 using Microsoft.AspNetCore.Mvc;
 using Application.Features.Products.Queries.GetByName;
 using Application.Features.Products.Queries.GetListByDynamicProduct;
+using Core.Persistence.Dynamic;
 
 namespace WebAPI.Controllers;
 
@@ -62,9 +63,10 @@ public class ProductsController : BaseController
     }
     
     [HttpGet("GetListByDynamicProduct")]
-    public async Task<IActionResult> GetListByDynamicProduct([FromQuery] GetListByDynamicProductQuery getListByDynamicProductQuery)
+    public async Task<IActionResult> GetListByDynamicProduct([FromQuery] PageRequest pageRequest, [FromBody] DynamicQuery dynamicQuery)
     {
-        GetListByDynamicProductResponse response = await Mediator.Send(getListByDynamicProductQuery);
+        GetListByDynamicProductQuery getListByDynamicProductQuery = new(pageRequest, dynamicQuery);
+        var response = await Mediator.Send(getListByDynamicProductQuery);
         return Ok(response);
     }
 }

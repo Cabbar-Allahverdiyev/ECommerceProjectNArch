@@ -8,6 +8,7 @@ using Core.Application.Responses;
 using Microsoft.AspNetCore.Mvc;
 using Application.Features.Companies.Queries.GetByName;
 using Application.Features.Companies.Queries.GetListByDynamicCompany;
+using Core.Persistence.Dynamic;
 
 namespace WebAPI.Controllers;
 
@@ -62,9 +63,10 @@ public class CompaniesController : BaseController
     }
     
     [HttpGet("GetListByDynamicCompany")]
-    public async Task<IActionResult> GetListByDynamicCompany([FromQuery] GetListByDynamicCompanyQuery getListByDynamicCompanyQuery)
+    public async Task<IActionResult> GetListByDynamicCompany([FromQuery] PageRequest pageRequest, [FromBody] DynamicQuery dynamicQuery)
     {
-        GetListByDynamicCompanyResponse response = await Mediator.Send(getListByDynamicCompanyQuery);
+        GetListByDynamicCompanyQuery getListByDynamicCompanyQuery = new(pageRequest, dynamicQuery);
+        var response = await Mediator.Send(getListByDynamicCompanyQuery);
         return Ok(response);
     }
 }

@@ -9,6 +9,7 @@ using Core.Application.Responses;
 using Microsoft.AspNetCore.Mvc;
 using Application.Features.Users.Queries.GetListByDynamicUser;
 using Application.Features.Users.Queries.GetByNameUser;
+using Core.Persistence.Dynamic;
 
 namespace WebAPI.Controllers;
 
@@ -69,9 +70,10 @@ public class UsersController : BaseController
     }
     
     [HttpGet("GetListByDynamicUser")]
-    public async Task<IActionResult> GetListByDynamicUser([FromQuery] GetListByDynamicUserQuery getListByDynamicUserQuery)
+    public async Task<IActionResult> GetListByDynamicUser([FromQuery] PageRequest pageRequest, [FromBody] DynamicQuery dynamicQuery)
     {
-        GetListByDynamicUserResponse response = await Mediator.Send(getListByDynamicUserQuery);
+        GetListByDynamicUserQuery getListByDynamicUserQuery = new(pageRequest,dynamicQuery);
+        GetListResponse<GetListByDynamicUserItemDto> response = await Mediator.Send(getListByDynamicUserQuery);
         return Ok(response);
     }
     
