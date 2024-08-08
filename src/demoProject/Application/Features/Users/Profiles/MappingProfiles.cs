@@ -3,6 +3,7 @@ using Application.Features.Users.Commands.Delete;
 using Application.Features.Users.Commands.Update;
 using Application.Features.Users.Commands.UpdateFromAuth;
 using Application.Features.Users.Queries.GetById;
+using Application.Features.Users.Queries.GetByNameUser;
 using Application.Features.Users.Queries.GetList;
 using Application.Features.Users.Queries.GetListByDynamicUser;
 using AutoMapper;
@@ -25,6 +26,8 @@ public class MappingProfiles : Profile
         CreateMap<User, DeleteUserCommand>().ReverseMap();
         CreateMap<User, DeletedUserResponse>().ReverseMap();
         CreateMap<User, GetByIdUserResponse>().ReverseMap();
+        CreateMap<User, GetByNameUserResponse>().ReverseMap();
+
         CreateMap<User, GetListUserListItemDto>().ReverseMap();
         CreateMap<IPaginate<User>, GetListResponse<GetListUserListItemDto>>().ReverseMap();
 

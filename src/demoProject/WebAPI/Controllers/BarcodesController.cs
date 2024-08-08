@@ -8,6 +8,7 @@ using Core.Application.Responses;
 using Microsoft.AspNetCore.Mvc;
 using Application.Features.Barcodes.Queries.GetByBarcodeNumber;
 using Application.Features.Barcodes.Queries.GetListByDynamicBarcode;
+using Core.Persistence.Dynamic;
 
 namespace WebAPI.Controllers;
 
@@ -62,9 +63,10 @@ public class BarcodesController : BaseController
     }
     
     [HttpGet("GetListByDynamicBarcode")]
-    public async Task<IActionResult> GetListByDynamicBarcode([FromQuery] GetListByDynamicBarcodeQuery getListByDynamicBarcodeQuery)
+    public async Task<IActionResult> GetListByDynamicBarcode([FromQuery] PageRequest pageRequest,[FromBody] DynamicQuery dynamicQuery)
     {
-        GetListByDynamicBarcodeResponse response = await Mediator.Send(getListByDynamicBarcodeQuery);
+        GetListByDynamicBarcodeQuery getListByDynamicBarcodeQuery = new GetListByDynamicBarcodeQuery(pageRequest,dynamicQuery);
+        GetListResponse<GetListByDynamicBarcodeItemDto> response = await Mediator.Send(getListByDynamicBarcodeQuery);
         return Ok(response);
     }
 }
