@@ -4,6 +4,7 @@ using Application.Features.Users.Commands.Update;
 using Application.Features.Users.Commands.UpdateFromAuth;
 using Application.Features.Users.Queries.GetById;
 using Application.Features.Users.Queries.GetList;
+using Application.Features.Users.Queries.GetListByDynamicUser;
 using AutoMapper;
 using Core.Application.Responses;
 using Core.Persistence.Paging;
@@ -26,5 +27,8 @@ public class MappingProfiles : Profile
         CreateMap<User, GetByIdUserResponse>().ReverseMap();
         CreateMap<User, GetListUserListItemDto>().ReverseMap();
         CreateMap<IPaginate<User>, GetListResponse<GetListUserListItemDto>>().ReverseMap();
+
+        CreateMap<User, GetListByDynamicUserItemDto>().ReverseMap();
+        CreateMap<IPaginate<User>, GetListResponse<GetListByDynamicUserItemDto>>().ReverseMap();
     }
 }

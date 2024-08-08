@@ -1,4 +1,4 @@
-﻿namespace Application.Features.Users.Constants;
+namespace Application.Features.Users.Constants;
 
 public static class UsersOperationClaims
 {
@@ -10,4 +10,6 @@ public static class UsersOperationClaims
     public const string Add = "users.add";
     public const string Update = "users.update";
     public const string Delete = "users.delete";
+    public const string GetListByDynamicUser = "Users.GetListByDynamicUser";
+    public const string GetByNameUser = "Users.GetByNameUser";
 }
