@@ -195,6 +195,8 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
 
        seeds.Add(new OperationClaim { Id = ++id, Name = "Suppliers.GetByCompanyIdSuppier" });
 
+       seeds.Add(new OperationClaim { Id = ++id, Name = "Suppliers.GetListByDynamicSupplier" });
+
        
        #endregion
        

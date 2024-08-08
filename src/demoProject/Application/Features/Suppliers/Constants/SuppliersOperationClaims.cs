@@ -12,4 +12,5 @@ public static class SuppliersOperationClaims
     public const string Delete = "Suppliers.Delete";
     public const string GetByUserIdSupplier = "Suppliers.GetByUserIdSupplier";
     public const string GetByCompanyIdSuppier = "Suppliers.GetByCompanyIdSuppier";
+    public const string GetListByDynamicSupplier = "Suppliers.GetListByDynamicSupplier";
 }

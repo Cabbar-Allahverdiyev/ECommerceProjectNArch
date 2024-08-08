@@ -11,6 +11,7 @@ using Core.Security.Entities;
 using Application.Features.Suppliers.Dtos;
 using Application.Features.Suppliers.Queries.GetByUserId;
 using Application.Features.Suppliers.Queries.GetByCompanyId;
+using Application.Features.Suppliers.Queries.GetListByDynamicSupplier;
 
 namespace Application.Features.Suppliers.Profiles;
 
@@ -50,5 +51,12 @@ public class MappingProfiles : Profile
             .ForMember(dest => dest.Products, act => act.MapFrom(src => src.Products)).ReverseMap();
 
         CreateMap<IPaginate<Supplier>, GetListResponse<GetListSupplierListItemDto>>().ReverseMap();
+
+        CreateMap<Supplier, GetListByDynamicSupplierItemDto>()
+           .ForMember(dest => dest.User, act => act.MapFrom(src => src.User))
+           .ForMember(dest => dest.Company, act => act.MapFrom(src => src.Company))
+           .ForMember(dest => dest.Products, act => act.MapFrom(src => src.Products)).ReverseMap();
+
+        CreateMap<IPaginate<Supplier>, GetListResponse<GetListByDynamicSupplierItemDto>>().ReverseMap();
     }
 }
