@@ -13,9 +13,18 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features.ProductBrands.Queries.GetList;
 
-public class GetListProductBrandQuery : IRequest<GetListResponse<GetListProductBrandListItemDto>>//, ISecuredRequest, ICachableRequest
+public class GetListProductBrandQuery : IRequest<GetListResponse<GetListProductBrandListItemDto>>, ISecuredRequest, ICachableRequest
 {
     public PageRequest PageRequest { get; set; }
+    public GetListProductBrandQuery()
+    {
+        PageRequest = new PageRequest { PageIndex = 0, PageSize = 10 };
+    }
+
+    public GetListProductBrandQuery(PageRequest pageRequest)
+    {
+        PageRequest = pageRequest;
+    }
 
     public string[] Roles => new[] { Admin, Read };
 

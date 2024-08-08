@@ -13,9 +13,18 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features.Cities.Queries.GetList;
 
-public class GetListCityQuery : IRequest<GetListResponse<GetListCityListItemDto>>//, ISecuredRequest, ICachableRequest
+public class GetListCityQuery : IRequest<GetListResponse<GetListCityListItemDto>>, ISecuredRequest, ICachableRequest
 {
     public PageRequest PageRequest { get; set; }
+    public GetListCityQuery()
+    {
+        PageRequest = new PageRequest { PageIndex = 0, PageSize = 10 };
+    }
+
+    public GetListCityQuery(PageRequest pageRequest)
+    {
+        PageRequest = pageRequest;
+    }
 
     public string[] Roles => new[] { Admin, Read };
 

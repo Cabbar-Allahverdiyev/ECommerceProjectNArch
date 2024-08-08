@@ -20,6 +20,17 @@ public class GetListByDynamicCompanyQuery : IRequest<GetListResponse<GetListByDy
 {
     public PageRequest  PageRequest { get; set; }
     public DynamicQuery DynamicQuery { get; set; }
+
+    public GetListByDynamicCompanyQuery()
+    {
+        PageRequest = new PageRequest { PageIndex = 0, PageSize = 10 };
+    }
+
+    public GetListByDynamicCompanyQuery(PageRequest pageRequest, DynamicQuery dynamicQuery)
+    {
+        PageRequest = pageRequest;
+        DynamicQuery = dynamicQuery;
+    }
     public string[] Roles => new[] { Admin, Read, CompaniesOperationClaims.GetListByDynamicCompany };
 
     public bool BypassCache { get; }

@@ -21,6 +21,17 @@ public class GetListByDynamicProductQuery : IRequest<GetListResponse<GetListByDy
     public PageRequest PageRequest { get; set; }
     public DynamicQuery DynamicQuery { get; set; }
 
+    public GetListByDynamicProductQuery()
+    {
+        PageRequest = new PageRequest { PageIndex = 0, PageSize = 10 };
+    }
+
+    public GetListByDynamicProductQuery(PageRequest pageRequest, DynamicQuery dynamicQuery)
+    {
+        PageRequest = pageRequest;
+        DynamicQuery = dynamicQuery;
+    }
+
     public string[] Roles => new[] { Admin, Read, ProductsOperationClaims.GetListByDynamicProduct };
 
     public bool BypassCache { get; }

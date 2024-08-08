@@ -21,6 +21,16 @@ public class GetListByDynamicBarcodeQuery : IRequest<GetListResponse<GetListByDy
     public PageRequest PageRequest { get; set; }
     public DynamicQuery DynamicQuery { get; set; }
 
+    public GetListByDynamicBarcodeQuery()
+    {
+        PageRequest = new PageRequest { PageIndex = 0, PageSize = 10 };
+    }
+
+    public GetListByDynamicBarcodeQuery(PageRequest pageRequest, DynamicQuery dynamicQuery)
+    {
+        PageRequest = pageRequest;
+        DynamicQuery = dynamicQuery;
+    }
     public string[] Roles => new[] { Admin, Read, BarcodesOperationClaims.GetListByDynamicBarcode };
 
     public bool BypassCache { get; }

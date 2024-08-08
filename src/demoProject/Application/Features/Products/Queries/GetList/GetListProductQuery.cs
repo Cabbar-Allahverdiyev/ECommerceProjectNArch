@@ -17,6 +17,16 @@ public class GetListProductQuery : IRequest<GetListResponse<GetListProductListIt
 {
     public PageRequest PageRequest { get; set; }
 
+    public GetListProductQuery()
+    {
+        PageRequest = new PageRequest { PageIndex = 0, PageSize = 10 };
+    }
+
+    public GetListProductQuery(PageRequest pageRequest)
+    {
+        PageRequest = pageRequest;
+    }
+
     public string[] Roles => new[] { Admin, Read };
 
     public bool BypassCache { get; }

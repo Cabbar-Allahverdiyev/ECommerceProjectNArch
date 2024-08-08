@@ -20,6 +20,17 @@ public class GetListByDynamicProductCategoryQuery : IRequest<GetListResponse<Get
 {
     public PageRequest PageRequest { get; set; }
     public DynamicQuery DynamicQuery { get; set; }
+
+    public GetListByDynamicProductCategoryQuery()
+    {
+        PageRequest = new PageRequest { PageIndex = 0, PageSize = 10 };
+    }
+
+    public GetListByDynamicProductCategoryQuery(PageRequest pageRequest, DynamicQuery dynamicQuery)
+    {
+        PageRequest = pageRequest;
+        DynamicQuery = dynamicQuery;
+    }
     public string[] Roles => new[] { Admin, Read, ProductCategoriesOperationClaims.GetListByDynamicProductCategory };
 
     public bool BypassCache { get; }

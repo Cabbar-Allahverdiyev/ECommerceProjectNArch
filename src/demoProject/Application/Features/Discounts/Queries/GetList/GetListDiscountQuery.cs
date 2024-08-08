@@ -13,9 +13,18 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features.Discounts.Queries.GetList;
 
-public class GetListDiscountQuery : IRequest<GetListResponse<GetListDiscountListItemDto>>//, ISecuredRequest, ICachableRequest
+public class GetListDiscountQuery : IRequest<GetListResponse<GetListDiscountListItemDto>>, ISecuredRequest, ICachableRequest
 {
     public PageRequest PageRequest { get; set; }
+    public GetListDiscountQuery()
+    {
+        PageRequest = new PageRequest { PageIndex = 0, PageSize = 10 };
+    }
+
+    public GetListDiscountQuery(PageRequest pageRequest)
+    {
+        PageRequest = pageRequest;
+    }
 
     public string[] Roles => new[] { Admin, Read };
 

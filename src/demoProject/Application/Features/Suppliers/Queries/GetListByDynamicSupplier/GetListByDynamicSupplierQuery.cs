@@ -20,6 +20,17 @@ public class GetListByDynamicSupplierQuery : IRequest<GetListResponse<GetListByD
 {
     public PageRequest PageRequest { get; set; }
     public DynamicQuery DynamicQuery { get; set; }
+
+    public GetListByDynamicSupplierQuery()
+    {
+        PageRequest = new PageRequest { PageIndex = 0, PageSize = 10 };
+    }
+
+    public GetListByDynamicSupplierQuery(PageRequest pageRequest, DynamicQuery dynamicQuery)
+    {
+        PageRequest = pageRequest;
+        DynamicQuery = dynamicQuery;
+    }
     public string[] Roles => new[] { Admin, Read, SuppliersOperationClaims.GetListByDynamicSupplier };
 
     public bool BypassCache { get; }

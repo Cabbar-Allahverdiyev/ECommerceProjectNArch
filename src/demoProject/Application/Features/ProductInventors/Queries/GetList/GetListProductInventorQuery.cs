@@ -13,9 +13,19 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features.ProductInventors.Queries.GetList;
 
-public class GetListProductInventorQuery : IRequest<GetListResponse<GetListProductInventorListItemDto>>//, ISecuredRequest, ICachableRequest
+public class GetListProductInventorQuery : IRequest<GetListResponse<GetListProductInventorListItemDto>>, ISecuredRequest, ICachableRequest
 {
     public PageRequest PageRequest { get; set; }
+
+    public GetListProductInventorQuery()
+    {
+        PageRequest = new PageRequest { PageIndex = 0, PageSize = 10 };
+    }
+
+    public GetListProductInventorQuery(PageRequest pageRequest)
+    {
+        PageRequest = pageRequest;
+    }
 
     public string[] Roles => new[] { Admin, Read };
 

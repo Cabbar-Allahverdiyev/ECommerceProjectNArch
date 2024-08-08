@@ -17,6 +17,16 @@ public class GetListBarcodeQuery : IRequest<GetListResponse<GetListBarcodeListIt
 {
     public PageRequest PageRequest { get; set; }
 
+    public GetListBarcodeQuery()
+    {
+        PageRequest = new PageRequest { PageIndex = 0, PageSize = 10 };
+    }
+
+    public GetListBarcodeQuery(PageRequest pageRequest)
+    {
+        PageRequest = pageRequest;
+    }
+
     public string[] Roles => new[] { Admin, Read };
 
     public bool BypassCache { get; }

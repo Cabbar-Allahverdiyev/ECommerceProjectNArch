@@ -19,6 +19,17 @@ public class GetListByDynamicUserQuery : IRequest<GetListResponse<GetListByDynam
 {
     public PageRequest PageRequest { get; set; }
     public DynamicQuery DynamicQuery { get; set; }
+
+    public GetListByDynamicUserQuery()
+    {
+        PageRequest = new PageRequest { PageIndex = 0, PageSize = 10 };
+    }
+
+    public GetListByDynamicUserQuery(PageRequest pageRequest, DynamicQuery dynamicQuery)
+    {
+        PageRequest = pageRequest;
+        DynamicQuery = dynamicQuery;
+    }
     public string[] Roles => new[] { Admin, Read, UsersOperationClaims.GetListByDynamicUser };
 
     public bool BypassCache { get; }

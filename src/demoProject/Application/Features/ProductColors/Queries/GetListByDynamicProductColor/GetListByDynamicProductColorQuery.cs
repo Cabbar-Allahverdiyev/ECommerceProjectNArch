@@ -20,6 +20,17 @@ public class GetListByDynamicProductColorQuery : IRequest<GetListResponse<GetLis
 {
     public PageRequest PageRequest{ get; set; }
     public DynamicQuery DynamicQuery{ get; set; }
+
+    public GetListByDynamicProductColorQuery()
+    {
+        PageRequest = new PageRequest { PageIndex = 0, PageSize = 10 };
+    }
+
+    public GetListByDynamicProductColorQuery(PageRequest pageRequest, DynamicQuery dynamicQuery)
+    {
+        PageRequest = pageRequest;
+        DynamicQuery = dynamicQuery;
+    }
     public string[] Roles => new[] { Admin, Read, ProductColorsOperationClaims.GetListByDynamicProductColor };
 
     public bool BypassCache { get; }

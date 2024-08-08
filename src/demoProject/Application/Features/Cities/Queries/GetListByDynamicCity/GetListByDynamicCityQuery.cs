@@ -16,10 +16,21 @@ using static Application.Features.Cities.Constants.CitiesOperationClaims;
 
 namespace Application.Features.Cities.Queries.GetListByDynamicCity;
 
-public class GetListByDynamicCityQuery : IRequest<GetListResponse<GetListByDynamicCityItemDto>>//, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest
+public class GetListByDynamicCityQuery : IRequest<GetListResponse<GetListByDynamicCityItemDto>>, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest
 {
     public PageRequest PageRequest { get; set; }
     public DynamicQuery DynamicQuery { get; set; }
+
+    public GetListByDynamicCityQuery()
+    {
+        PageRequest = new PageRequest { PageIndex = 0, PageSize = 10 };
+    }
+
+    public GetListByDynamicCityQuery(PageRequest pageRequest, DynamicQuery dynamicQuery)
+    {
+        PageRequest = pageRequest;
+        DynamicQuery = dynamicQuery;
+    }
 
     public string[] Roles => new[] { Admin, Read, CitiesOperationClaims.GetListByDynamicCity };
 

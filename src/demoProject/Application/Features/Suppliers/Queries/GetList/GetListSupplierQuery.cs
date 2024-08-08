@@ -13,9 +13,19 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features.Suppliers.Queries.GetList;
 
-public class GetListSupplierQuery : IRequest<GetListResponse<GetListSupplierListItemDto>>//, ISecuredRequest, ICachableRequest
+public class GetListSupplierQuery : IRequest<GetListResponse<GetListSupplierListItemDto>>, ISecuredRequest, ICachableRequest
 {
     public PageRequest PageRequest { get; set; }
+
+    public GetListSupplierQuery()
+    {
+        PageRequest = new PageRequest { PageIndex = 0, PageSize = 10 };
+    }
+
+    public GetListSupplierQuery(PageRequest pageRequest)
+    {
+        PageRequest = pageRequest;
+    }
 
     public string[] Roles => new[] { Admin, Read };
 

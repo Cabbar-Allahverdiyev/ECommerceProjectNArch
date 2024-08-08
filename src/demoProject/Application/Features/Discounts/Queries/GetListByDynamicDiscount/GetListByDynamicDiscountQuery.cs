@@ -20,6 +20,17 @@ public class GetListByDynamicDiscountQuery : IRequest<GetListResponse<GetListByD
 {
     public PageRequest PageRequest { get; set; }
     public DynamicQuery DynamicQuery { get; set; }
+
+    public GetListByDynamicDiscountQuery()
+    {
+        PageRequest = new PageRequest { PageIndex = 0, PageSize = 10 };
+    }
+
+    public GetListByDynamicDiscountQuery(PageRequest pageRequest, DynamicQuery dynamicQuery)
+    {
+        PageRequest = pageRequest;
+        DynamicQuery = dynamicQuery;
+    }
     public string[] Roles => new[] { Admin, Read, DiscountsOperationClaims.GetListByDynamicDiscount };
 
     public bool BypassCache { get; }

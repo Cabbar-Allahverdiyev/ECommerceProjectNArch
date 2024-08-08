@@ -13,10 +13,19 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features.Companies.Queries.GetList;
 
-public class GetListCompanyQuery : IRequest<GetListResponse<GetListCompanyListItemDto>>//, ISecuredRequest, ICachableRequest
+public class GetListCompanyQuery : IRequest<GetListResponse<GetListCompanyListItemDto>>, ISecuredRequest, ICachableRequest
 {
     public PageRequest PageRequest { get; set; }
 
+    public GetListCompanyQuery()
+    {
+        PageRequest = new PageRequest { PageIndex = 0, PageSize = 10 };
+    }
+
+    public GetListCompanyQuery(PageRequest pageRequest)
+    {
+        PageRequest = pageRequest;
+    }
     public string[] Roles => new[] { Admin, Read };
 
     public bool BypassCache { get; }

@@ -20,6 +20,17 @@ public class GetListByDynamicProductBrandQuery : IRequest<GetListResponse<GetLis
 {
     public PageRequest PageRequest { get; set; }
     public DynamicQuery DynamicQuery{ get; set; }
+
+    public GetListByDynamicProductBrandQuery()
+    {
+        PageRequest = new PageRequest { PageIndex = 0, PageSize = 10 };
+    }
+
+    public GetListByDynamicProductBrandQuery(PageRequest pageRequest, DynamicQuery dynamicQuery)
+    {
+        PageRequest = pageRequest;
+        DynamicQuery = dynamicQuery;
+    }
     public string[] Roles => new[] { Admin, Read, ProductBrandsOperationClaims.GetListByDynamicProductBrand };
 
     public bool BypassCache { get; }

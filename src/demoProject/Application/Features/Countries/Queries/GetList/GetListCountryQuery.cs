@@ -13,9 +13,18 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features.Countries.Queries.GetList;
 
-public class GetListCountryQuery : IRequest<GetListResponse<GetListCountryListItemDto>>//, ISecuredRequest, ICachableRequest
+public class GetListCountryQuery : IRequest<GetListResponse<GetListCountryListItemDto>>, ISecuredRequest, ICachableRequest
 {
     public PageRequest PageRequest { get; set; }
+    public GetListCountryQuery()
+    {
+        PageRequest = new PageRequest { PageIndex = 0, PageSize = 10 };
+    }
+
+    public GetListCountryQuery(PageRequest pageRequest)
+    {
+        PageRequest = pageRequest;
+    }
 
     public string[] Roles => new[] { Admin, Read };
 

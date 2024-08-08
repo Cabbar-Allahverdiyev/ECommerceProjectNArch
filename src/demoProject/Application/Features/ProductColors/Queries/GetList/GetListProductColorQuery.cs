@@ -17,6 +17,16 @@ public class GetListProductColorQuery : IRequest<GetListResponse<GetListProductC
 {
     public PageRequest? PageRequest { get; set; }
 
+    public GetListProductColorQuery()
+    {
+        PageRequest = new PageRequest { PageIndex = 0, PageSize = 10 };
+    }
+
+    public GetListProductColorQuery(PageRequest pageRequest)
+    {
+        PageRequest = pageRequest;
+    }
+
     public string[] Roles => new[] { Admin, Read };
 
     public bool BypassCache { get; }
