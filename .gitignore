@@ -3,7 +3,7 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 #Application file
-src/demoProject/WebApi/appsettings.json
+src/demoProject/WebAPI/appsettings.json  
 # User-specific files
 *.rsuser
 *.suo
