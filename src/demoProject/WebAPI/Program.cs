@@ -14,7 +14,6 @@ using WebAPI;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container. a
 
 builder.Services.AddControllers();
 builder.Services.AddControllersWithViews()
