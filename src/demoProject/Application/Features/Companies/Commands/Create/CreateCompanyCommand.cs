@@ -12,7 +12,7 @@ using static Application.Features.Companies.Constants.CompaniesOperationClaims;
 
 namespace Application.Features.Companies.Commands.Create;
 
-public class CreateCompanyCommand : IRequest<CreatedCompanyResponse>//, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
+public class CreateCompanyCommand : IRequest<CreatedCompanyResponse>, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
 {
     public string? Name { get; set; }
     public string? AddressLine1 { get; set; }

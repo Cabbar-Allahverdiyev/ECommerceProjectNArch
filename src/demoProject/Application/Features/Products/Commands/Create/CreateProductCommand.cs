@@ -12,11 +12,13 @@ using static Application.Features.Products.Constants.ProductsOperationClaims;
 using Application.Services.ProductInventors;
 using Application.Common.Helpers.ProductHelpers;
 using Application.Services.Barcodes;
+using Application.Services.Shops;
 
 namespace Application.Features.Products.Commands.Create;
 
 public class CreateProductCommand : IRequest<CreatedProductResponse>, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
 {
+    public Guid ShopId { get; set; }
     public Guid CategoryId { get; set; }
     public Guid BrandId { get; set; }
     public Guid SupplierId { get; set; }
@@ -33,10 +35,6 @@ public class CreateProductCommand : IRequest<CreatedProductResponse>, ISecuredRe
     public string? Description { get; set; }
     public bool IsDiscontinued { get; set; } = true;
 
-
-    //public Guid InventorId { get; set; } v
-    // public string SKU { get; set; } v
-
     public string[] Roles => new[] { Admin, Write, ProductsOperationClaims.Create };
 
     public bool BypassCache { get; }
@@ -50,17 +48,20 @@ public class CreateProductCommand : IRequest<CreatedProductResponse>, ISecuredRe
         private readonly ProductBusinessRules _productBusinessRules;
         private readonly IProductInventorsService _productInventorsService;
         private readonly IBarcodesService _barcodesService;
+        public readonly IShopsService _shopsService;
 
         public CreateProductCommandHandler(IMapper mapper, IProductRepository productRepository,
                                          ProductBusinessRules productBusinessRules,
-                                         IProductInventorsService productInventorsService, 
-                                         IBarcodesService barcodesService)
+                                         IProductInventorsService productInventorsService,
+                                         IBarcodesService barcodesService, 
+                                         IShopsService shopsService)
         {
             _mapper = mapper;
             _productRepository = productRepository;
             _productBusinessRules = productBusinessRules;
             _productInventorsService = productInventorsService;
             _barcodesService = barcodesService;
+            _shopsService = shopsService;
         }
 
         public async Task<CreatedProductResponse> Handle(CreateProductCommand request, CancellationToken cancellationToken)
@@ -74,12 +75,11 @@ public class CreateProductCommand : IRequest<CreatedProductResponse>, ISecuredRe
                 cancellationToken);
 
             product.Id = Guid.NewGuid();
-            //ProductInventor productInventor=await _productInventorsService.AddAsync(new(Guid.NewGuid(), quantity: request.Quantity));
-            //product.ProductInventorId=productInventor.Id;
+            product.ShopId = request.ShopId;
             product.SKU = await product.GenerateSKU();
             await _productRepository.AddAsync(product);
             ProductInventor productInventor = await _productInventorsService.AddAsync(new(Guid.NewGuid(), product.Id, quantity: request.Quantity));
-            Barcode barcode = await _barcodesService.AddAsync(new(Guid.NewGuid(),product.Id,request.BarcodeNumber),request.SupplierId);
+            Barcode barcode = await _barcodesService.AddAsync(new(Guid.NewGuid(), product.Id, request.BarcodeNumber), request.SupplierId);
             CreatedProductResponse response = _mapper.Map<CreatedProductResponse>(product);
             return response;
         }

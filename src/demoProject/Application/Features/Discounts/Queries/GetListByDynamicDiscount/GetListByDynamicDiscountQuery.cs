@@ -38,7 +38,7 @@ public class GetListByDynamicDiscountQuery : IRequest<GetListResponse<GetListByD
     public string CacheGroupKey => "GetDiscounts";
     public TimeSpan? SlidingExpiration { get; }
 
-    public class GetListByDynamicDiscountQueryHandler : IRequestHandler<GetListResponse<GetListByDynamicDiscountItemDto>, GetListResponse<GetListByDynamicDiscountItemDto>>
+    public class GetListByDynamicDiscountQueryHandler : IRequestHandler<GetListByDynamicDiscountQuery, GetListResponse<GetListByDynamicDiscountItemDto>>
     {
         private readonly IDiscountRepository _discountRepository;
         private readonly IMapper _mapper;

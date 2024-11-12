@@ -17,7 +17,7 @@ public class BarcodeConfiguration : IEntityTypeConfiguration<Barcode>
         builder.Property(b => b.UpdatedDate).HasColumnName("UpdatedDate");
         builder.Property(b => b.DeletedDate).HasColumnName("DeletedDate");
 
-        //builder.HasOne(b=>b.Product).WithOne(p=>p.Barcode).HasForeignKey<Product>(p=>p.BarcodeId);
+        //builder.HasOne(b=>b.Product).WithOne(p=>p.Barcode).HasForeignKey<Product>(p=>p.Id);
 
         builder.HasQueryFilter(b => !b.DeletedDate.HasValue);
         Guid barcodeId1 = Guid.Parse("11111111-1111-1111-1111-111111111111");
@@ -26,7 +26,7 @@ public class BarcodeConfiguration : IEntityTypeConfiguration<Barcode>
         Guid productId1= Guid.Parse("11111111-1111-1111-1111-111111111111");
         Guid productId2 = Guid.Parse("22222222-2222-2222-2222-222222222222");
 
-        builder.HasData(getSeeds());
+        //builder.HasData(getSeeds());
 
     }
 

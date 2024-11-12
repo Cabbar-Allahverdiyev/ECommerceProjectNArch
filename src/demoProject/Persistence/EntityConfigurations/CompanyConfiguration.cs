@@ -25,6 +25,7 @@ public class CompanyConfiguration : IEntityTypeConfiguration<Company>
 
         builder.HasOne(c => c.City);
         builder.HasMany(c => c.Suppliers);
+        builder.HasMany(c => c.Shops);
 
         builder.HasData(getSeeds());
     }

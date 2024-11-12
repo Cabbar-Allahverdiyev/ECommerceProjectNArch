@@ -1,4 +1,5 @@
 ﻿using Core.Persistence.Repositories;
+using static System.Formats.Asn1.AsnWriter;
 
 namespace Domain.Entities;
 public class Company : Entity<Guid>
@@ -12,9 +13,11 @@ public class Company : Entity<Guid>
 
     public virtual City? City { get; set; }
     public virtual ICollection<Supplier>? Suppliers { get; set; }
+    public virtual ICollection<Shop>? Shops { get; set; }
     public Company()
     {
         Suppliers = new HashSet<Supplier>();
+        Shops = new HashSet<Shop>();
     }
 
     public Company(Guid id,
