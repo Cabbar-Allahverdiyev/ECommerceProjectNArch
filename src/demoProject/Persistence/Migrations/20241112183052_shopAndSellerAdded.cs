@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Persistence.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class shopAndSellerAdded : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -19,6 +19,7 @@ namespace Persistence.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    BarcodeCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
@@ -291,12 +292,41 @@ namespace Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Shops",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    CompanyId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Shops", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Shops_Companies_CompanyId",
+                        column: x => x.CompanyId,
+                        principalTable: "Companies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Shops_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Suppliers",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CompanyId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: false),
+                    BarcodeCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -320,10 +350,39 @@ namespace Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Sellers",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    ShopId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Sellers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Sellers_Shops_ShopId",
+                        column: x => x.ShopId,
+                        principalTable: "Shops",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Sellers_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Products",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ShopId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CategoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     BrandId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     SupplierId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -370,11 +429,17 @@ namespace Persistence.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
+                        name: "FK_Products_Shops_ShopId",
+                        column: x => x.ShopId,
+                        principalTable: "Shops",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
                         name: "FK_Products_Suppliers_SupplierId",
                         column: x => x.SupplierId,
                         principalTable: "Suppliers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -392,8 +457,8 @@ namespace Persistence.Migrations
                 {
                     table.PrimaryKey("PK_Barcodes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Barcodes_Products_Id",
-                        column: x => x.Id,
+                        name: "FK_Barcodes_Products_ProductId",
+                        column: x => x.ProductId,
                         principalTable: "Products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -414,8 +479,8 @@ namespace Persistence.Migrations
                 {
                     table.PrimaryKey("PK_ProductInventors", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ProductInventors_Products_Id",
-                        column: x => x.Id,
+                        name: "FK_ProductInventors_Products_ProductId",
+                        column: x => x.ProductId,
                         principalTable: "Products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -423,11 +488,11 @@ namespace Persistence.Migrations
 
             migrationBuilder.InsertData(
                 table: "Countries",
-                columns: new[] { "Id", "CreatedDate", "DeletedDate", "Name", "UpdatedDate" },
+                columns: new[] { "Id", "BarcodeCode", "CreatedDate", "DeletedDate", "Name", "UpdatedDate" },
                 values: new object[,]
                 {
-                    { new Guid("29681908-fabc-4eca-8fd1-a34927d1b9e6"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Turkey", null },
-                    { new Guid("c5ac9bc7-9f3f-4d45-85c0-d188f88352dd"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Azerbaijan", null }
+                    { new Guid("a9b76887-6b74-4ec0-8c11-688dd7f960ae"), "476", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Azerbaijan", null },
+                    { new Guid("f45bc3e9-8c5e-4885-bbb6-cfd0c0850907"), "869", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Turkey", null }
                 });
 
             migrationBuilder.InsertData(
@@ -435,8 +500,8 @@ namespace Persistence.Migrations
                 columns: new[] { "Id", "CreatedDate", "DeletedDate", "Description", "DiscountPercent", "Name", "UpdatedDate" },
                 values: new object[,]
                 {
-                    { new Guid("470bd373-660c-4c9a-846a-fc5968e777e3"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "", 15m, "Ucuz endirim", null },
-                    { new Guid("a1a6eb70-3a04-433f-a9f5-e08f4bb1c264"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "", 25m, "Ela endirim", null }
+                    { new Guid("d26159be-70b7-470c-9ff6-3b2c04c34e1a"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "", 25m, "Ela endirim", null },
+                    { new Guid("ee01256e-4ef1-49c3-973f-848a175a60b4"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "", 15m, "Ucuz endirim", null }
                 });
 
             migrationBuilder.InsertData(
@@ -452,81 +517,107 @@ namespace Persistence.Migrations
                     { 6, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Companies.Update", null },
                     { 7, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Companies.Delete", null },
                     { 8, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Companies.GetByNameCompany", null },
-                    { 9, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Cities.Admin", null },
-                    { 10, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Cities.Read", null },
-                    { 11, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Cities.Write", null },
-                    { 12, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Cities.Add", null },
-                    { 13, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Cities.Update", null },
-                    { 14, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Cities.Delete", null },
-                    { 15, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Cities.GetByNameCityQuery", null },
-                    { 16, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Cities.GetByNameCity", null },
-                    { 17, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Countries.Admin", null },
-                    { 18, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Countries.Read", null },
-                    { 19, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Countries.Write", null },
-                    { 20, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Countries.Add", null },
-                    { 21, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Countries.Update", null },
-                    { 22, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Countries.Delete", null },
-                    { 23, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Countries.GetByNameCountry", null },
-                    { 24, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Discounts.Admin", null },
-                    { 25, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Discounts.Read", null },
-                    { 26, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Discounts.Write", null },
-                    { 27, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Discounts.Add", null },
-                    { 28, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Discounts.Update", null },
-                    { 29, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Discounts.Delete", null },
-                    { 30, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "ProductBrands.Admin", null },
-                    { 31, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "ProductBrands.Read", null },
-                    { 32, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "ProductBrands.Write", null },
-                    { 33, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "ProductBrands.Add", null },
-                    { 34, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "ProductBrands.Update", null },
-                    { 35, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "ProductBrands.Delete", null },
-                    { 36, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "ProductBrands.GetByName", null },
-                    { 37, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "ProductCategories.Admin", null },
-                    { 38, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "ProductCategories.Read", null },
-                    { 39, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "ProductCategories.Write", null },
-                    { 40, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "ProductCategories.Add", null },
-                    { 41, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "ProductCategories.Update", null },
-                    { 42, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "ProductCategories.Delete", null },
-                    { 43, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "ProductCategories.GetByNameProductCategory", null },
-                    { 44, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "ProductInventors.Admin", null },
-                    { 45, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "ProductInventors.Read", null },
-                    { 46, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "ProductInventors.Write", null },
-                    { 47, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "ProductInventors.Add", null },
-                    { 48, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "ProductInventors.Update", null },
-                    { 49, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "ProductInventors.Delete", null },
-                    { 50, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "ProductInventors.GetByNameProductInventor", null },
-                    { 51, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Products.Admin", null },
-                    { 52, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Products.Read", null },
-                    { 53, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Products.Write", null },
-                    { 54, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Products.Add", null },
-                    { 55, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Products.Update", null },
-                    { 56, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Products.Delete", null },
-                    { 57, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Products.GetByNameProduct", null },
-                    { 58, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Suppliers.Admin", null },
-                    { 59, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Suppliers.Read", null },
-                    { 60, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Suppliers.Write", null },
-                    { 61, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Suppliers.Add", null },
-                    { 62, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Suppliers.Update", null },
-                    { 63, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Suppliers.Delete", null },
-                    { 64, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Suppliers.GetByUserIdSupplier", null },
-                    { 65, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Suppliers.GetByCompanyIdSuppier", null },
-                    { 66, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "ProductColors.Admin", null },
-                    { 67, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "ProductColors.Read", null },
-                    { 68, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "ProductColors.Write", null },
-                    { 69, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "ProductColors.Add", null },
-                    { 70, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "ProductColors.Update", null },
-                    { 71, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "ProductColors.Delete", null },
-                    { 72, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "ProductColors.Admin", null },
-                    { 73, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "ProductColors.Read", null },
-                    { 74, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "ProductColors.Write", null },
-                    { 75, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "ProductColors.Add", null },
-                    { 76, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "ProductColors.Update", null },
-                    { 77, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "ProductColors.Delete", null },
-                    { 78, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Barcodes.Admin", null },
-                    { 79, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Barcodes.Read", null },
-                    { 80, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Barcodes.Write", null },
-                    { 81, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Barcodes.Add", null },
-                    { 82, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Barcodes.Update", null },
-                    { 83, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Barcodes.Delete", null }
+                    { 9, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Companies.GetListByDynamicCompany", null },
+                    { 10, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Cities.Admin", null },
+                    { 11, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Cities.Read", null },
+                    { 12, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Cities.Write", null },
+                    { 13, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Cities.Add", null },
+                    { 14, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Cities.Update", null },
+                    { 15, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Cities.Delete", null },
+                    { 16, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Cities.GetByNameCityQuery", null },
+                    { 17, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Cities.GetByNameCity", null },
+                    { 18, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Cities.GetListByDynamicCity", null },
+                    { 19, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Countries.Admin", null },
+                    { 20, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Countries.Read", null },
+                    { 21, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Countries.Write", null },
+                    { 22, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Countries.Add", null },
+                    { 23, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Countries.Update", null },
+                    { 24, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Countries.Delete", null },
+                    { 25, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Countries.GetByNameCountry", null },
+                    { 26, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Countries.GetListByDynamicCountry", null },
+                    { 27, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Discounts.Admin", null },
+                    { 28, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Discounts.Read", null },
+                    { 29, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Discounts.Write", null },
+                    { 30, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Discounts.Add", null },
+                    { 31, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Discounts.Update", null },
+                    { 32, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Discounts.Delete", null },
+                    { 33, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Discounts.GetListByDynamicDiscount", null },
+                    { 34, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "ProductBrands.Admin", null },
+                    { 35, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "ProductBrands.Read", null },
+                    { 36, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "ProductBrands.Write", null },
+                    { 37, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "ProductBrands.Add", null },
+                    { 38, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "ProductBrands.Update", null },
+                    { 39, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "ProductBrands.Delete", null },
+                    { 40, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "ProductBrands.GetByName", null },
+                    { 41, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "ProductBrands.GetListByDynamicProductBrand", null },
+                    { 42, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "ProductCategories.Admin", null },
+                    { 43, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "ProductCategories.Read", null },
+                    { 44, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "ProductCategories.Write", null },
+                    { 45, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "ProductCategories.Add", null },
+                    { 46, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "ProductCategories.Update", null },
+                    { 47, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "ProductCategories.Delete", null },
+                    { 48, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "ProductCategories.GetByNameProductCategory", null },
+                    { 49, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "ProductCategories.GetListByDynamicProductCategory", null },
+                    { 50, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "ProductInventors.Admin", null },
+                    { 51, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "ProductInventors.Read", null },
+                    { 52, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "ProductInventors.Write", null },
+                    { 53, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "ProductInventors.Add", null },
+                    { 54, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "ProductInventors.Update", null },
+                    { 55, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "ProductInventors.Delete", null },
+                    { 56, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "ProductInventors.GetByNameProductInventor", null },
+                    { 57, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "ProductInventors.GetListByDynamicProductInventor", null },
+                    { 58, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Products.Admin", null },
+                    { 59, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Products.Read", null },
+                    { 60, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Products.Write", null },
+                    { 61, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Products.Add", null },
+                    { 62, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Products.Update", null },
+                    { 63, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Products.Delete", null },
+                    { 64, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Products.GetByNameProduct", null },
+                    { 65, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Products.GetListByDynamicProduct", null },
+                    { 66, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Suppliers.Admin", null },
+                    { 67, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Suppliers.Read", null },
+                    { 68, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Suppliers.Write", null },
+                    { 69, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Suppliers.Add", null },
+                    { 70, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Suppliers.Update", null },
+                    { 71, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Suppliers.Delete", null },
+                    { 72, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Suppliers.GetByUserIdSupplier", null },
+                    { 73, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Suppliers.GetByCompanyIdSuppier", null },
+                    { 74, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Suppliers.GetListByDynamicSupplier", null },
+                    { 75, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "ProductColors.Admin", null },
+                    { 76, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "ProductColors.Read", null },
+                    { 77, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "ProductColors.Write", null },
+                    { 78, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "ProductColors.Add", null },
+                    { 79, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "ProductColors.Update", null },
+                    { 80, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "ProductColors.Delete", null },
+                    { 81, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "ProductColors.GetListByDynamicProductColor", null },
+                    { 82, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "ProductColors.GetListByDynamicProductColor", null },
+                    { 83, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "ProductColors.GetByNameProductColor", null },
+                    { 84, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "ProductColors.Admin", null },
+                    { 85, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "ProductColors.Read", null },
+                    { 86, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "ProductColors.Write", null },
+                    { 87, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "ProductColors.Add", null },
+                    { 88, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "ProductColors.Update", null },
+                    { 89, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "ProductColors.Delete", null },
+                    { 90, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Barcodes.Admin", null },
+                    { 91, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Barcodes.Read", null },
+                    { 92, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Barcodes.Write", null },
+                    { 93, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Barcodes.Add", null },
+                    { 94, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Barcodes.Update", null },
+                    { 95, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Barcodes.Delete", null },
+                    { 96, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Barcodes.GetByBarcodeNumber", null },
+                    { 97, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Barcodes.GetListByDynamicBarcode", null },
+                    { 98, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Shops.Admin", null },
+                    { 99, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Shops.Read", null },
+                    { 100, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Shops.Write", null },
+                    { 101, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Shops.Add", null },
+                    { 102, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Shops.Update", null },
+                    { 103, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Shops.Delete", null },
+                    { 104, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Sellers.Admin", null },
+                    { 105, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Sellers.Read", null },
+                    { 106, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Sellers.Write", null },
+                    { 107, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Sellers.Add", null },
+                    { 108, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Sellers.Update", null },
+                    { 109, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Sellers.Delete", null }
                 });
 
             migrationBuilder.InsertData(
@@ -534,8 +625,8 @@ namespace Persistence.Migrations
                 columns: new[] { "Id", "CreatedDate", "DeletedDate", "Description", "Name", "UpdatedDate" },
                 values: new object[,]
                 {
-                    { new Guid("286bd8f3-e70c-4e7b-af84-6acb62446a4d"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, "Sauvage", null },
-                    { new Guid("cebfa3aa-47ef-4cd9-9b3e-69891773c2bb"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, "Azzaro", null }
+                    { new Guid("9d64dd91-85c5-4b32-bdb6-6fa254649b39"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, "Sauvage", null },
+                    { new Guid("d6a0db73-a685-4f35-86ce-881b060d2fa0"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, "Azzaro", null }
                 });
 
             migrationBuilder.InsertData(
@@ -543,8 +634,8 @@ namespace Persistence.Migrations
                 columns: new[] { "Id", "CreatedDate", "DeletedDate", "Description", "Name", "ParentId", "UpdatedDate" },
                 values: new object[,]
                 {
-                    { new Guid("62005739-1c00-4c6e-acf1-a8d91de16c87"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "asan əlaqə", "Telefon", null, null },
-                    { new Guid("c2548d72-2ee3-40a5-8042-1a6ef974048f"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "rahat dasimaq", "Elektronika", null, null }
+                    { new Guid("0422fd48-809e-4f26-91d3-b0b570db257d"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "asan əlaqə", "Telefon", null, null },
+                    { new Guid("7710fa7e-ff6b-4090-8854-e23f12905fb5"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "rahat dasimaq", "Elektronika", null, null }
                 });
 
             migrationBuilder.InsertData(
@@ -552,9 +643,9 @@ namespace Persistence.Migrations
                 columns: new[] { "Id", "CreatedDate", "DeletedDate", "Name", "UpdatedDate" },
                 values: new object[,]
                 {
-                    { new Guid("1930c95e-461a-4c6a-aa9e-85a3d973b748"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Red", null },
-                    { new Guid("5a16a2ed-8665-4c79-ad52-4ea1f9cca598"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Orange", null },
-                    { new Guid("86199dd2-94f0-4333-8836-de66bfc5bab7"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Blue", null }
+                    { new Guid("277cd150-3d0b-4394-bda4-ea1c97d02145"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Blue", null },
+                    { new Guid("5dd61f0b-ea70-4cf3-be19-045916e10964"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Red", null },
+                    { new Guid("66c3eaf1-9be2-4734-8eeb-c9a71870f3ad"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Orange", null }
                 });
 
             migrationBuilder.InsertData(
@@ -562,8 +653,8 @@ namespace Persistence.Migrations
                 columns: new[] { "Id", "AuthenticatorType", "CreatedDate", "DeletedDate", "Email", "FirstName", "LastName", "PasswordHash", "PasswordSalt", "Status", "UpdatedDate" },
                 values: new object[,]
                 {
-                    { 1, 0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "admin@admin.com", "Admin", "NArchitecture", new byte[] { 210, 178, 173, 143, 201, 118, 182, 78, 176, 194, 106, 19, 106, 25, 249, 54, 25, 188, 91, 1, 8, 10, 119, 188, 158, 141, 170, 183, 10, 19, 3, 71, 97, 175, 236, 86, 63, 108, 84, 64, 200, 90, 207, 141, 248, 39, 76, 206, 138, 95, 194, 192, 120, 233, 77, 18, 119, 68, 238, 161, 68, 240, 145, 139 }, new byte[] { 113, 212, 102, 76, 85, 106, 52, 23, 35, 97, 175, 129, 21, 27, 149, 253, 154, 169, 105, 210, 118, 20, 83, 123, 25, 174, 25, 41, 12, 115, 187, 141, 162, 162, 219, 223, 138, 85, 161, 38, 12, 230, 178, 121, 232, 29, 9, 93, 130, 127, 207, 43, 158, 212, 155, 13, 101, 210, 140, 123, 201, 148, 222, 23, 177, 202, 60, 229, 227, 74, 169, 15, 139, 255, 38, 51, 103, 74, 231, 58, 83, 249, 237, 5, 47, 49, 16, 21, 17, 224, 7, 62, 15, 5, 241, 223, 246, 82, 34, 102, 231, 203, 183, 3, 151, 175, 206, 80, 182, 17, 238, 238, 21, 56, 70, 220, 110, 17, 27, 38, 196, 146, 94, 69, 40, 193, 111, 232 }, true, null },
-                    { 2, 0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "cabbar.allahverdiyev@gmail.com", "Cabbar", "Allahverdiyev", new byte[] { 210, 178, 173, 143, 201, 118, 182, 78, 176, 194, 106, 19, 106, 25, 249, 54, 25, 188, 91, 1, 8, 10, 119, 188, 158, 141, 170, 183, 10, 19, 3, 71, 97, 175, 236, 86, 63, 108, 84, 64, 200, 90, 207, 141, 248, 39, 76, 206, 138, 95, 194, 192, 120, 233, 77, 18, 119, 68, 238, 161, 68, 240, 145, 139 }, new byte[] { 113, 212, 102, 76, 85, 106, 52, 23, 35, 97, 175, 129, 21, 27, 149, 253, 154, 169, 105, 210, 118, 20, 83, 123, 25, 174, 25, 41, 12, 115, 187, 141, 162, 162, 219, 223, 138, 85, 161, 38, 12, 230, 178, 121, 232, 29, 9, 93, 130, 127, 207, 43, 158, 212, 155, 13, 101, 210, 140, 123, 201, 148, 222, 23, 177, 202, 60, 229, 227, 74, 169, 15, 139, 255, 38, 51, 103, 74, 231, 58, 83, 249, 237, 5, 47, 49, 16, 21, 17, 224, 7, 62, 15, 5, 241, 223, 246, 82, 34, 102, 231, 203, 183, 3, 151, 175, 206, 80, 182, 17, 238, 238, 21, 56, 70, 220, 110, 17, 27, 38, 196, 146, 94, 69, 40, 193, 111, 232 }, true, null }
+                    { 1, 0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "admin@admin.com", "Admin", "NArchitecture", new byte[] { 181, 217, 114, 142, 20, 65, 87, 99, 36, 208, 137, 3, 174, 114, 239, 56, 240, 50, 204, 150, 165, 85, 119, 126, 248, 177, 63, 56, 158, 255, 83, 230, 65, 136, 90, 105, 113, 236, 22, 60, 254, 238, 232, 196, 177, 216, 79, 162, 135, 16, 245, 147, 250, 238, 214, 196, 20, 210, 251, 160, 80, 102, 115, 57 }, new byte[] { 229, 127, 99, 159, 161, 221, 75, 173, 111, 45, 201, 42, 239, 25, 28, 236, 217, 122, 231, 233, 14, 93, 67, 19, 63, 104, 29, 205, 217, 233, 53, 170, 241, 12, 88, 79, 142, 67, 148, 156, 138, 181, 34, 190, 153, 180, 114, 238, 165, 145, 239, 56, 134, 202, 70, 71, 138, 163, 80, 30, 207, 29, 162, 62, 203, 229, 247, 170, 133, 146, 13, 125, 251, 106, 120, 105, 132, 190, 205, 89, 133, 145, 214, 136, 64, 49, 198, 243, 102, 115, 211, 164, 122, 145, 15, 188, 84, 183, 159, 69, 138, 54, 138, 212, 20, 84, 108, 20, 28, 149, 141, 132, 58, 220, 68, 150, 9, 158, 242, 210, 214, 228, 134, 18, 110, 161, 99, 108 }, true, null },
+                    { 2, 0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "cabbar.allahverdiyev@gmail.com", "Cabbar", "Allahverdiyev", new byte[] { 181, 217, 114, 142, 20, 65, 87, 99, 36, 208, 137, 3, 174, 114, 239, 56, 240, 50, 204, 150, 165, 85, 119, 126, 248, 177, 63, 56, 158, 255, 83, 230, 65, 136, 90, 105, 113, 236, 22, 60, 254, 238, 232, 196, 177, 216, 79, 162, 135, 16, 245, 147, 250, 238, 214, 196, 20, 210, 251, 160, 80, 102, 115, 57 }, new byte[] { 229, 127, 99, 159, 161, 221, 75, 173, 111, 45, 201, 42, 239, 25, 28, 236, 217, 122, 231, 233, 14, 93, 67, 19, 63, 104, 29, 205, 217, 233, 53, 170, 241, 12, 88, 79, 142, 67, 148, 156, 138, 181, 34, 190, 153, 180, 114, 238, 165, 145, 239, 56, 134, 202, 70, 71, 138, 163, 80, 30, 207, 29, 162, 62, 203, 229, 247, 170, 133, 146, 13, 125, 251, 106, 120, 105, 132, 190, 205, 89, 133, 145, 214, 136, 64, 49, 198, 243, 102, 115, 211, 164, 122, 145, 15, 188, 84, 183, 159, 69, 138, 54, 138, 212, 20, 84, 108, 20, 28, 149, 141, 132, 58, 220, 68, 150, 9, 158, 242, 210, 214, 228, 134, 18, 110, 161, 99, 108 }, true, null }
                 });
 
             migrationBuilder.InsertData(
@@ -571,14 +662,14 @@ namespace Persistence.Migrations
                 columns: new[] { "Id", "CountryId", "CreatedDate", "DeletedDate", "Name", "UpdatedDate" },
                 values: new object[,]
                 {
-                    { new Guid("3826063b-c321-42a8-a1cf-9695714d5b80"), new Guid("c5ac9bc7-9f3f-4d45-85c0-d188f88352dd"), new DateTime(2024, 6, 12, 18, 19, 37, 984, DateTimeKind.Utc).AddTicks(4541), null, "Baku", null },
-                    { new Guid("40d3e9dd-5596-4b64-aad9-56865e54895f"), new Guid("29681908-fabc-4eca-8fd1-a34927d1b9e6"), new DateTime(2024, 6, 12, 18, 19, 37, 984, DateTimeKind.Utc).AddTicks(4576), null, "Yevlakh", null }
+                    { new Guid("31f21266-b60f-4a44-9c98-4b1bea89d34f"), new Guid("f45bc3e9-8c5e-4885-bbb6-cfd0c0850907"), new DateTime(2024, 11, 12, 18, 30, 36, 76, DateTimeKind.Utc).AddTicks(2575), null, "Yevlakh", null },
+                    { new Guid("fdf16992-1e6b-4da2-9e8e-8666b42aa388"), new Guid("a9b76887-6b74-4ec0-8c11-688dd7f960ae"), new DateTime(2024, 11, 12, 18, 30, 36, 76, DateTimeKind.Utc).AddTicks(2531), null, "Baku", null }
                 });
 
             migrationBuilder.InsertData(
                 table: "ProductCategories",
                 columns: new[] { "Id", "CreatedDate", "DeletedDate", "Description", "Name", "ParentId", "UpdatedDate" },
-                values: new object[] { new Guid("fdebf5d9-3931-4337-b876-bdf1c0bbdbfa"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "asan əlaqə", "Telefon", new Guid("c2548d72-2ee3-40a5-8042-1a6ef974048f"), null });
+                values: new object[] { new Guid("d4da3e5b-a52e-40b3-ab5f-f4f8ab84591f"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "asan əlaqə", "Telefon", new Guid("7710fa7e-ff6b-4090-8854-e23f12905fb5"), null });
 
             migrationBuilder.InsertData(
                 table: "UserOperationClaims",
@@ -590,14 +681,20 @@ namespace Persistence.Migrations
                 columns: new[] { "Id", "AddressLine1", "AddressLine2", "CityId", "CreatedDate", "DeletedDate", "Email", "Name", "PhoneNumber", "UpdatedDate" },
                 values: new object[,]
                 {
-                    { new Guid("5fac637e-4aab-443d-82fd-df142248ef1f"), "aaaaaa", "aaaaaa", new Guid("40d3e9dd-5596-4b64-aad9-56865e54895f"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "avd@ads.com", "Telefon", "0554446655", null },
-                    { new Guid("a352c4c0-eb1f-4e4a-919b-05e359b656d1"), "yyyyy", "aaaa", new Guid("3826063b-c321-42a8-a1cf-9695714d5b80"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "aaa@aaa.com", "ABC", "0554696363", null }
+                    { new Guid("0a3327dd-29dc-4ea0-bcd0-1309fc4a403a"), "yyyyy", "aaaa", new Guid("fdf16992-1e6b-4da2-9e8e-8666b42aa388"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "aaa@aaa.com", "ABC", "0554696363", null },
+                    { new Guid("568313ff-e867-4004-9e61-aed91e03bc0a"), "aaaaaa", "aaaaaa", new Guid("31f21266-b60f-4a44-9c98-4b1bea89d34f"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "avd@ads.com", "Telefon", "0554446655", null }
                 });
 
             migrationBuilder.InsertData(
                 table: "Suppliers",
-                columns: new[] { "Id", "CompanyId", "CreatedDate", "DeletedDate", "Description", "UpdatedDate", "UserId" },
-                values: new object[] { new Guid("f71a8ea6-7077-4bf2-9c62-f053348a8813"), new Guid("a352c4c0-eb1f-4e4a-919b-05e359b656d1"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "stajci satici", null, 1 });
+                columns: new[] { "Id", "BarcodeCode", "CompanyId", "CreatedDate", "DeletedDate", "Description", "UpdatedDate", "UserId" },
+                values: new object[] { new Guid("25efed0a-52d4-441b-87bd-2c94c1725845"), "0001", new Guid("0a3327dd-29dc-4ea0-bcd0-1309fc4a403a"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "stajci satici", null, 1 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Barcodes_ProductId",
+                table: "Barcodes",
+                column: "ProductId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Cities_CountryId",
@@ -625,6 +722,12 @@ namespace Persistence.Migrations
                 column: "ParentId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ProductInventors_ProductId",
+                table: "ProductInventors",
+                column: "ProductId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Products_BrandId",
                 table: "Products",
                 column: "BrandId");
@@ -645,6 +748,11 @@ namespace Persistence.Migrations
                 column: "ProductColorId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Products_ShopId",
+                table: "Products",
+                column: "ShopId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Products_SupplierId",
                 table: "Products",
                 column: "SupplierId");
@@ -652,6 +760,26 @@ namespace Persistence.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_RefreshTokens_UserId",
                 table: "RefreshTokens",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Sellers_ShopId",
+                table: "Sellers",
+                column: "ShopId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Sellers_UserId",
+                table: "Sellers",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Shops_CompanyId",
+                table: "Shops",
+                column: "CompanyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Shops_UserId",
+                table: "Shops",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
@@ -694,6 +822,9 @@ namespace Persistence.Migrations
                 name: "RefreshTokens");
 
             migrationBuilder.DropTable(
+                name: "Sellers");
+
+            migrationBuilder.DropTable(
                 name: "UserOperationClaims");
 
             migrationBuilder.DropTable(
@@ -713,6 +844,9 @@ namespace Persistence.Migrations
 
             migrationBuilder.DropTable(
                 name: "ProductColors");
+
+            migrationBuilder.DropTable(
+                name: "Shops");
 
             migrationBuilder.DropTable(
                 name: "Suppliers");

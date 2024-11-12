@@ -26,6 +26,8 @@ public class BaseDbContext : DbContext
     public DbSet<Supplier> Suppliers { get; set; }
     public DbSet<ProductColor> ProductColors { get; set; }
     public DbSet<Barcode> Barcodes { get; set; }
+    public DbSet<Shop> Shops { get; set; }
+    public DbSet<Seller> Sellers { get; set; }
     
 
     public BaseDbContext(DbContextOptions dbContextOptions, IConfiguration configuration)

@@ -12,8 +12,8 @@ using Persistence.Contexts;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(BaseDbContext))]
-    [Migration("20240612181953_init")]
-    partial class init
+    [Migration("20241112183052_shopAndSellerAdded")]
+    partial class shopAndSellerAdded
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -148,451 +148,607 @@ namespace Persistence.Migrations
                         {
                             Id = 9,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Cities.Admin"
+                            Name = "Companies.GetListByDynamicCompany"
                         },
                         new
                         {
                             Id = 10,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Cities.Read"
+                            Name = "Cities.Admin"
                         },
                         new
                         {
                             Id = 11,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Cities.Write"
+                            Name = "Cities.Read"
                         },
                         new
                         {
                             Id = 12,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Cities.Add"
+                            Name = "Cities.Write"
                         },
                         new
                         {
                             Id = 13,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Cities.Update"
+                            Name = "Cities.Add"
                         },
                         new
                         {
                             Id = 14,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Cities.Delete"
+                            Name = "Cities.Update"
                         },
                         new
                         {
                             Id = 15,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Cities.GetByNameCityQuery"
+                            Name = "Cities.Delete"
                         },
                         new
                         {
                             Id = 16,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Cities.GetByNameCity"
+                            Name = "Cities.GetByNameCityQuery"
                         },
                         new
                         {
                             Id = 17,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Countries.Admin"
+                            Name = "Cities.GetByNameCity"
                         },
                         new
                         {
                             Id = 18,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Countries.Read"
+                            Name = "Cities.GetListByDynamicCity"
                         },
                         new
                         {
                             Id = 19,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Countries.Write"
+                            Name = "Countries.Admin"
                         },
                         new
                         {
                             Id = 20,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Countries.Add"
+                            Name = "Countries.Read"
                         },
                         new
                         {
                             Id = 21,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Countries.Update"
+                            Name = "Countries.Write"
                         },
                         new
                         {
                             Id = 22,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Countries.Delete"
+                            Name = "Countries.Add"
                         },
                         new
                         {
                             Id = 23,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Countries.GetByNameCountry"
+                            Name = "Countries.Update"
                         },
                         new
                         {
                             Id = 24,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Discounts.Admin"
+                            Name = "Countries.Delete"
                         },
                         new
                         {
                             Id = 25,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Discounts.Read"
+                            Name = "Countries.GetByNameCountry"
                         },
                         new
                         {
                             Id = 26,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Discounts.Write"
+                            Name = "Countries.GetListByDynamicCountry"
                         },
                         new
                         {
                             Id = 27,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Discounts.Add"
+                            Name = "Discounts.Admin"
                         },
                         new
                         {
                             Id = 28,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Discounts.Update"
+                            Name = "Discounts.Read"
                         },
                         new
                         {
                             Id = 29,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Discounts.Delete"
+                            Name = "Discounts.Write"
                         },
                         new
                         {
                             Id = 30,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "ProductBrands.Admin"
+                            Name = "Discounts.Add"
                         },
                         new
                         {
                             Id = 31,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "ProductBrands.Read"
+                            Name = "Discounts.Update"
                         },
                         new
                         {
                             Id = 32,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "ProductBrands.Write"
+                            Name = "Discounts.Delete"
                         },
                         new
                         {
                             Id = 33,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "ProductBrands.Add"
+                            Name = "Discounts.GetListByDynamicDiscount"
                         },
                         new
                         {
                             Id = 34,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "ProductBrands.Update"
+                            Name = "ProductBrands.Admin"
                         },
                         new
                         {
                             Id = 35,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "ProductBrands.Delete"
+                            Name = "ProductBrands.Read"
                         },
                         new
                         {
                             Id = 36,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "ProductBrands.GetByName"
+                            Name = "ProductBrands.Write"
                         },
                         new
                         {
                             Id = 37,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "ProductCategories.Admin"
+                            Name = "ProductBrands.Add"
                         },
                         new
                         {
                             Id = 38,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "ProductCategories.Read"
+                            Name = "ProductBrands.Update"
                         },
                         new
                         {
                             Id = 39,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "ProductCategories.Write"
+                            Name = "ProductBrands.Delete"
                         },
                         new
                         {
                             Id = 40,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "ProductCategories.Add"
+                            Name = "ProductBrands.GetByName"
                         },
                         new
                         {
                             Id = 41,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "ProductCategories.Update"
+                            Name = "ProductBrands.GetListByDynamicProductBrand"
                         },
                         new
                         {
                             Id = 42,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "ProductCategories.Delete"
+                            Name = "ProductCategories.Admin"
                         },
                         new
                         {
                             Id = 43,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "ProductCategories.GetByNameProductCategory"
+                            Name = "ProductCategories.Read"
                         },
                         new
                         {
                             Id = 44,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "ProductInventors.Admin"
+                            Name = "ProductCategories.Write"
                         },
                         new
                         {
                             Id = 45,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "ProductInventors.Read"
+                            Name = "ProductCategories.Add"
                         },
                         new
                         {
                             Id = 46,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "ProductInventors.Write"
+                            Name = "ProductCategories.Update"
                         },
                         new
                         {
                             Id = 47,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "ProductInventors.Add"
+                            Name = "ProductCategories.Delete"
                         },
                         new
                         {
                             Id = 48,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "ProductInventors.Update"
+                            Name = "ProductCategories.GetByNameProductCategory"
                         },
                         new
                         {
                             Id = 49,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "ProductInventors.Delete"
+                            Name = "ProductCategories.GetListByDynamicProductCategory"
                         },
                         new
                         {
                             Id = 50,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "ProductInventors.GetByNameProductInventor"
+                            Name = "ProductInventors.Admin"
                         },
                         new
                         {
                             Id = 51,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Products.Admin"
+                            Name = "ProductInventors.Read"
                         },
                         new
                         {
                             Id = 52,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Products.Read"
+                            Name = "ProductInventors.Write"
                         },
                         new
                         {
                             Id = 53,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Products.Write"
+                            Name = "ProductInventors.Add"
                         },
                         new
                         {
                             Id = 54,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Products.Add"
+                            Name = "ProductInventors.Update"
                         },
                         new
                         {
                             Id = 55,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Products.Update"
+                            Name = "ProductInventors.Delete"
                         },
                         new
                         {
                             Id = 56,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Products.Delete"
+                            Name = "ProductInventors.GetByNameProductInventor"
                         },
                         new
                         {
                             Id = 57,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Products.GetByNameProduct"
+                            Name = "ProductInventors.GetListByDynamicProductInventor"
                         },
                         new
                         {
                             Id = 58,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Suppliers.Admin"
+                            Name = "Products.Admin"
                         },
                         new
                         {
                             Id = 59,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Suppliers.Read"
+                            Name = "Products.Read"
                         },
                         new
                         {
                             Id = 60,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Suppliers.Write"
+                            Name = "Products.Write"
                         },
                         new
                         {
                             Id = 61,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Suppliers.Add"
+                            Name = "Products.Add"
                         },
                         new
                         {
                             Id = 62,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Suppliers.Update"
+                            Name = "Products.Update"
                         },
                         new
                         {
                             Id = 63,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Suppliers.Delete"
+                            Name = "Products.Delete"
                         },
                         new
                         {
                             Id = 64,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Suppliers.GetByUserIdSupplier"
+                            Name = "Products.GetByNameProduct"
                         },
                         new
                         {
                             Id = 65,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Suppliers.GetByCompanyIdSuppier"
+                            Name = "Products.GetListByDynamicProduct"
                         },
                         new
                         {
                             Id = 66,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "ProductColors.Admin"
+                            Name = "Suppliers.Admin"
                         },
                         new
                         {
                             Id = 67,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "ProductColors.Read"
+                            Name = "Suppliers.Read"
                         },
                         new
                         {
                             Id = 68,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "ProductColors.Write"
+                            Name = "Suppliers.Write"
                         },
                         new
                         {
                             Id = 69,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "ProductColors.Add"
+                            Name = "Suppliers.Add"
                         },
                         new
                         {
                             Id = 70,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "ProductColors.Update"
+                            Name = "Suppliers.Update"
                         },
                         new
                         {
                             Id = 71,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "ProductColors.Delete"
+                            Name = "Suppliers.Delete"
                         },
                         new
                         {
                             Id = 72,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "ProductColors.Admin"
+                            Name = "Suppliers.GetByUserIdSupplier"
                         },
                         new
                         {
                             Id = 73,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "ProductColors.Read"
+                            Name = "Suppliers.GetByCompanyIdSuppier"
                         },
                         new
                         {
                             Id = 74,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "ProductColors.Write"
+                            Name = "Suppliers.GetListByDynamicSupplier"
                         },
                         new
                         {
                             Id = 75,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "ProductColors.Add"
+                            Name = "ProductColors.Admin"
                         },
                         new
                         {
                             Id = 76,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "ProductColors.Update"
+                            Name = "ProductColors.Read"
                         },
                         new
                         {
                             Id = 77,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "ProductColors.Delete"
+                            Name = "ProductColors.Write"
                         },
                         new
                         {
                             Id = 78,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Barcodes.Admin"
+                            Name = "ProductColors.Add"
                         },
                         new
                         {
                             Id = 79,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Barcodes.Read"
+                            Name = "ProductColors.Update"
                         },
                         new
                         {
                             Id = 80,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Barcodes.Write"
+                            Name = "ProductColors.Delete"
                         },
                         new
                         {
                             Id = 81,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Barcodes.Add"
+                            Name = "ProductColors.GetListByDynamicProductColor"
                         },
                         new
                         {
                             Id = 82,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Barcodes.Update"
+                            Name = "ProductColors.GetListByDynamicProductColor"
                         },
                         new
                         {
                             Id = 83,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "ProductColors.GetByNameProductColor"
+                        },
+                        new
+                        {
+                            Id = 84,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "ProductColors.Admin"
+                        },
+                        new
+                        {
+                            Id = 85,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "ProductColors.Read"
+                        },
+                        new
+                        {
+                            Id = 86,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "ProductColors.Write"
+                        },
+                        new
+                        {
+                            Id = 87,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "ProductColors.Add"
+                        },
+                        new
+                        {
+                            Id = 88,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "ProductColors.Update"
+                        },
+                        new
+                        {
+                            Id = 89,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "ProductColors.Delete"
+                        },
+                        new
+                        {
+                            Id = 90,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Barcodes.Admin"
+                        },
+                        new
+                        {
+                            Id = 91,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Barcodes.Read"
+                        },
+                        new
+                        {
+                            Id = 92,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Barcodes.Write"
+                        },
+                        new
+                        {
+                            Id = 93,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Barcodes.Add"
+                        },
+                        new
+                        {
+                            Id = 94,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Barcodes.Update"
+                        },
+                        new
+                        {
+                            Id = 95,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Barcodes.Delete"
+                        },
+                        new
+                        {
+                            Id = 96,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Barcodes.GetByBarcodeNumber"
+                        },
+                        new
+                        {
+                            Id = 97,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Barcodes.GetListByDynamicBarcode"
+                        },
+                        new
+                        {
+                            Id = 98,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Shops.Admin"
+                        },
+                        new
+                        {
+                            Id = 99,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Shops.Read"
+                        },
+                        new
+                        {
+                            Id = 100,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Shops.Write"
+                        },
+                        new
+                        {
+                            Id = 101,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Shops.Add"
+                        },
+                        new
+                        {
+                            Id = 102,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Shops.Update"
+                        },
+                        new
+                        {
+                            Id = 103,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Shops.Delete"
+                        },
+                        new
+                        {
+                            Id = 104,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Sellers.Admin"
+                        },
+                        new
+                        {
+                            Id = 105,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Sellers.Read"
+                        },
+                        new
+                        {
+                            Id = 106,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Sellers.Write"
+                        },
+                        new
+                        {
+                            Id = 107,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Sellers.Add"
+                        },
+                        new
+                        {
+                            Id = 108,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Sellers.Update"
+                        },
+                        new
+                        {
+                            Id = 109,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Sellers.Delete"
                         });
                 });
 
@@ -768,8 +924,8 @@ namespace Persistence.Migrations
                             Email = "admin@admin.com",
                             FirstName = "Admin",
                             LastName = "NArchitecture",
-                            PasswordHash = new byte[] { 210, 178, 173, 143, 201, 118, 182, 78, 176, 194, 106, 19, 106, 25, 249, 54, 25, 188, 91, 1, 8, 10, 119, 188, 158, 141, 170, 183, 10, 19, 3, 71, 97, 175, 236, 86, 63, 108, 84, 64, 200, 90, 207, 141, 248, 39, 76, 206, 138, 95, 194, 192, 120, 233, 77, 18, 119, 68, 238, 161, 68, 240, 145, 139 },
-                            PasswordSalt = new byte[] { 113, 212, 102, 76, 85, 106, 52, 23, 35, 97, 175, 129, 21, 27, 149, 253, 154, 169, 105, 210, 118, 20, 83, 123, 25, 174, 25, 41, 12, 115, 187, 141, 162, 162, 219, 223, 138, 85, 161, 38, 12, 230, 178, 121, 232, 29, 9, 93, 130, 127, 207, 43, 158, 212, 155, 13, 101, 210, 140, 123, 201, 148, 222, 23, 177, 202, 60, 229, 227, 74, 169, 15, 139, 255, 38, 51, 103, 74, 231, 58, 83, 249, 237, 5, 47, 49, 16, 21, 17, 224, 7, 62, 15, 5, 241, 223, 246, 82, 34, 102, 231, 203, 183, 3, 151, 175, 206, 80, 182, 17, 238, 238, 21, 56, 70, 220, 110, 17, 27, 38, 196, 146, 94, 69, 40, 193, 111, 232 },
+                            PasswordHash = new byte[] { 181, 217, 114, 142, 20, 65, 87, 99, 36, 208, 137, 3, 174, 114, 239, 56, 240, 50, 204, 150, 165, 85, 119, 126, 248, 177, 63, 56, 158, 255, 83, 230, 65, 136, 90, 105, 113, 236, 22, 60, 254, 238, 232, 196, 177, 216, 79, 162, 135, 16, 245, 147, 250, 238, 214, 196, 20, 210, 251, 160, 80, 102, 115, 57 },
+                            PasswordSalt = new byte[] { 229, 127, 99, 159, 161, 221, 75, 173, 111, 45, 201, 42, 239, 25, 28, 236, 217, 122, 231, 233, 14, 93, 67, 19, 63, 104, 29, 205, 217, 233, 53, 170, 241, 12, 88, 79, 142, 67, 148, 156, 138, 181, 34, 190, 153, 180, 114, 238, 165, 145, 239, 56, 134, 202, 70, 71, 138, 163, 80, 30, 207, 29, 162, 62, 203, 229, 247, 170, 133, 146, 13, 125, 251, 106, 120, 105, 132, 190, 205, 89, 133, 145, 214, 136, 64, 49, 198, 243, 102, 115, 211, 164, 122, 145, 15, 188, 84, 183, 159, 69, 138, 54, 138, 212, 20, 84, 108, 20, 28, 149, 141, 132, 58, 220, 68, 150, 9, 158, 242, 210, 214, 228, 134, 18, 110, 161, 99, 108 },
                             Status = true
                         },
                         new
@@ -780,8 +936,8 @@ namespace Persistence.Migrations
                             Email = "cabbar.allahverdiyev@gmail.com",
                             FirstName = "Cabbar",
                             LastName = "Allahverdiyev",
-                            PasswordHash = new byte[] { 210, 178, 173, 143, 201, 118, 182, 78, 176, 194, 106, 19, 106, 25, 249, 54, 25, 188, 91, 1, 8, 10, 119, 188, 158, 141, 170, 183, 10, 19, 3, 71, 97, 175, 236, 86, 63, 108, 84, 64, 200, 90, 207, 141, 248, 39, 76, 206, 138, 95, 194, 192, 120, 233, 77, 18, 119, 68, 238, 161, 68, 240, 145, 139 },
-                            PasswordSalt = new byte[] { 113, 212, 102, 76, 85, 106, 52, 23, 35, 97, 175, 129, 21, 27, 149, 253, 154, 169, 105, 210, 118, 20, 83, 123, 25, 174, 25, 41, 12, 115, 187, 141, 162, 162, 219, 223, 138, 85, 161, 38, 12, 230, 178, 121, 232, 29, 9, 93, 130, 127, 207, 43, 158, 212, 155, 13, 101, 210, 140, 123, 201, 148, 222, 23, 177, 202, 60, 229, 227, 74, 169, 15, 139, 255, 38, 51, 103, 74, 231, 58, 83, 249, 237, 5, 47, 49, 16, 21, 17, 224, 7, 62, 15, 5, 241, 223, 246, 82, 34, 102, 231, 203, 183, 3, 151, 175, 206, 80, 182, 17, 238, 238, 21, 56, 70, 220, 110, 17, 27, 38, 196, 146, 94, 69, 40, 193, 111, 232 },
+                            PasswordHash = new byte[] { 181, 217, 114, 142, 20, 65, 87, 99, 36, 208, 137, 3, 174, 114, 239, 56, 240, 50, 204, 150, 165, 85, 119, 126, 248, 177, 63, 56, 158, 255, 83, 230, 65, 136, 90, 105, 113, 236, 22, 60, 254, 238, 232, 196, 177, 216, 79, 162, 135, 16, 245, 147, 250, 238, 214, 196, 20, 210, 251, 160, 80, 102, 115, 57 },
+                            PasswordSalt = new byte[] { 229, 127, 99, 159, 161, 221, 75, 173, 111, 45, 201, 42, 239, 25, 28, 236, 217, 122, 231, 233, 14, 93, 67, 19, 63, 104, 29, 205, 217, 233, 53, 170, 241, 12, 88, 79, 142, 67, 148, 156, 138, 181, 34, 190, 153, 180, 114, 238, 165, 145, 239, 56, 134, 202, 70, 71, 138, 163, 80, 30, 207, 29, 162, 62, 203, 229, 247, 170, 133, 146, 13, 125, 251, 106, 120, 105, 132, 190, 205, 89, 133, 145, 214, 136, 64, 49, 198, 243, 102, 115, 211, 164, 122, 145, 15, 188, 84, 183, 159, 69, 138, 54, 138, 212, 20, 84, 108, 20, 28, 149, 141, 132, 58, 220, 68, 150, 9, 158, 242, 210, 214, 228, 134, 18, 110, 161, 99, 108 },
                             Status = true
                         });
                 });
@@ -836,6 +992,7 @@ namespace Persistence.Migrations
             modelBuilder.Entity("Domain.Entities.Barcode", b =>
                 {
                     b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("Id");
 
@@ -861,6 +1018,9 @@ namespace Persistence.Migrations
                         .HasColumnName("UpdatedDate");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ProductId")
+                        .IsUnique();
 
                     b.ToTable("Barcodes", (string)null);
                 });
@@ -902,16 +1062,16 @@ namespace Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("3826063b-c321-42a8-a1cf-9695714d5b80"),
-                            CountryId = new Guid("c5ac9bc7-9f3f-4d45-85c0-d188f88352dd"),
-                            CreatedDate = new DateTime(2024, 6, 12, 18, 19, 37, 984, DateTimeKind.Utc).AddTicks(4541),
+                            Id = new Guid("fdf16992-1e6b-4da2-9e8e-8666b42aa388"),
+                            CountryId = new Guid("a9b76887-6b74-4ec0-8c11-688dd7f960ae"),
+                            CreatedDate = new DateTime(2024, 11, 12, 18, 30, 36, 76, DateTimeKind.Utc).AddTicks(2531),
                             Name = "Baku"
                         },
                         new
                         {
-                            Id = new Guid("40d3e9dd-5596-4b64-aad9-56865e54895f"),
-                            CountryId = new Guid("29681908-fabc-4eca-8fd1-a34927d1b9e6"),
-                            CreatedDate = new DateTime(2024, 6, 12, 18, 19, 37, 984, DateTimeKind.Utc).AddTicks(4576),
+                            Id = new Guid("31f21266-b60f-4a44-9c98-4b1bea89d34f"),
+                            CountryId = new Guid("f45bc3e9-8c5e-4885-bbb6-cfd0c0850907"),
+                            CreatedDate = new DateTime(2024, 11, 12, 18, 30, 36, 76, DateTimeKind.Utc).AddTicks(2575),
                             Name = "Yevlakh"
                         });
                 });
@@ -969,10 +1129,10 @@ namespace Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("a352c4c0-eb1f-4e4a-919b-05e359b656d1"),
+                            Id = new Guid("0a3327dd-29dc-4ea0-bcd0-1309fc4a403a"),
                             AddressLine1 = "yyyyy",
                             AddressLine2 = "aaaa",
-                            CityId = new Guid("3826063b-c321-42a8-a1cf-9695714d5b80"),
+                            CityId = new Guid("fdf16992-1e6b-4da2-9e8e-8666b42aa388"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "aaa@aaa.com",
                             Name = "ABC",
@@ -980,10 +1140,10 @@ namespace Persistence.Migrations
                         },
                         new
                         {
-                            Id = new Guid("5fac637e-4aab-443d-82fd-df142248ef1f"),
+                            Id = new Guid("568313ff-e867-4004-9e61-aed91e03bc0a"),
                             AddressLine1 = "aaaaaa",
                             AddressLine2 = "aaaaaa",
-                            CityId = new Guid("40d3e9dd-5596-4b64-aad9-56865e54895f"),
+                            CityId = new Guid("31f21266-b60f-4a44-9c98-4b1bea89d34f"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "avd@ads.com",
                             Name = "Telefon",
@@ -997,6 +1157,11 @@ namespace Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("Id");
+
+                    b.Property<string>("BarcodeCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("BarcodeCode");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2")
@@ -1022,13 +1187,15 @@ namespace Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("c5ac9bc7-9f3f-4d45-85c0-d188f88352dd"),
+                            Id = new Guid("a9b76887-6b74-4ec0-8c11-688dd7f960ae"),
+                            BarcodeCode = "476",
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Azerbaijan"
                         },
                         new
                         {
-                            Id = new Guid("29681908-fabc-4eca-8fd1-a34927d1b9e6"),
+                            Id = new Guid("f45bc3e9-8c5e-4885-bbb6-cfd0c0850907"),
+                            BarcodeCode = "869",
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Turkey"
                         });
@@ -1073,7 +1240,7 @@ namespace Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("470bd373-660c-4c9a-846a-fc5968e777e3"),
+                            Id = new Guid("ee01256e-4ef1-49c3-973f-848a175a60b4"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "",
                             DiscountPercent = 15m,
@@ -1081,7 +1248,7 @@ namespace Persistence.Migrations
                         },
                         new
                         {
-                            Id = new Guid("a1a6eb70-3a04-433f-a9f5-e08f4bb1c264"),
+                            Id = new Guid("d26159be-70b7-470c-9ff6-3b2c04c34e1a"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "",
                             DiscountPercent = 25m,
@@ -1152,6 +1319,10 @@ namespace Persistence.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("SKU");
 
+                    b.Property<Guid>("ShopId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("ShopId");
+
                     b.Property<Guid>("SupplierId")
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("SupplierId");
@@ -1177,6 +1348,8 @@ namespace Persistence.Migrations
                     b.HasIndex("DiscountId");
 
                     b.HasIndex("ProductColorId");
+
+                    b.HasIndex("ShopId");
 
                     b.HasIndex("SupplierId");
 
@@ -1218,13 +1391,13 @@ namespace Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("cebfa3aa-47ef-4cd9-9b3e-69891773c2bb"),
+                            Id = new Guid("d6a0db73-a685-4f35-86ce-881b060d2fa0"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Azzaro"
                         },
                         new
                         {
-                            Id = new Guid("286bd8f3-e70c-4e7b-af84-6acb62446a4d"),
+                            Id = new Guid("9d64dd91-85c5-4b32-bdb6-6fa254649b39"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Sauvage"
                         });
@@ -1271,25 +1444,25 @@ namespace Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("c2548d72-2ee3-40a5-8042-1a6ef974048f"),
+                            Id = new Guid("7710fa7e-ff6b-4090-8854-e23f12905fb5"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "rahat dasimaq",
                             Name = "Elektronika"
                         },
                         new
                         {
-                            Id = new Guid("62005739-1c00-4c6e-acf1-a8d91de16c87"),
+                            Id = new Guid("0422fd48-809e-4f26-91d3-b0b570db257d"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "asan əlaqə",
                             Name = "Telefon"
                         },
                         new
                         {
-                            Id = new Guid("fdebf5d9-3931-4337-b876-bdf1c0bbdbfa"),
+                            Id = new Guid("d4da3e5b-a52e-40b3-ab5f-f4f8ab84591f"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "asan əlaqə",
                             Name = "Telefon",
-                            ParentId = new Guid("c2548d72-2ee3-40a5-8042-1a6ef974048f")
+                            ParentId = new Guid("7710fa7e-ff6b-4090-8854-e23f12905fb5")
                         });
                 });
 
@@ -1324,19 +1497,19 @@ namespace Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("1930c95e-461a-4c6a-aa9e-85a3d973b748"),
+                            Id = new Guid("5dd61f0b-ea70-4cf3-be19-045916e10964"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Red"
                         },
                         new
                         {
-                            Id = new Guid("86199dd2-94f0-4333-8836-de66bfc5bab7"),
+                            Id = new Guid("277cd150-3d0b-4394-bda4-ea1c97d02145"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Blue"
                         },
                         new
                         {
-                            Id = new Guid("5a16a2ed-8665-4c79-ad52-4ea1f9cca598"),
+                            Id = new Guid("66c3eaf1-9be2-4734-8eeb-c9a71870f3ad"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Orange"
                         });
@@ -1345,6 +1518,7 @@ namespace Persistence.Migrations
             modelBuilder.Entity("Domain.Entities.ProductInventor", b =>
                 {
                     b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("Id");
 
@@ -1370,7 +1544,82 @@ namespace Persistence.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ProductId")
+                        .IsUnique();
+
                     b.ToTable("ProductInventors", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Entities.Seller", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("Id");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("CreatedDate");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("DeletedDate");
+
+                    b.Property<Guid>("ShopId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("ShopId");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("UpdatedDate");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int")
+                        .HasColumnName("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ShopId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Sellers", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Entities.Shop", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("Id");
+
+                    b.Property<Guid>("CompanyId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("CompanyId");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("CreatedDate");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("DeletedDate");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("UpdatedDate");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int")
+                        .HasColumnName("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CompanyId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Shops", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.Supplier", b =>
@@ -1379,6 +1628,11 @@ namespace Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("Id");
+
+                    b.Property<string>("BarcodeCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("BarcodeCode");
 
                     b.Property<Guid>("CompanyId")
                         .HasColumnType("uniqueidentifier")
@@ -1415,8 +1669,9 @@ namespace Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("f71a8ea6-7077-4bf2-9c62-f053348a8813"),
-                            CompanyId = new Guid("a352c4c0-eb1f-4e4a-919b-05e359b656d1"),
+                            Id = new Guid("25efed0a-52d4-441b-87bd-2c94c1725845"),
+                            BarcodeCode = "0001",
+                            CompanyId = new Guid("0a3327dd-29dc-4ea0-bcd0-1309fc4a403a"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "stajci satici",
                             UserId = 1
@@ -1479,7 +1734,7 @@ namespace Persistence.Migrations
                 {
                     b.HasOne("Domain.Entities.Product", "Product")
                         .WithOne("Barcode")
-                        .HasForeignKey("Domain.Entities.Barcode", "Id")
+                        .HasForeignKey("Domain.Entities.Barcode", "ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1534,10 +1789,16 @@ namespace Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Domain.Entities.Shop", "Shop")
+                        .WithMany()
+                        .HasForeignKey("ShopId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Domain.Entities.Supplier", "Supplier")
                         .WithMany("Products")
                         .HasForeignKey("SupplierId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Brand");
@@ -1547,6 +1808,8 @@ namespace Persistence.Migrations
                     b.Navigation("Discount");
 
                     b.Navigation("ProductColor");
+
+                    b.Navigation("Shop");
 
                     b.Navigation("Supplier");
                 });
@@ -1563,12 +1826,50 @@ namespace Persistence.Migrations
             modelBuilder.Entity("Domain.Entities.ProductInventor", b =>
                 {
                     b.HasOne("Domain.Entities.Product", "Product")
-                        .WithOne("ProductInventor")
-                        .HasForeignKey("Domain.Entities.ProductInventor", "Id")
+                        .WithOne("Inventor")
+                        .HasForeignKey("Domain.Entities.ProductInventor", "ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Seller", b =>
+                {
+                    b.HasOne("Domain.Entities.Shop", "Shop")
+                        .WithMany("Sellers")
+                        .HasForeignKey("ShopId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Core.Security.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Shop");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Shop", b =>
+                {
+                    b.HasOne("Domain.Entities.Company", "Company")
+                        .WithMany("Shops")
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Core.Security.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Company");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Domain.Entities.Supplier", b =>
@@ -1613,6 +1914,8 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Domain.Entities.Company", b =>
                 {
+                    b.Navigation("Shops");
+
                     b.Navigation("Suppliers");
                 });
 
@@ -1630,7 +1933,7 @@ namespace Persistence.Migrations
                 {
                     b.Navigation("Barcode");
 
-                    b.Navigation("ProductInventor");
+                    b.Navigation("Inventor");
                 });
 
             modelBuilder.Entity("Domain.Entities.ProductBrand", b =>
@@ -1646,6 +1949,11 @@ namespace Persistence.Migrations
             modelBuilder.Entity("Domain.Entities.ProductColor", b =>
                 {
                     b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Shop", b =>
+                {
+                    b.Navigation("Sellers");
                 });
 
             modelBuilder.Entity("Domain.Entities.Supplier", b =>
