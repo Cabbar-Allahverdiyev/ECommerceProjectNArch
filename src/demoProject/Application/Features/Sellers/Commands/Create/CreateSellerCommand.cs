@@ -15,7 +15,7 @@ namespace Application.Features.Sellers.Commands.Create;
 
 public class CreateSellerCommand : IRequest<CreatedSellerResponse>, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
 {
-    public int UserId { get; set; }
+    //public int UserId { get; set; }
     public Guid ShopId { get; set; }
 
     public string[] Roles => new[] { Admin, Write, SellersOperationClaims.Create };
@@ -46,8 +46,7 @@ public class CreateSellerCommand : IRequest<CreatedSellerResponse>, ISecuredRequ
         {
             Seller seller = _mapper.Map<Seller>(request);
 
-            await _sellerBusinessRules.UserIdShouldExistWhenSelected(seller.UserId,cancellationToken);
-            await _sellerBusinessRules.ShopIdShouldExistWhenSelected(seller.ShopId, cancellationToken);
+            await _sellerBusinessRules.ShopIdShouldExistWhenSelected(request.ShopId, cancellationToken);
 
             seller.Id = Guid.NewGuid();
             await _userOperationClaimService.AddSellerClaimOnUser(seller.UserId);
