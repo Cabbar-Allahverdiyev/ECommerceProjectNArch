@@ -75,7 +75,7 @@ public class CreateProductCommand : IRequest<CreatedProductResponse>, ISecuredRe
                 cancellationToken);
 
             product.Id = Guid.NewGuid();
-            product.ShopId = request.ShopId;
+            //product.ShopId = request.ShopId;
             product.SKU = await product.GenerateSKU();
             await _productRepository.AddAsync(product);
             ProductInventor productInventor = await _productInventorsService.AddAsync(new(Guid.NewGuid(), product.Id, quantity: request.Quantity));

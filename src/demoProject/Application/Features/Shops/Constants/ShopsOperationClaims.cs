@@ -10,4 +10,6 @@ public static class ShopsOperationClaims
     public const string Create = "Shops.Create";
     public const string Update = "Shops.Update";
     public const string Delete = "Shops.Delete";
+
+    public const string Shop = "Shop";
 }

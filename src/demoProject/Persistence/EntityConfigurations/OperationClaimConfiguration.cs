@@ -263,6 +263,8 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
        seeds.Add(new OperationClaim { Id = ++id, Name = "Shops.Add" });
        seeds.Add(new OperationClaim { Id = ++id, Name = "Shops.Update" });
        seeds.Add(new OperationClaim { Id = ++id, Name = "Shops.Delete" });
+
+       seeds.Add(new OperationClaim { Id = ++id, Name = "Shop" });
        
        #endregion
        
