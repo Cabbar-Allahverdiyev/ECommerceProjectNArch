@@ -10,10 +10,6 @@ using Core.Application.Pipelines.Transaction;
 using MediatR;
 using static Application.Features.Shops.Constants.ShopsOperationClaims;
 using Application.Services.UserOperationClaims;
-using Application.Services.OperationClaims;
-using Core.Security.Entities;
-using Azure;
-using Core.CrossCuttingConcerns.Exceptions.Types;
 
 namespace Application.Features.Shops.Commands.Create;
 
