@@ -34,40 +34,34 @@ public class CreateShopCommand : IRequest<CreatedShopResponse>, ISecuredRequest,
         private readonly IShopRepository _shopRepository;
         private readonly ShopBusinessRules _shopBusinessRules;
         private readonly IUserOperationClaimService _userOperationClaimService;
-        private readonly IOperationClaimService _operationClaimService;
 
-        public CreateShopCommandHandler(IMapper mapper, IShopRepository shopRepository,
-                                         ShopBusinessRules shopBusinessRules)
+        public CreateShopCommandHandler(IMapper mapper,
+                                        IShopRepository shopRepository,
+                                        ShopBusinessRules shopBusinessRules,
+                                        IUserOperationClaimService userOperationClaimService)
         {
             _mapper = mapper;
             _shopRepository = shopRepository;
             _shopBusinessRules = shopBusinessRules;
+            _userOperationClaimService = userOperationClaimService;
         }
 
         public async Task<CreatedShopResponse> Handle(CreateShopCommand request, CancellationToken cancellationToken)
         {
             Shop shop = _mapper.Map<Shop>(request);
-            await _shopBusinessRules.UserIdShouldExistWhenSelected(shop.UserId,cancellationToken);
-            await _shopBusinessRules.CompanyIdShouldExistWhenSelected(shop.CompanyId,cancellationToken);
+            await _shopBusinessRules.UserIdShouldExistWhenSelected(shop.UserId, cancellationToken);
+            await _shopBusinessRules.CompanyIdShouldExistWhenSelected(shop.CompanyId, cancellationToken);
 
             shop.Id = Guid.NewGuid();
 
-            await AddShopClaimOnUser(shop);
+            await _userOperationClaimService.AddShopClaimOnUser(shop.UserId);
             await _shopRepository.AddAsync(shop);
 
             CreatedShopResponse response = _mapper.Map<CreatedShopResponse>(shop);
-           
+
             return response;
         }
 
-        private async Task AddShopClaimOnUser(Shop? shop)
-        {
-            if (shop != null)
-            {
-                OperationClaim? getClaim = await _operationClaimService.GetAsync(c => c.Name == ShopsOperationClaims.Shop);
-                if (getClaim != null) { await _userOperationClaimService.AddAsync(new(shop.UserId, getClaim.Id)); }
-                else { throw new BusinessException(ShopsBusinessMessages.ShopClaimNotExists); }
-            }
-        }
+        
     }
 }
