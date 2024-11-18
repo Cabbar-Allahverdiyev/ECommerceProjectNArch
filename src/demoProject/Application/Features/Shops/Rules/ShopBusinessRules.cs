@@ -1,27 +1,27 @@
 using Application.Features.Shops.Constants;
+using Application.Services.Companies;
 using Application.Services.Repositories;
+using Application.Services.UsersService;
 using Core.Application.Rules;
 using Core.CrossCuttingConcerns.Exceptions.Types;
 using Core.Security.Entities;
 using Domain.Entities;
-using Nest;
-using System.Threading;
 
 namespace Application.Features.Shops.Rules;
 
 public class ShopBusinessRules : BaseBusinessRules
 {
     private readonly IShopRepository _shopRepository;
-    private readonly ICompanyRepository _companyRepository;
-    private readonly IUserRepository _userRepository;
+    private readonly IUserService _userService;
+    private readonly ICompaniesService _companiesService;
 
     public ShopBusinessRules(IShopRepository shopRepository,
-                             ICompanyRepository companyRepository,
-                             IUserRepository userRepository)
+                             IUserService userService,
+                             ICompaniesService companiesService)
     {
         _shopRepository = shopRepository;
-        _companyRepository = companyRepository;
-        _userRepository = userRepository;
+        _userService = userService;
+        _companiesService = companiesService;
     }
 
     public Task ShopShouldExistWhenSelected(Shop? shop)
@@ -58,7 +58,7 @@ public class ShopBusinessRules : BaseBusinessRules
 
     public async Task CompanyIdShouldExistWhenSelected(Guid companyId, CancellationToken cancellationToken)
     {
-        Company? company = await _companyRepository.GetAsync(
+        Company? company = await _companiesService.GetAsync(
            predicate: s => s.Id == companyId,
            enableTracking: false,
            cancellationToken: cancellationToken
@@ -68,7 +68,7 @@ public class ShopBusinessRules : BaseBusinessRules
 
     public async Task UserIdShouldExistWhenSelected(int userId, CancellationToken cancellationToken)
     {
-        User? user = await _userRepository.GetAsync(
+        User? user = await _userService.GetAsync(
            predicate: s => s.Id == userId,
            enableTracking: false,
            cancellationToken: cancellationToken

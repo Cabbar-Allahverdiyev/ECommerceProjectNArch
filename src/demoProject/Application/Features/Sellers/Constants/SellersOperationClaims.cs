@@ -10,4 +10,6 @@ public static class SellersOperationClaims
     public const string Create = "Sellers.Create";
     public const string Update = "Sellers.Update";
     public const string Delete = "Sellers.Delete";
+
+    public const string Seller = "Seller";
 }

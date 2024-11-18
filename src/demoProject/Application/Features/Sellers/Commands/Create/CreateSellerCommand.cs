@@ -9,6 +9,7 @@ using Core.Application.Pipelines.Logging;
 using Core.Application.Pipelines.Transaction;
 using MediatR;
 using static Application.Features.Sellers.Constants.SellersOperationClaims;
+using Application.Services.UserOperationClaims;
 
 namespace Application.Features.Sellers.Commands.Create;
 
@@ -28,19 +29,28 @@ public class CreateSellerCommand : IRequest<CreatedSellerResponse>, ISecuredRequ
         private readonly IMapper _mapper;
         private readonly ISellerRepository _sellerRepository;
         private readonly SellerBusinessRules _sellerBusinessRules;
+        private readonly IUserOperationClaimService _userOperationClaimService;
 
-        public CreateSellerCommandHandler(IMapper mapper, ISellerRepository sellerRepository,
-                                         SellerBusinessRules sellerBusinessRules)
+        public CreateSellerCommandHandler(IMapper mapper,
+                                          ISellerRepository sellerRepository,
+                                          SellerBusinessRules sellerBusinessRules,
+                                          IUserOperationClaimService userOperationClaimService)
         {
             _mapper = mapper;
             _sellerRepository = sellerRepository;
             _sellerBusinessRules = sellerBusinessRules;
+            _userOperationClaimService = userOperationClaimService;
         }
 
         public async Task<CreatedSellerResponse> Handle(CreateSellerCommand request, CancellationToken cancellationToken)
         {
             Seller seller = _mapper.Map<Seller>(request);
 
+            await _sellerBusinessRules.UserIdShouldExistWhenSelected(seller.UserId);
+            await _sellerBusinessRules.ShopIdShouldExistWhenSelected(seller.ShopId);
+
+            seller.Id = Guid.NewGuid();
+            await _userOperationClaimService.AddSellerClaimOnUser(seller.UserId);
             await _sellerRepository.AddAsync(seller);
 
             CreatedSellerResponse response = _mapper.Map<CreatedSellerResponse>(seller);
