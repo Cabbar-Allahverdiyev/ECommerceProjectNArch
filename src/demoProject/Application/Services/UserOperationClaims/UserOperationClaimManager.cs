@@ -1,5 +1,10 @@
-﻿using Application.Features.UserOperationClaims.Rules;
+﻿using Application.Features.Sellers.Constants;
+using Application.Features.Shops.Constants;
+using Application.Features.UserOperationClaims.Constants;
+using Application.Features.UserOperationClaims.Rules;
+using Application.Services.OperationClaims;
 using Application.Services.Repositories;
+using Core.CrossCuttingConcerns.Exceptions.Types;
 using Core.Persistence.Paging;
 using Core.Security.Entities;
 using Microsoft.EntityFrameworkCore.Query;
@@ -7,18 +12,21 @@ using System.Linq.Expressions;
 
 namespace Application.Services.UserOperationClaims;
 
-public class UserUserOperationClaimManager : IUserOperationClaimService
+public class UserOperationClaimManager : IUserOperationClaimService
 {
     private readonly IUserOperationClaimRepository _userUserOperationClaimRepository;
     private readonly UserOperationClaimBusinessRules _userUserOperationClaimBusinessRules;
+    private readonly IOperationClaimService _operationClaimService;
 
-    public UserUserOperationClaimManager(
+    public UserOperationClaimManager(
         IUserOperationClaimRepository userUserOperationClaimRepository,
         UserOperationClaimBusinessRules userUserOperationClaimBusinessRules
-    )
+,
+        IOperationClaimService operationClaimService)
     {
         _userUserOperationClaimRepository = userUserOperationClaimRepository;
         _userUserOperationClaimBusinessRules = userUserOperationClaimBusinessRules;
+        _operationClaimService = operationClaimService;
     }
 
     public async Task<UserOperationClaim?> GetAsync(
@@ -91,7 +99,20 @@ public class UserUserOperationClaimManager : IUserOperationClaimService
     public async Task<UserOperationClaim> DeleteAsync(UserOperationClaim userUserOperationClaim, bool permanent = false)
     {
         UserOperationClaim deletedUserOperationClaim = await _userUserOperationClaimRepository.DeleteAsync(userUserOperationClaim);
-
         return deletedUserOperationClaim;
+    }
+
+    public async Task<UserOperationClaim> AddShopClaimOnUser(int userId)
+    {
+        OperationClaim? getClaim = await _operationClaimService.GetAsync(c => c.Name == ShopsOperationClaims.Shop);
+        if (getClaim != null) {return await this.AddAsync(new(userId, getClaim.Id)); }
+        else { throw new BusinessException(UserOperationClaimsBusinessMessages.ShopClaimNotExists); }
+    }
+
+    public async Task<UserOperationClaim> AddSellerClaimOnUser(int userId)
+    {
+        OperationClaim? getClaim = await _operationClaimService.GetAsync(c => c.Name == SellersOperationClaims.Seller);
+        if (getClaim != null) {return await this.AddAsync(new(userId, getClaim.Id)); }
+        else { throw new BusinessException(UserOperationClaimsBusinessMessages.SellerClaimNotExists); }
     }
 }

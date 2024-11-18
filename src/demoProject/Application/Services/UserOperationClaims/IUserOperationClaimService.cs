@@ -1,4 +1,7 @@
-﻿using Core.Persistence.Paging;
+﻿using Application.Features.UserOperationClaims.Constants;
+using Application.Services.OperationClaims;
+using Core.CrossCuttingConcerns.Exceptions.Types;
+using Core.Persistence.Paging;
 using Core.Security.Entities;
 using Microsoft.EntityFrameworkCore.Query;
 using System.Linq.Expressions;
@@ -29,4 +32,7 @@ public interface IUserOperationClaimService
     Task<UserOperationClaim> AddAsync(UserOperationClaim userOperationClaim);
     Task<UserOperationClaim> UpdateAsync(UserOperationClaim userOperationClaim);
     Task<UserOperationClaim> DeleteAsync(UserOperationClaim userOperationClaim, bool permanent = false);
+
+    Task<UserOperationClaim> AddShopClaimOnUser(int userId);
+    Task<UserOperationClaim> AddSellerClaimOnUser(int userId);
 }
