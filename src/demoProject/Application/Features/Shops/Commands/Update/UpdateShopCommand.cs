@@ -15,7 +15,6 @@ namespace Application.Features.Shops.Commands.Update;
 public class UpdateShopCommand : IRequest<UpdatedShopResponse>, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
 {
     public Guid Id { get; set; }
-    public int UserId { get; set; }
     public Guid CompanyId { get; set; }
 
     public string[] Roles => new[] { Admin, Write, ShopsOperationClaims.Update };
@@ -42,8 +41,7 @@ public class UpdateShopCommand : IRequest<UpdatedShopResponse>, ISecuredRequest,
         {
             Shop? shop = await _shopRepository.GetAsync(predicate: s => s.Id == request.Id, cancellationToken: cancellationToken);
             await _shopBusinessRules.ShopShouldExistWhenSelected(shop);
-            await _shopBusinessRules.UserIdShouldExistWhenSelected(shop!.UserId,cancellationToken);
-            await _shopBusinessRules.CompanyIdShouldExistWhenSelected(shop!.CompanyId,cancellationToken);
+            await _shopBusinessRules.CompanyIdShouldExistWhenSelected(request!.CompanyId,cancellationToken);
 
             shop = _mapper.Map(request, shop);
 
