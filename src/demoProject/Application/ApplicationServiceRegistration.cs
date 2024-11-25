@@ -29,6 +29,8 @@ using Application.Services.Barcodes;
 using Application.Common.Helpers.BarcodeHelpers;
 using Application.Services.Shops;
 using Application.Services.Sellers;
+using Application.Services.OperationClaims;
+using Application.Services.UserOperationClaims;
 
 namespace Application;
 
@@ -57,6 +59,8 @@ public static class ApplicationServiceRegistration
         services.AddSingleton<IElasticSearch, ElasticSearchManager>();
         services.AddScoped<IAuthService, AuthManager>();
         services.AddScoped<IAuthenticatorService, AuthenticatorManager>();
+        services.AddScoped<IOperationClaimService,OperationClaimManager>();
+        services.AddScoped<IUserOperationClaimService, UserOperationClaimManager>();
         services.AddScoped<IUserService, UserManager>();
         services.AddScoped<ICompaniesService, CompaniesManager>();
         services.AddScoped<ICitiesService, CitiesManager>();
@@ -70,10 +74,10 @@ public static class ApplicationServiceRegistration
         services.AddScoped<IProductColorsService, ProductColorsManager>();
         services.AddScoped<IProductColorsService, ProductColorsManager>();
         services.AddScoped<IBarcodesService, BarcodesManager>();
-
-        services.AddScoped<IBarcodeHelper, BarcodeHelper>();
         services.AddScoped<IShopsService, ShopsManager>();
         services.AddScoped<ISellersService, SellersManager>();
+
+        services.AddScoped<IBarcodeHelper, BarcodeHelper>();
         return services;
     }
 

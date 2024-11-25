@@ -20,7 +20,7 @@ public interface IShopsService
        Func<IQueryable<Shop>, IIncludableQueryable<Shop, object>>? include = null,
        bool withDeleted = false,
        bool enableTracking = true,
-       CancellationToken cancellationToken = default)
+       CancellationToken cancellationToken = default);
     Task<IPaginate<Shop>?> GetListAsync(
         Expression<Func<Shop, bool>>? predicate = null,
         Func<IQueryable<Shop>, IOrderedQueryable<Shop>>? orderBy = null,
