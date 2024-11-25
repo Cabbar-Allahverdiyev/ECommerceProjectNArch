@@ -42,7 +42,7 @@ public class GetByNameProductQuery : IRequest<GetByNameProductResponse>, ISecure
             Product? product = await _productRepository.GetAsync(// eyni adli mehsul bazada var cunki
                                                                  // eyni adla ferqli tedarukculer ferqli
                                                                  // rengler ile mehsul elave ede bilerler
-                predicate: p => p.Name == request.Name,
+                predicate: p => string.Equals(p.Name, request.Name, StringComparison.OrdinalIgnoreCase),
                 include: p => p.Include(p => p.Brand)
                                 .Include(p => p.Category)
                                 .Include(p => p.Discount)
