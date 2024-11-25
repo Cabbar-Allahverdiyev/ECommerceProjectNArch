@@ -265,6 +265,9 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
        seeds.Add(new OperationClaim { Id = ++id, Name = "Shops.Delete" });
 
        seeds.Add(new OperationClaim { Id = ++id, Name = "Shop" });
+
+       seeds.Add(new OperationClaim { Id = ++id, Name = "Shops.GetListByCompanyNameShopQuery" });
+
        
        #endregion
        
@@ -279,6 +282,8 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
        seeds.Add(new OperationClaim { Id = ++id, Name = "Sellers.Add" });
        seeds.Add(new OperationClaim { Id = ++id, Name = "Sellers.Update" });
        seeds.Add(new OperationClaim { Id = ++id, Name = "Sellers.Delete" });
+
+       seeds.Add(new OperationClaim { Id = ++id, Name = "Seller" });
        
        #endregion
        
