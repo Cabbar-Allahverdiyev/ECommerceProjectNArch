@@ -12,4 +12,6 @@ public static class ShopsOperationClaims
     public const string Delete = "Shops.Delete";
 
     public const string Shop = "Shop";
+    public const string GetByName = "Shops.GetByName";
+    public const string GetByCompanyNameShopQuery = "Shops.GetByCompanyNameShopQuery";
 }

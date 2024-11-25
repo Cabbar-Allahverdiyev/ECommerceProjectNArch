@@ -1,8 +1,8 @@
-using Core.Application.Dtos;
+using Core.Application.Responses;
 
-namespace Application.Features.Shops.Queries.GetList;
+namespace Application.Features.Shops.Queries.GetListByCompanyName;
 
-public class GetListShopListItemDto : IDto
+public class GetListByCompanyNameShopListItemDto : IResponse
 {
     public Guid Id { get; set; }
     public int UserId { get; set; }

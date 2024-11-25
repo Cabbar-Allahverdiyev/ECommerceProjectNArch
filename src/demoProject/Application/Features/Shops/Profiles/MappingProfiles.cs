@@ -7,6 +7,7 @@ using AutoMapper;
 using Core.Application.Responses;
 using Domain.Entities;
 using Core.Persistence.Paging;
+using Application.Features.Shops.Queries.GetListByCompanyName;
 
 namespace Application.Features.Shops.Profiles;
 
@@ -23,5 +24,6 @@ public class MappingProfiles : Profile
         CreateMap<Shop, GetByIdShopResponse>().ReverseMap();
         CreateMap<Shop, GetListShopListItemDto>().ReverseMap();
         CreateMap<IPaginate<Shop>, GetListResponse<GetListShopListItemDto>>().ReverseMap();
+        CreateMap<IPaginate<Shop>, GetListResponse<GetListByCompanyNameShopListItemDto>>().ReverseMap();
     }
 }

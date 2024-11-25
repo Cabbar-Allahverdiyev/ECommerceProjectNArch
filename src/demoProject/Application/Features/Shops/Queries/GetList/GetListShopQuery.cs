@@ -9,6 +9,7 @@ using Core.Application.Responses;
 using Core.Persistence.Paging;
 using MediatR;
 using static Application.Features.Shops.Constants.ShopsOperationClaims;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features.Shops.Queries.GetList;
 
@@ -38,7 +39,9 @@ public class GetListShopQuery : IRequest<GetListResponse<GetListShopListItemDto>
         {
             IPaginate<Shop> shops = await _shopRepository.GetListAsync(
                 index: request.PageRequest.PageIndex,
-                size: request.PageRequest.PageSize, 
+                size: request.PageRequest.PageSize,
+                include: s => s.Include(s => s.User).Include(s => s.Company),
+                enableTracking: false,
                 cancellationToken: cancellationToken
             );
 
