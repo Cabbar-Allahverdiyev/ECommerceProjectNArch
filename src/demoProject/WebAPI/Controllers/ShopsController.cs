@@ -6,6 +6,7 @@ using Application.Features.Shops.Queries.GetList;
 using Core.Application.Requests;
 using Core.Application.Responses;
 using Microsoft.AspNetCore.Mvc;
+using Application.Features.Shops.Queries.GetListByCompanyName;
 
 namespace WebAPI.Controllers;
 
@@ -51,4 +52,14 @@ public class ShopsController : BaseController
         GetListResponse<GetListShopListItemDto> response = await Mediator.Send(getListShopQuery);
         return Ok(response);
     }
+    
+   
+   
+   [HttpGet("GetListByCompanyNameShopQuery/{companyName}")]
+   public async Task<IActionResult> GetByCompanyNameShopQuery([FromRoute] string companyName,[FromQuery] PageRequest pageRequest)
+   {
+        GetListByCompanyNameShopQuery getListByCompanyNameShopQuery = new() {CompanyName =  companyName, PageRequest= pageRequest };
+       GetListResponse<GetListByCompanyNameShopListItemDto> response = await Mediator.Send(getListByCompanyNameShopQuery);
+       return Ok(response);
+   }
 }
