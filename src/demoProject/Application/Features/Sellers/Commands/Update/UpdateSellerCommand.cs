@@ -15,7 +15,7 @@ namespace Application.Features.Sellers.Commands.Update;
 public class UpdateSellerCommand : IRequest<UpdatedSellerResponse>, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
 {
     public Guid Id { get; set; }
-    public int UserId { get; set; }
+   // public int UserId { get; set; }
     public Guid ShopId { get; set; }
 
     public string[] Roles => new[] { Admin, Write, SellersOperationClaims.Update };

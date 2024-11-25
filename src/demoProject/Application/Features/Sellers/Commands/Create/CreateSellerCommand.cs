@@ -15,7 +15,7 @@ namespace Application.Features.Sellers.Commands.Create;
 
 public class CreateSellerCommand : IRequest<CreatedSellerResponse>, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
 {
-    //public int UserId { get; set; }
+    public int UserId { get; set; }
     public Guid ShopId { get; set; }
 
     public string[] Roles => new[] { Admin, Write, SellersOperationClaims.Create };
