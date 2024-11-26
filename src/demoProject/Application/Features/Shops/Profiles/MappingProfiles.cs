@@ -21,8 +21,9 @@ public class MappingProfiles : Profile
         CreateMap<Shop, UpdatedShopResponse>().ReverseMap();
         CreateMap<Shop, DeleteShopCommand>().ReverseMap();
         CreateMap<Shop, DeletedShopResponse>().ReverseMap();
-        CreateMap<Shop, GetByIdShopResponse>().ReverseMap();
+        CreateMap<Shop, GetByIdShopResponse>().ReverseMap(); 
         CreateMap<Shop, GetListShopListItemDto>().ReverseMap();
+        CreateMap<Shop, GetListByCompanyNameShopListItemDto>().ReverseMap();
         CreateMap<IPaginate<Shop>, GetListResponse<GetListShopListItemDto>>().ReverseMap();
         CreateMap<IPaginate<Shop>, GetListResponse<GetListByCompanyNameShopListItemDto>>().ReverseMap();
     }

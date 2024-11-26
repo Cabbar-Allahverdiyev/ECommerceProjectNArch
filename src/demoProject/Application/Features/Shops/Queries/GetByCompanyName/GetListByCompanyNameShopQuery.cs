@@ -47,7 +47,7 @@ public class GetListByCompanyNameShopQuery : IRequest<GetListResponse<GetListByC
             IPaginate<Shop> shops = await _shopRepository.GetListAsync(
                 index: request.PageRequest.PageIndex,
                 size: request.PageRequest.PageSize,
-                predicate:s=>string.Equals(s.Company.Name,request.CompanyName,StringComparison.OrdinalIgnoreCase),
+                predicate:s=> s.Company.Name.ToLower() == request.CompanyName.ToLower(),
                 include: s => s.Include(s => s.User).Include(s => s.Company),
                 enableTracking: false,
                 cancellationToken: cancellationToken
