@@ -6,6 +6,7 @@ using Domain.Entities;
 using Core.Application.Pipelines.Authorization;
 using MediatR;
 using static Application.Features.Sellers.Constants.SellersOperationClaims;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features.Sellers.Queries.GetById;
 
@@ -30,7 +31,11 @@ public class GetByIdSellerQuery : IRequest<GetByIdSellerResponse>, ISecuredReque
 
         public async Task<GetByIdSellerResponse> Handle(GetByIdSellerQuery request, CancellationToken cancellationToken)
         {
-            Seller? seller = await _sellerRepository.GetAsync(predicate: s => s.Id == request.Id, cancellationToken: cancellationToken);
+            Seller? seller = await _sellerRepository.GetAsync(
+                predicate: s => s.Id == request.Id,
+                include: s=>s.Include(s=>s.User).Include(s=>s.Shop),
+                enableTracking:false,
+                cancellationToken: cancellationToken);
             await _sellerBusinessRules.SellerShouldExistWhenSelected(seller);
 
             GetByIdSellerResponse response = _mapper.Map<GetByIdSellerResponse>(seller);
