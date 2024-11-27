@@ -268,6 +268,10 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
 
        seeds.Add(new OperationClaim { Id = ++id, Name = "Shops.GetListByCompanyNameShopQuery" });
 
+       seeds.Add(new OperationClaim { Id = ++id, Name = "Shops.GetByUserIdShop" });
+
+       seeds.Add(new OperationClaim { Id = ++id, Name = "Shops.GetByCompanyIdShop" });
+
        
        #endregion
        

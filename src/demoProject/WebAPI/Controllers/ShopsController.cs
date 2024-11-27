@@ -7,6 +7,8 @@ using Core.Application.Requests;
 using Core.Application.Responses;
 using Microsoft.AspNetCore.Mvc;
 using Application.Features.Shops.Queries.GetListByCompanyName;
+using Application.Features.Shops.Queries.GetByUserId;
+using Application.Features.Shops.Queries.GetByCompanyId;
 
 namespace WebAPI.Controllers;
 
@@ -60,6 +62,20 @@ public class ShopsController : BaseController
    {
         GetListByCompanyNameShopQuery getListByCompanyNameShopQuery = new() {CompanyName =  companyName, PageRequest= pageRequest };
        GetListResponse<GetListByCompanyNameShopListItemDto> response = await Mediator.Send(getListByCompanyNameShopQuery);
+       return Ok(response);
+   }
+   
+   [HttpGet("GetByUserIdShop")]
+   public async Task<IActionResult> GetByUserIdShop([FromQuery] GetByUserIdShopQuery getByUserIdShopQuery)
+   {
+       GetByUserIdShopResponse response = await Mediator.Send(getByUserIdShopQuery);
+       return Ok(response);
+   }
+   
+   [HttpGet("GetByCompanyIdShop")]
+   public async Task<IActionResult> GetByCompanyIdShop([FromQuery] GetByCompanyIdShopQuery getByCompanyIdShopQuery)
+   {
+       GetByCompanyIdShopResponse response = await Mediator.Send(getByCompanyIdShopQuery);
        return Ok(response);
    }
 }

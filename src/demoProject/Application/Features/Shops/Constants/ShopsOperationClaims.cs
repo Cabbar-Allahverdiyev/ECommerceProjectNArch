@@ -14,4 +14,6 @@ public static class ShopsOperationClaims
     public const string Shop = "Shop";
     public const string GetByName = "Shops.GetByName";
     public const string GetByCompanyNameShopQuery = "Shops.GetByCompanyNameShopQuery";
+    public const string GetByUserIdShop = "Shops.GetByUserIdShop";
+    public const string GetByCompanyIdShop = "Shops.GetByCompanyIdShop";
 }

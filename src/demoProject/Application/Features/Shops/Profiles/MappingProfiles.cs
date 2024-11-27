@@ -8,6 +8,8 @@ using Core.Application.Responses;
 using Domain.Entities;
 using Core.Persistence.Paging;
 using Application.Features.Shops.Queries.GetListByCompanyName;
+using Application.Features.Shops.Queries.GetByUserId;
+using Application.Features.Shops.Queries.GetByCompanyId;
 
 namespace Application.Features.Shops.Profiles;
 
@@ -22,6 +24,9 @@ public class MappingProfiles : Profile
         CreateMap<Shop, DeleteShopCommand>().ReverseMap();
         CreateMap<Shop, DeletedShopResponse>().ReverseMap();
         CreateMap<Shop, GetByIdShopResponse>().ReverseMap(); 
+        CreateMap<Shop, GetByUserIdShopResponse>().ReverseMap(); 
+        CreateMap<Shop, GetByCompanyIdShopResponse>().ReverseMap(); 
+
         CreateMap<Shop, GetListShopListItemDto>().ReverseMap();
         CreateMap<Shop, GetListByCompanyNameShopListItemDto>().ReverseMap();
         CreateMap<IPaginate<Shop>, GetListResponse<GetListShopListItemDto>>().ReverseMap();
