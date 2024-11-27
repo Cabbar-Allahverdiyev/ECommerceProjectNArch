@@ -10,6 +10,7 @@ using Core.Application.Pipelines.Logging;
 using Core.Application.Pipelines.Transaction;
 using MediatR;
 using static Application.Features.Shops.Constants.ShopsOperationClaims;
+using Application.Services.UserOperationClaims;
 
 namespace Application.Features.Shops.Commands.Delete;
 
@@ -28,13 +29,17 @@ public class DeleteShopCommand : IRequest<DeletedShopResponse>, ISecuredRequest,
         private readonly IMapper _mapper;
         private readonly IShopRepository _shopRepository;
         private readonly ShopBusinessRules _shopBusinessRules;
+        private readonly IUserOperationClaimService _userOperationClaimService;
 
-        public DeleteShopCommandHandler(IMapper mapper, IShopRepository shopRepository,
-                                         ShopBusinessRules shopBusinessRules)
+        public DeleteShopCommandHandler(IMapper mapper,
+                                        IShopRepository shopRepository,
+                                        ShopBusinessRules shopBusinessRules,
+                                        IUserOperationClaimService userOperationClaimService)
         {
             _mapper = mapper;
             _shopRepository = shopRepository;
             _shopBusinessRules = shopBusinessRules;
+            _userOperationClaimService = userOperationClaimService;
         }
 
         public async Task<DeletedShopResponse> Handle(DeleteShopCommand request, CancellationToken cancellationToken)
@@ -42,6 +47,7 @@ public class DeleteShopCommand : IRequest<DeletedShopResponse>, ISecuredRequest,
             Shop? shop = await _shopRepository.GetAsync(predicate: s => s.Id == request.Id, cancellationToken: cancellationToken);
             await _shopBusinessRules.ShopShouldExistWhenSelected(shop);
 
+            await _userOperationClaimService.RemoveSellerClaimOnUser(shop!.UserId);
             await _shopRepository.DeleteAsync(shop!);
 
             DeletedShopResponse response = _mapper.Map<DeletedShopResponse>(shop);
