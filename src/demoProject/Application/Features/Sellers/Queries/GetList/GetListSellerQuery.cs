@@ -1,4 +1,3 @@
-using Application.Features.Sellers.Constants;
 using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
@@ -9,6 +8,7 @@ using Core.Application.Responses;
 using Core.Persistence.Paging;
 using MediatR;
 using static Application.Features.Sellers.Constants.SellersOperationClaims;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features.Sellers.Queries.GetList;
 
@@ -38,7 +38,9 @@ public class GetListSellerQuery : IRequest<GetListResponse<GetListSellerListItem
         {
             IPaginate<Seller> sellers = await _sellerRepository.GetListAsync(
                 index: request.PageRequest.PageIndex,
-                size: request.PageRequest.PageSize, 
+                size: request.PageRequest.PageSize,
+                include: s => s.Include(s => s.User).Include(s => s.Shop),
+                enableTracking: false,
                 cancellationToken: cancellationToken
             );
 

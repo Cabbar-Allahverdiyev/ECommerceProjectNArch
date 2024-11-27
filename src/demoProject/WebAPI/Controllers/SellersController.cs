@@ -6,6 +6,8 @@ using Application.Features.Sellers.Queries.GetList;
 using Core.Application.Requests;
 using Core.Application.Responses;
 using Microsoft.AspNetCore.Mvc;
+using Application.Features.Sellers.Queries.GetByShopIdSeller;
+using Application.Features.Sellers.Queries.GetByUserIdSeller;
 
 namespace WebAPI.Controllers;
 
@@ -49,6 +51,20 @@ public class SellersController : BaseController
     {
         GetListSellerQuery getListSellerQuery = new() { PageRequest = pageRequest };
         GetListResponse<GetListSellerListItemDto> response = await Mediator.Send(getListSellerQuery);
+        return Ok(response);
+    }
+    
+    [HttpGet("GetByShopIdSeller")]
+    public async Task<IActionResult> GetByShopIdSeller([FromQuery] GetByShopIdSellerQuery getByShopIdSellerQuery)
+    {
+        GetByShopIdSellerResponse response = await Mediator.Send(getByShopIdSellerQuery);
+        return Ok(response);
+    }
+    
+    [HttpGet("GetByUserIdSeller")]
+    public async Task<IActionResult> GetByUserIdSeller([FromQuery] GetByUserIdSellerQuery getByUserIdSellerQuery)
+    {
+        GetByUserIdSellerResponse response = await Mediator.Send(getByUserIdSellerQuery);
         return Ok(response);
     }
 }

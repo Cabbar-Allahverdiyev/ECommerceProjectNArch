@@ -12,4 +12,6 @@ public static class SellersOperationClaims
     public const string Delete = "Sellers.Delete";
 
     public const string Seller = "Seller";
+    public const string GetByShopIdSeller = "Sellers.GetByShopIdSeller";
+    public const string GetByUserIdSeller = "Sellers.GetByUserIdSeller";
 }

@@ -7,6 +7,8 @@ using AutoMapper;
 using Core.Application.Responses;
 using Domain.Entities;
 using Core.Persistence.Paging;
+using Application.Features.Sellers.Queries.GetByShopIdSeller;
+using Application.Features.Sellers.Queries.GetByUserIdSeller;
 
 namespace Application.Features.Sellers.Profiles;
 
@@ -21,6 +23,9 @@ public class MappingProfiles : Profile
         CreateMap<Seller, DeleteSellerCommand>().ReverseMap();
         CreateMap<Seller, DeletedSellerResponse>().ReverseMap();
         CreateMap<Seller, GetByIdSellerResponse>().ReverseMap();
+        CreateMap<Seller, GetByShopIdSellerResponse>().ReverseMap();
+        CreateMap<Seller, GetByUserIdSellerResponse>().ReverseMap();
+
         CreateMap<Seller, GetListSellerListItemDto>().ReverseMap();
         CreateMap<IPaginate<Seller>, GetListResponse<GetListSellerListItemDto>>().ReverseMap();
     }

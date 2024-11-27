@@ -288,6 +288,10 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
        seeds.Add(new OperationClaim { Id = ++id, Name = "Sellers.Delete" });
 
        seeds.Add(new OperationClaim { Id = ++id, Name = "Seller" });
+       seeds.Add(new OperationClaim { Id = ++id, Name = "Sellers.GetByShopIdSeller" });
+
+       seeds.Add(new OperationClaim { Id = ++id, Name = "Sellers.GetByUserIdSeller" });
+
        
        #endregion
        
