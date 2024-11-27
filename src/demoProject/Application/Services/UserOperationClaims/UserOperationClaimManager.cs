@@ -104,15 +104,39 @@ public class UserOperationClaimManager : IUserOperationClaimService
 
     public async Task<UserOperationClaim> AddShopClaimOnUser(int userId)
     {
-        OperationClaim? getClaim = await _operationClaimService.GetAsync(c => c.Name == ShopsOperationClaims.Shop);
+        OperationClaim? getClaim = await _operationClaimService.GetAsync(
+            predicate:c => c.Name == ShopsOperationClaims.Shop,
+            enableTracking:false);
         if (getClaim != null) {return await this.AddAsync(new(userId, getClaim.Id)); }
         else { throw new BusinessException(UserOperationClaimsBusinessMessages.ShopClaimNotExists); }
     }
 
+    public async Task<UserOperationClaim> RemoveShopClaimOnUser(int userId)
+    {
+        OperationClaim? getClaim = await _operationClaimService.GetAsync(c => c.Name == ShopsOperationClaims.Shop);
+        UserOperationClaim? userOperationClaim = await this.GetAsync(
+            predicate:o=>o.UserId==userId && o.OperationClaimId==getClaim.Id);
+        if (userOperationClaim != null) { return await this.DeleteAsync(userOperationClaim); }
+        else { throw new BusinessException(UserOperationClaimsBusinessMessages.UserOperationClaimNotExists); }
+        throw new BusinessException(UserOperationClaimsBusinessMessages.ShopClaimNotExists);
+    }
+
     public async Task<UserOperationClaim> AddSellerClaimOnUser(int userId)
     {
-        OperationClaim? getClaim = await _operationClaimService.GetAsync(c => c.Name == SellersOperationClaims.Seller);
+        OperationClaim? getClaim = await _operationClaimService.GetAsync(
+            predicate:c => c.Name == SellersOperationClaims.Seller,
+            enableTracking:false);
         if (getClaim != null) {return await this.AddAsync(new(userId, getClaim.Id)); }
         else { throw new BusinessException(UserOperationClaimsBusinessMessages.SellerClaimNotExists); }
+    }
+     
+    public async Task<UserOperationClaim> RemoveSellerClaimOnUser(int userId)
+    {
+        OperationClaim? getClaim = await _operationClaimService.GetAsync(c => c.Name == SellersOperationClaims.Seller);
+        UserOperationClaim? userOperationClaim = await this.GetAsync(
+            predicate: o => o.UserId == userId && o.OperationClaimId == getClaim.Id);
+        if (userOperationClaim != null) { return await this.DeleteAsync(userOperationClaim); }
+        else { throw new BusinessException(UserOperationClaimsBusinessMessages.UserOperationClaimNotExists); }
+        throw new BusinessException(UserOperationClaimsBusinessMessages.SellerClaimNotExists);
     }
 }

@@ -34,5 +34,7 @@ public interface IUserOperationClaimService
     Task<UserOperationClaim> DeleteAsync(UserOperationClaim userOperationClaim, bool permanent = false);
 
     Task<UserOperationClaim> AddShopClaimOnUser(int userId);
+    Task<UserOperationClaim> RemoveShopClaimOnUser(int userId);
     Task<UserOperationClaim> AddSellerClaimOnUser(int userId);
+    Task<UserOperationClaim> RemoveSellerClaimOnUser(int userId);
 }
