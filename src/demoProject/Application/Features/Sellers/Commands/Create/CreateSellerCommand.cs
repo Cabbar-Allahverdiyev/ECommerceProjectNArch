@@ -47,6 +47,7 @@ public class CreateSellerCommand : IRequest<CreatedSellerResponse>, ISecuredRequ
             Seller seller = _mapper.Map<Seller>(request);
 
             await _sellerBusinessRules.ShopIdShouldExistWhenSelected(request.ShopId, cancellationToken);
+            await _sellerBusinessRules.UserIdShouldExistWhenSelected(request.UserId, cancellationToken);
 
             seller.Id = Guid.NewGuid();
             await _userOperationClaimService.AddSellerClaimOnUser(seller.UserId);

@@ -42,6 +42,8 @@ public class UpdateSellerCommand : IRequest<UpdatedSellerResponse>, ISecuredRequ
         {
             Seller? seller = await _sellerRepository.GetAsync(predicate: s => s.Id == request.Id, cancellationToken: cancellationToken);
             await _sellerBusinessRules.SellerShouldExistWhenSelected(seller);
+            await _sellerBusinessRules.ShopIdShouldExistWhenSelected(request.ShopId,cancellationToken);
+
             seller = _mapper.Map(request, seller);
 
             await _sellerRepository.UpdateAsync(seller!);
