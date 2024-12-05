@@ -18,4 +18,10 @@ public class Barcode : Entity<Guid>
         ProductId = productId;
         BarcodeNumber = barcodeNumber;
     }
+    public Barcode( Guid productId, string? barcodeNumber) : this()
+    {
+        Id = Guid.NewGuid();
+        ProductId = productId;
+        BarcodeNumber = barcodeNumber;
+    }
 }

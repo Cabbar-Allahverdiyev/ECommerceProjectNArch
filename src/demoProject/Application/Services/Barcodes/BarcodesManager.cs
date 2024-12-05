@@ -1,11 +1,14 @@
 using Application.Common.Helpers.BarcodeHelpers;
+using Application.Features.Barcodes.Constants;
 using Application.Features.Barcodes.Rules;
 using Application.Services.Repositories;
 using Application.Services.Suppliers;
+using Core.CrossCuttingConcerns.Exceptions.Types;
 using Core.Persistence.Paging;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore.Query;
 using System.Linq.Expressions;
+using System.Threading;
 
 namespace Application.Services.Barcodes;
 
@@ -63,16 +66,12 @@ public class BarcodesManager : IBarcodesService
         return barcodeList;
     }
 
-    public async Task<Barcode> AddAsync(Barcode barcode,Guid? supplierId)
+    public async Task<Barcode> AddAsync(Barcode barcode, Guid supplierId)
     {
-        if (string.IsNullOrWhiteSpace(barcode.BarcodeNumber) && supplierId!=null)
-        {
-            Country? country = await _suppliersService.GetCountryAsync(predicate: s => s.Id == supplierId);
-            Supplier supplier= await _suppliersService.GetAsync(predicate: s => s.Id == supplierId);
-            barcode.BarcodeNumber = await _barcodeHelper.GenerateBarcodeNumber(country.BarcodeCode
-                , supplier.BarcodeCode);
-        }
-        
+        await this.GenerateBarcodeIfEmpty(barcode, supplierId);
+        ValidateBarcodeIsNumeric(barcode.BarcodeNumber);
+        await _barcodeBusinessRules.BarcodeNumberShouldNotExistWhenSelected(barcode.BarcodeNumber, cancellationToken: default);
+        await _barcodeBusinessRules.ChekSumMustCorrect(barcode.BarcodeNumber);
         Barcode addedBarcode = await _barcodeRepository.AddAsync(barcode);
 
         return addedBarcode;
@@ -90,5 +89,25 @@ public class BarcodesManager : IBarcodesService
         Barcode deletedBarcode = await _barcodeRepository.DeleteAsync(barcode);
 
         return deletedBarcode;
+    }
+
+    private async Task GenerateBarcodeIfEmpty(Barcode barcode, Guid supplierId)
+    {
+
+        if (string.IsNullOrWhiteSpace(barcode.BarcodeNumber))
+        {
+            Supplier supplier = await _suppliersService.GetAsync(predicate: s => s.Id == supplierId);
+            if (supplier != null) throw new BusinessException(BarcodesBusinessMessages.SupplierNotExist);
+
+            Country? country = await _suppliersService.GetCountryAsync(predicate: s => s.Id == supplierId);
+            barcode.BarcodeNumber = await _barcodeHelper.GenerateBarcodeNumber(country.BarcodeCode
+                , supplier.BarcodeCode);
+        }
+    }
+
+    private void ValidateBarcodeIsNumeric(string barcodeNumber)
+    {
+        bool isNumeric = barcodeNumber.All(char.IsDigit);
+        if (!isNumeric) throw new BusinessException(BarcodesBusinessMessages.BarcodeNumberMustBeNumeric);
     }
 }

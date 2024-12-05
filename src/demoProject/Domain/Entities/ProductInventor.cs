@@ -20,5 +20,11 @@ public class ProductInventor : Entity<Guid>
         Quantity = quantity;
         ProductId = productId;
     }
-
+    public ProductInventor(Guid productId,
+                          int quantity) : this()
+    {
+        Id = Guid.NewGuid();
+        Quantity = quantity;
+        ProductId = productId;
+    }
 }
