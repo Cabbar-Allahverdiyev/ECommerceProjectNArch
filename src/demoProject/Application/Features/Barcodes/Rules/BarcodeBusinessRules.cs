@@ -37,7 +37,7 @@ public class BarcodeBusinessRules : BaseBusinessRules
         if (barcode == null)
             throw new BusinessException(BarcodesBusinessMessages.BarcodeIsNull);
         Barcode? result = await _barcodeRepository.GetAsync(
-        predicate: b => string.Equals(b.BarcodeNumber, newBarcodeNumber, StringComparison.OrdinalIgnoreCase)
+        predicate: b => b.BarcodeNumber.ToLower()==newBarcodeNumber.ToLower()
         && b.Id != barcode.Id,
         enableTracking: false,
         cancellationToken: cancellationToken);
@@ -57,7 +57,7 @@ public class BarcodeBusinessRules : BaseBusinessRules
     public async Task BarcodeNumberShouldNotExistWhenSelected(string? barcodeNumber, CancellationToken cancellationToken)
     {
         Barcode? barcode = await _barcodeRepository.GetAsync(
-            predicate: b => string.Equals( b.BarcodeNumber , barcodeNumber, StringComparison.OrdinalIgnoreCase),
+            predicate: b =>  b.BarcodeNumber.ToLower() == barcodeNumber.ToLower(),
             enableTracking: false,
             cancellationToken: cancellationToken
         );
