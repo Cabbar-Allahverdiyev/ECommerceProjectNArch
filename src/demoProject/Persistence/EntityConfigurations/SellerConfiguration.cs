@@ -25,15 +25,15 @@ public class SellerConfiguration : IEntityTypeConfiguration<Seller>
 
         builder.HasQueryFilter(s => !s.DeletedDate.HasValue);
 
-        //builder.HasData(getSeeds());
+        builder.HasData(getSeeds());
     }
 
     private IEnumerable<Seller> getSeeds()
     {
         List<Seller> data = new()
         {
-            new(SellerConfigIds[1],2,ShopConfiguration.ShopConfigIds[1]),
-            new(SellerConfigIds[2],2,ShopConfiguration.ShopConfigIds[2])
+            new(SellerConfigIds[0],1,ShopConfiguration.ShopConfigIds[0]),
+            new(SellerConfigIds[1],2,ShopConfiguration.ShopConfigIds[1])
         };
 
         return data;

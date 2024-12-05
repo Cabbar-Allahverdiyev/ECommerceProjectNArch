@@ -23,7 +23,7 @@ public class ShopConfiguration : IEntityTypeConfiguration<Shop>
 
         builder.HasQueryFilter(s => !s.DeletedDate.HasValue);
 
-        //builder.HasData(getSeeds());
+        builder.HasData(getSeeds());
     }
 
     private IEnumerable<Shop> getSeeds()
@@ -31,8 +31,8 @@ public class ShopConfiguration : IEntityTypeConfiguration<Shop>
 
         List<Shop> data = new()
         {
-            new(ShopConfigIds[1],1,CompanyConfiguration.CompanyConfigIds[1]),
-            new(ShopConfigIds[2],2,CompanyConfiguration.CompanyConfigIds[2])
+            new(ShopConfigIds[0],1,CompanyConfiguration.CompanyConfigIds[0]),
+            new(ShopConfigIds[1],2,CompanyConfiguration.CompanyConfigIds[1])
         };
         return data;
     }

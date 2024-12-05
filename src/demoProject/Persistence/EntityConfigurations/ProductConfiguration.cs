@@ -16,7 +16,6 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
         builder.Property(p => p.SupplierId).HasColumnName("SupplierId").IsRequired();
         builder.Property(p => p.DiscountId).HasColumnName("DiscountId").IsRequired();
         builder.Property(p => p.ProductColorId).HasColumnName("ProductColorId").IsRequired();
-        //builder.Property(p => p.UserId).HasColumnName("UserId").IsRequired();
         builder.Property(p => p.ShopId).HasColumnName("ShopId").IsRequired();
         builder.Property(p => p.UnitsOnOrder).HasColumnName("UnitsOnOrder");
         builder.Property(p => p.ReorderLevel).HasColumnName("ReorderLevel");
@@ -38,13 +37,12 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
         builder.HasOne(c => c.Discount);
         builder.HasOne(c => c.ProductColor);
         builder.HasOne(c => c.Shop);
-        //builder.HasOne(c => c.User);
         builder.HasOne(c => c.Inventor).WithOne(i => i.Product).HasForeignKey<ProductInventor>(i => i.ProductId);
         builder.HasOne(c => c.Barcode).WithOne(b => b.Product).HasForeignKey<Barcode>(b => b.ProductId);
 
         builder.HasQueryFilter(p => !p.DeletedDate.HasValue);
 
-        //builder.HasData(getSeeds());
+        builder.HasData(getSeeds());
     }
 
     private IEnumerable<Product> getSeeds()

@@ -18,7 +18,7 @@ public class ProductInventorConfiguration : IEntityTypeConfiguration<ProductInve
         builder.Property(pi => pi.DeletedDate).HasColumnName("DeletedDate");
 
         builder.HasQueryFilter(pi => !pi.DeletedDate.HasValue);
-        //builder.HasData(getSeeds());
+        builder.HasData(getSeeds());
     }
 
     private IEnumerable<ProductInventor> getSeeds()
