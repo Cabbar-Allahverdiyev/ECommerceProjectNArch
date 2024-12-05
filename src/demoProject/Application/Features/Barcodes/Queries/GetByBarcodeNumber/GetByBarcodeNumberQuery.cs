@@ -40,13 +40,13 @@ public class GetByBarcodeNumberQuery : IRequest<GetByBarcodeNumberResponse>, ISe
         public async Task<GetByBarcodeNumberResponse> Handle(GetByBarcodeNumberQuery request, CancellationToken cancellationToken)
         {
             Barcode? barcode = await _barcodeRepository.GetAsync(
-               predicate:b => string.Equals(b.BarcodeNumber, request.BarcodeNumber,StringComparison.OrdinalIgnoreCase),
+               predicate:b => b.BarcodeNumber.ToLower()==request.BarcodeNumber.ToLower(),
                include: b=>b.Include(b=>b.Product),
                enableTracking: false,
                cancellationToken: cancellationToken);
 
             await _barcodeBusinessRules.BarcodeShouldExistWhenSelected(barcode);
-            GetByBarcodeNumberResponse response = _mapper.Map<GetByBarcodeNumberResponse>(null);
+            GetByBarcodeNumberResponse response = _mapper.Map<GetByBarcodeNumberResponse>(barcode);
             return response;
         }
     }

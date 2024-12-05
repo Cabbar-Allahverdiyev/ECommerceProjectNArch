@@ -30,6 +30,7 @@ public class MappingProfiles : Profile
         CreateMap<ProductBrand, GetBrandInProductQueryDto>().ReverseMap();
         CreateMap<ProductCategory, GetCategoryInProductQueryDto>().ReverseMap();
         CreateMap<Barcode, GetBarcodeInProductQueryDto>().ReverseMap();
+        CreateMap<ProductColor, GetColorInProductQueryDto>().ReverseMap();
 
         CreateMap<Product, GetByIdProductResponse>().ReverseMap();
         CreateMap<Product, GetByIdProductResponse>().ForMember(dest=>dest.Brand,act=>act.MapFrom(src=>src.Brand)).ReverseMap();
