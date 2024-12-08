@@ -23,10 +23,10 @@ public class CountryBusinessRules : BaseBusinessRules
             throw new BusinessException(CountriesBusinessMessages.CountryNotExists);
         return Task.CompletedTask;
     }
-    public Task CountryShouldNotExistWhenSelected(Country? country)
+    public Task CountryShouldNotExistWhenSelected(Country? country,string message= CountriesBusinessMessages.CountryExists)
     {
         if (country != null)
-            throw new BusinessException(CountriesBusinessMessages.CountryExists);
+            throw new BusinessException(message);
         return Task.CompletedTask;
     }
 
@@ -56,10 +56,8 @@ public class CountryBusinessRules : BaseBusinessRules
             enableTracking: false,
             cancellationToken: cancellationToken
         );
-        await CountryShouldNotExistWhenSelected(country);
+        await CountryShouldNotExistWhenSelected(country,CountriesBusinessMessages.BarcodeNumberShouldNotExist);
     }
-
-
 
     public async Task CountryNameShouldNotExistWhenUpdated(Country? country, string newCountryName, CancellationToken cancellationToken)
     {
