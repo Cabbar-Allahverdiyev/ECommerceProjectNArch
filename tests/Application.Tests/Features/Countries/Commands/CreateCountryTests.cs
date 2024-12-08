@@ -30,9 +30,10 @@ public class CreateCountryTests:CountryMockRepository
     [Fact]
     public async void CreateShouldSuccessfully()
     {
-        _command.Name = "Norway";
+        _command.Name = "Albany";
+        _command.BarcodeCode = "222";
         CreatedCountryResponse result = await _handler.Handle(_command, CancellationToken.None);
-        Assert.Equal(expected: "Norway", result.Name);
+        Assert.Equal(expected: "Albany", result.Name);
     }
 
     [Theory]
