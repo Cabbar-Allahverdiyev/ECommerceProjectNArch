@@ -41,8 +41,10 @@ public class CreateBarcodeCommand : IRequest<CreatedBarcodeResponse>, ISecuredRe
         {
             Barcode barcode = _mapper.Map<Barcode>(request);
             await _barcodeBusinessRules.BarcodeShouldExistWhenSelected(barcode);
+            await _barcodeBusinessRules.ProductIdShouldExistWhenSelected(request.ProductId,cancellationToken);
             await _barcodeBusinessRules.BarcodeNumberShouldNotExistWhenSelected(request.BarcodeNumber,cancellationToken);
             await _barcodeBusinessRules.ChekSumMustCorrect(request.BarcodeNumber);
+            await _barcodeBusinessRules.ProductShouldNotHaveBarcodeNumber(request.ProductId,cancellationToken);
 
             barcode.Id=Guid.NewGuid();
             await _barcodeRepository.AddAsync(barcode);

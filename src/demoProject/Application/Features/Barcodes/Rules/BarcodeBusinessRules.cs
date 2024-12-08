@@ -1,5 +1,6 @@
 using Application.Common.Helpers.BarcodeHelpers;
 using Application.Features.Barcodes.Constants;
+using Application.Services.Products;
 using Application.Services.Repositories;
 using Core.Application.Rules;
 using Core.CrossCuttingConcerns.Exceptions.Types;
@@ -11,11 +12,15 @@ public class BarcodeBusinessRules : BaseBusinessRules
 {
     private readonly IBarcodeRepository _barcodeRepository;
     private readonly IBarcodeHelper _barcodeHelper;
+    private readonly IProductRepository _productRepository;
 
-    public BarcodeBusinessRules(IBarcodeRepository barcodeRepository, IBarcodeHelper barcodeHelper)
+    public BarcodeBusinessRules(IBarcodeRepository barcodeRepository,
+                                IBarcodeHelper barcodeHelper,
+                                IProductRepository productRepository)
     {
         _barcodeRepository = barcodeRepository;
         _barcodeHelper = barcodeHelper;
+        _productRepository = productRepository;
     }
 
     public Task BarcodeShouldExistWhenSelected(Barcode? barcode)
@@ -25,7 +30,7 @@ public class BarcodeBusinessRules : BaseBusinessRules
         return Task.CompletedTask;
     }
 
-    public Task BarcodeShouldNotExistWhenSelected(Barcode? barcode,string? message= BarcodesBusinessMessages.BarcodeExists)
+    public Task BarcodeShouldNotExistWhenSelected(Barcode? barcode, string? message = BarcodesBusinessMessages.BarcodeExists)
     {
         if (barcode != null)
             throw new BusinessException(message);
@@ -37,7 +42,7 @@ public class BarcodeBusinessRules : BaseBusinessRules
         if (barcode == null)
             throw new BusinessException(BarcodesBusinessMessages.BarcodeIsNull);
         Barcode? result = await _barcodeRepository.GetAsync(
-        predicate: b => b.BarcodeNumber.ToLower()==newBarcodeNumber.ToLower()
+        predicate: b => b.BarcodeNumber.ToLower() == newBarcodeNumber.ToLower()
         && b.Id != barcode.Id,
         enableTracking: false,
         cancellationToken: cancellationToken);
@@ -54,25 +59,50 @@ public class BarcodeBusinessRules : BaseBusinessRules
         await BarcodeShouldExistWhenSelected(barcode);
     }
 
-    public async Task BarcodeNumberShouldNotExistWhenSelected(string? barcodeNumber, CancellationToken cancellationToken)
+    public async Task BarcodeNumberShouldNotExistWhenSelected(string barcodeNumber, CancellationToken cancellationToken)
     {
         Barcode? barcode = await _barcodeRepository.GetAsync(
-            predicate: b =>  b.BarcodeNumber.ToLower() == barcodeNumber.ToLower(),
+            predicate: b => b.BarcodeNumber.ToLower() == barcodeNumber.ToLower(),
             enableTracking: false,
             cancellationToken: cancellationToken
         );
 
-        await BarcodeShouldNotExistWhenSelected(barcode,BarcodesBusinessMessages.BarcodeNumberAlreadyExists); 
+        await BarcodeShouldNotExistWhenSelected(barcode, BarcodesBusinessMessages.BarcodeNumberAlreadyExists);
     }
 
-  
 
-    public Task ChekSumMustCorrect(string ? chekSum)
+
+    public Task ChekSumMustCorrect(string chekSum)
     {
-        if(_barcodeHelper.CheckChecksum(chekSum)) 
+        if (!_barcodeHelper.CheckChecksum(chekSum))
             throw new BusinessException(BarcodesBusinessMessages.BarcodeNumberNotInCorrectFormat);
         return Task.CompletedTask;
     }
 
-   
+    public async Task ProductShouldNotHaveBarcodeNumber(Guid productId, CancellationToken cancellationToken)
+    {
+        Product? product =
+            await _productRepository.GetAsync(predicate: p => p.Id == productId,
+                                            enableTracking: false,
+                                            cancellationToken: cancellationToken);
+        if (product!=null) throw new BusinessException(BarcodesBusinessMessages.TheProductAlreadyHasABarcode);
+        await Task.CompletedTask;
+    }
+
+    public async Task ProductIdShouldExistWhenSelected(Guid productId, CancellationToken cancellationToken)
+    {
+        Product? product = await _productRepository.GetAsync(
+            predicate: p => p.Id == productId,
+            enableTracking: false,
+            cancellationToken: cancellationToken
+        );
+        await ProductShouldExistWhenSelected(product);
+    }
+
+    private  Task ProductShouldExistWhenSelected(Product? product)
+    {
+        if (product == null)
+            throw new BusinessException(BarcodesBusinessMessages.ProductNotExists);
+        return Task.CompletedTask;
+    }
 }

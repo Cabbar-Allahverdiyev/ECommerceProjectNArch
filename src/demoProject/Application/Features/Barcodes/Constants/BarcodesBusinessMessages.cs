@@ -11,5 +11,6 @@ public static class BarcodesBusinessMessages
     public const string BarcodeNumberMustBeNumeric = "Barcode number must be numeric.";
 
     public const string SupplierNotExist = "Supplier not exist.";
-    
+    public const string TheProductAlreadyHasABarcode = "The product already has a barcode.";
+    public const string ProductNotExists = "Product not exists.";
 }
