@@ -30,6 +30,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Folder Include="Features\Barcodes\Commands\Delete\" />
+	  <Folder Include="Features\Barcodes\Commands\Update\" />
+	  <Folder Include="Features\Barcodes\Queries\GetById\" />
+	  <Folder Include="Features\Barcodes\Queries\GetList\" />
 	  <Folder Include="Features\Cities\Queries\" />
 	  <Folder Include="Features\Countries\Queries\" />
 	</ItemGroup>
