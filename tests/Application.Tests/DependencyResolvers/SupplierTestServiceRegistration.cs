@@ -1,6 +1,11 @@
 ﻿using Application.Features.Suppliers.Commands.Create;
 using Application.Features.Suppliers.Commands.Delete;
 using Application.Features.Suppliers.Commands.Update;
+using Application.Features.Suppliers.Queries.GetByCompanyId;
+using Application.Features.Suppliers.Queries.GetById;
+using Application.Features.Suppliers.Queries.GetByUserId;
+using Application.Features.Suppliers.Queries.GetList;
+using Application.Features.Suppliers.Queries.GetListByDynamicSupplier;
 using Application.Tests.Mocks.FakeData;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -17,5 +22,15 @@ public static class SupplierTestServiceRegistration
         services.AddTransient<CreateSupplierCommandValidator>();
         services.AddTransient<UpdateSupplierCommandValidator>();
         services.AddTransient<DeleteSupplierCommandValidator>();
+
+        services.AddTransient<GetByCompanyIdSupplierQuery>();
+        services.AddTransient<GetByUserIdSupplierQuery>();
+        services.AddTransient<GetByIdSupplierQuery>();
+        services.AddTransient<GetListSupplierQuery>();
+        services.AddTransient<GetListByDynamicSupplierQuery>();
+
+        services.AddTransient<GetByCompanyIdSupplierQueryValidator>();
+        services.AddTransient<GetByUserIdSupplierQueryValidator>();
+        services.AddTransient<GetByIdSupplierQueryValidator>();
     }
 }

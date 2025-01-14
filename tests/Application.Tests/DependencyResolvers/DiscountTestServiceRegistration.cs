@@ -1,6 +1,10 @@
 ﻿using Application.Features.Discounts.Commands.Create;
 using Application.Features.Discounts.Commands.Delete;
 using Application.Features.Discounts.Commands.Update;
+using Application.Features.Discounts.Queries.GetById;
+using Application.Features.Discounts.Queries.GetByName;
+using Application.Features.Discounts.Queries.GetList;
+using Application.Features.Discounts.Queries.GetListByDynamicDiscount;
 using Application.Tests.Mocks.FakeData;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -17,5 +21,13 @@ public static class DiscountTestServiceRegistration
         services.AddTransient<CreateDiscountCommandValidator>();
         services.AddTransient<UpdateDiscountCommandValidator>();
         services.AddTransient<DeleteDiscountCommandValidator>();
+
+        services.AddTransient<GetByNameDiscountQuery>();
+        services.AddTransient<GetByIdDiscountQuery>();
+        services.AddTransient<GetListDiscountQuery>();
+        services.AddTransient<GetListByDynamicDiscountQuery>();
+
+        services.AddTransient<GetByNameDiscountQueryValidator>();
+        services.AddTransient<GetByIdDiscountValidator>();
     }
 }

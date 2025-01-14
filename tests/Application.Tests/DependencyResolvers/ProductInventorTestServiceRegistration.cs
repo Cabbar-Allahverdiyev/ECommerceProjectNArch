@@ -1,6 +1,9 @@
 ﻿using Application.Features.ProductInventors.Commands.Create;
 using Application.Features.ProductInventors.Commands.Delete;
 using Application.Features.ProductInventors.Commands.Update;
+using Application.Features.ProductInventors.Queries.GetById;
+using Application.Features.ProductInventors.Queries.GetList;
+using Application.Features.ProductInventors.Queries.GetListByDynamicProductInventor;
 using Application.Tests.Mocks.FakeData;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -17,5 +20,11 @@ public static class ProductInventorTestServiceRegistration
         services.AddTransient<CreateProductInventorCommandValidator>();
         services.AddTransient<UpdateProductInventorCommandValidator>();
         services.AddTransient<DeleteProductInventorCommandValidator>();
+
+        services.AddTransient<GetByIdProductInventorQuery>();
+        services.AddTransient<GetListProductInventorQuery>();
+        services.AddTransient<GetListByDynamicProductInventorQuery>();
+
+        services.AddTransient<GetByIdProductInventorQueryValidator>();
     }
 }
