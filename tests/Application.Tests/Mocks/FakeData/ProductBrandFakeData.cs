@@ -9,7 +9,8 @@ public class ProductBrandFakeData : BaseFakeData<ProductBrand, Guid>
     public static readonly List<ProductBrand> Seeds = new List<ProductBrand>()
     {
         new(Guid.NewGuid(),"Samsung"),
-        new(Guid.NewGuid(),"ETI")
+        new(Guid.NewGuid(),"ETI"),
+        new(Guid.NewGuid(),"Canyon")
     };
 
     public override List<ProductBrand> CreateFakeData() => Seeds;

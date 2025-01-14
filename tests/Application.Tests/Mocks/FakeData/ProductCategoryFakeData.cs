@@ -11,6 +11,7 @@ public class ProductCategoryFakeData : BaseFakeData<ProductCategory, Guid>
     {
             new(Guid.NewGuid(),"Elektronika","rahat dasimaq"),
             new(Guid.NewGuid(),"Telefon","asan əlaqə"),
+            new(Guid.NewGuid(),"Meiset mallari","komfortlu istifade"),
     };
 
     public override List<ProductCategory> CreateFakeData() => Seeds;

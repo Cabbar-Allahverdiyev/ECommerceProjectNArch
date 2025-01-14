@@ -32,6 +32,18 @@ public class UserFakeData : BaseFakeData<User, int>
             Status = true,
             CreatedDate = DateTime.Now,
             UpdatedDate = DateTime.Now
+        },
+        new ()
+        {
+            Id =3,
+            FirstName = "Murad",
+            LastName = "Nemetli",
+            Email = "example3@email.com",
+            PasswordHash = new byte[] { },
+            PasswordSalt = new byte[] { },
+            Status = true,
+            CreatedDate = DateTime.Now,
+            UpdatedDate = DateTime.Now
         }
 
     };
