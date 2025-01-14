@@ -2,7 +2,7 @@
 using Core.Application.Responses;
 
 namespace Application.Features.Discounts.Queries.GetByName;
-public class GetByNameDiscountResponse:IResponse
+public class GetByNameDiscountQueryResponse:IResponse
 {
     public Guid Id { get; set; }
     public decimal DiscountPercent { get; set; }

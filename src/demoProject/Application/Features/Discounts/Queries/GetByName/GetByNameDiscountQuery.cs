@@ -8,13 +8,13 @@ using Microsoft.EntityFrameworkCore;
 using static Application.Features.Discounts.Constants.DiscountsOperationClaims;
 
 namespace Application.Features.Discounts.Queries.GetByName;
-public class GetByNameDiscountQuery:IRequest<GetByNameDiscountResponse>//, ISecuredRequest
+public class GetByNameDiscountQuery:IRequest<GetByNameDiscountQueryResponse>//, ISecuredRequest
 {
     public string Name { get; set; }
 
     public string[] Roles => new[] { Admin, Read };
 
-    public class GetByNameDiscountQueryHandler : IRequestHandler<GetByNameDiscountQuery, GetByNameDiscountResponse>
+    public class GetByNameDiscountQueryHandler : IRequestHandler<GetByNameDiscountQuery, GetByNameDiscountQueryResponse>
     {
         private readonly IMapper _mapper;
         private readonly IDiscountRepository _discountRepository;
@@ -26,7 +26,7 @@ public class GetByNameDiscountQuery:IRequest<GetByNameDiscountResponse>//, ISecu
             _discountRepository = discountRepository;
             _discountBusinessRules = discountBusinessRules;
         }
-        public async Task<GetByNameDiscountResponse> Handle(GetByNameDiscountQuery request, CancellationToken cancellationToken)
+        public async Task<GetByNameDiscountQueryResponse> Handle(GetByNameDiscountQuery request, CancellationToken cancellationToken)
         {
             Discount? discount = await _discountRepository.GetAsync(
                 predicate: d =>string.Equals(d.Name,request.Name,StringComparison.OrdinalIgnoreCase),
@@ -35,7 +35,7 @@ public class GetByNameDiscountQuery:IRequest<GetByNameDiscountResponse>//, ISecu
                 enableTracking:false);
             await _discountBusinessRules.DiscountShouldExistWhenSelected(discount);
 
-            GetByNameDiscountResponse response = _mapper.Map<GetByNameDiscountResponse>(discount);
+            GetByNameDiscountQueryResponse response = _mapper.Map<GetByNameDiscountQueryResponse>(discount);
             return response;
         }
     }

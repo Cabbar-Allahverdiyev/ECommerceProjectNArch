@@ -1,9 +1,9 @@
 ﻿using FluentValidation;
 
 namespace Application.Features.Discounts.Queries.GetByName;
-public class GetByNameDiscountValidator : AbstractValidator<GetByNameDiscountQuery>
+public class GetByNameDiscountQueryValidator : AbstractValidator<GetByNameDiscountQuery>
 {
-    public GetByNameDiscountValidator()
+    public GetByNameDiscountQueryValidator()
     {
         RuleFor(d => d.Name).NotEmpty();
     }

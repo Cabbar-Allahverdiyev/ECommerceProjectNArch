@@ -27,7 +27,7 @@ public class MappingProfiles : Profile
         CreateMap<Product, GetProductsInDiscountDto>().ReverseMap();
         
         CreateMap<Discount, GetByIdDiscountResponse>().ForMember(dest=>dest.Products,act=>act.MapFrom(src=>src.Products)).ReverseMap();
-        CreateMap<Discount, GetByNameDiscountResponse>().ForMember(dest => dest.Products, act => act.MapFrom(src => src.Products)).ReverseMap();
+        CreateMap<Discount, GetByNameDiscountQueryResponse>().ForMember(dest => dest.Products, act => act.MapFrom(src => src.Products)).ReverseMap();
         CreateMap<Discount, GetListDiscountListItemDto>().ForMember(dest => dest.Products, act => act.MapFrom(src => src.Products)).ReverseMap();
         CreateMap<IPaginate<Discount>, GetListResponse<GetListDiscountListItemDto>>().ReverseMap();
         
