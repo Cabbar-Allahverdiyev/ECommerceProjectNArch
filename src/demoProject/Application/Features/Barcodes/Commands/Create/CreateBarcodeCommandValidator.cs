@@ -10,5 +10,6 @@ public class CreateBarcodeCommandValidator : AbstractValidator<CreateBarcodeComm
         RuleFor(c => c.ProductId).NotEmpty();
         RuleFor(c => c.BarcodeNumber).NotEmpty();
         RuleFor(c => c.BarcodeNumber).Matches("^[0-9]+$").WithMessage(BarcodesBusinessMessages.BarcodeNumberMustContainOnlyDigits);
+        RuleFor(c => c.BarcodeNumber).MaximumLength(50);
     }
 }

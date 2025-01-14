@@ -12,7 +12,7 @@ using static Application.Features.Cities.Constants.CitiesOperationClaims;
 
 namespace Application.Features.Cities.Commands.Create;
 
-public class CreateCityCommand : IRequest<CreatedCityResponse>//, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
+public class CreateCityCommand : IRequest<CreatedCityResponse>, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
 {
     public string? Name { get; set; }
     public Guid CountryId { get; set; }

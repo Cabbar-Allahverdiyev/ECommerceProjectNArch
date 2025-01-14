@@ -72,9 +72,9 @@ public class BarcodeBusinessRules : BaseBusinessRules
 
 
 
-    public Task ChekSumMustCorrect(string chekSum)
+    public Task ChekSumMustCorrect(string barcodeNumber)
     {
-        if (!_barcodeHelper.CheckChecksum(chekSum))
+        if (!_barcodeHelper.CheckChecksum(barcodeNumber))
             throw new BusinessException(BarcodesBusinessMessages.BarcodeNumberNotInCorrectFormat);
         return Task.CompletedTask;
     }
