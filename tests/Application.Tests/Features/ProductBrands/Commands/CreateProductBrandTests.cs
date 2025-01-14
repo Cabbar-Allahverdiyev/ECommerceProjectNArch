@@ -24,7 +24,7 @@ public class CreateProductBrandTests: ProductBrandMockRepository
     {
         _validator = validator;
         _command = command;
-        _handler = new CreateProductBrandCommandHandler(Mapper, MockRepository.Object, BusinessRules); ;
+        _handler = new CreateProductBrandCommandHandler(Mapper, MockRepository.Object, BusinessRules); 
     }
 
     [Theory]

@@ -14,6 +14,7 @@ public static class BarcodeTestServiceRegistration
     public static void AddBarcodeServices(this IServiceCollection services)
     {
         services.AddTransient<BarcodeFakeData>();
+        //services.AddTransient<BarcodeBusinessRules>();
 
         services.AddTransient<CreateBarcodeCommand>();
         services.AddTransient<UpdateBarcodeCommand>();
