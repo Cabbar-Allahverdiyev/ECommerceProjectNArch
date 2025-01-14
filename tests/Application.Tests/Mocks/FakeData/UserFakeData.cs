@@ -7,37 +7,33 @@ namespace Application.Tests.Mocks.FakeData;
 
 public class UserFakeData : BaseFakeData<User, int>
 {
-    public override List<User> CreateFakeData()
+    public static readonly List<User> Seeds = new List<User>()
     {
-        int id = 0;
-        List<User> data =
-            new()
-            {
-                new User
-                {
-                    Id = ++id,
-                    FirstName = "Cabbar",
-                    LastName = "Allahverdiyev",
-                    Email = "example@email.com",
-                    PasswordHash = new byte[] { },
-                    PasswordSalt = new byte[] { },
-                    Status = true,
-                    CreatedDate = DateTime.Now,
-                    UpdatedDate = DateTime.Now
-                },
-                new User
-                {
-                    Id = ++id,
-                    FirstName = "Seymur",
-                    LastName = "Veliyev",
-                    Email = "example2@email.com",
-                    PasswordHash = new byte[] { },
-                    PasswordSalt = new byte[] { },
-                    Status = true,
-                    CreatedDate = DateTime.Now,
-                    UpdatedDate = DateTime.Now
-                }
-            };
-        return data;
-    }
+        new ()
+        {
+            Id = 1,
+            FirstName = "Cabbar",
+            LastName = "Allahverdiyev",
+            Email = "example@email.com",
+            PasswordHash = new byte[] { },
+            PasswordSalt = new byte[] { },
+            Status = true,
+            CreatedDate = DateTime.Now,
+            UpdatedDate = DateTime.Now
+        },
+        new ()
+        {
+            Id =2,
+            FirstName = "Seymur",
+            LastName = "Veliyev",
+            Email = "example2@email.com",
+            PasswordHash = new byte[] { },
+            PasswordSalt = new byte[] { },
+            Status = true,
+            CreatedDate = DateTime.Now,
+            UpdatedDate = DateTime.Now
+        }
+
+    };
+    public override List<User> CreateFakeData() => Seeds;
 }

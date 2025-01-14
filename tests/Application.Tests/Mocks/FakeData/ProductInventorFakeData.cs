@@ -6,10 +6,11 @@ using System.Collections.Generic;
 namespace Application.Tests.Mocks.FakeData;
 public class ProductInventorFakeData : BaseFakeData<ProductInventor, Guid>
 {
-    public override List<ProductInventor> CreateFakeData() => new() {
-                                                            //new(Guid.NewGuid(),4),
-                                                            //new(Guid.NewGuid(),8),
-                                                            //new(Guid.NewGuid(),10),
-                                                            };
+    public static readonly List<ProductInventor> Seeds = new List<ProductInventor>()
+    {
+        new(){Id=Guid.NewGuid(),ProductId=ProductFakeData.Seeds[0].Id},
+        new(){Id=Guid.NewGuid(),ProductId= ProductFakeData.Seeds[1].Id},
+    };
+    public override List<ProductInventor> CreateFakeData() => Seeds;
 
 }

@@ -6,13 +6,12 @@ using System.Collections.Generic;
 namespace Application.Tests.Mocks.FakeData;
 public class ProductBrandFakeData : BaseFakeData<ProductBrand, Guid>
 {
-    public override List<ProductBrand> CreateFakeData()
+    public static readonly List<ProductBrand> Seeds = new List<ProductBrand>()
     {
-        List<ProductBrand> data= new() { 
         new(Guid.NewGuid(),"Samsung"),
         new(Guid.NewGuid(),"ETI")
-        };
+    };
 
-        return data;
-    }
+    public override List<ProductBrand> CreateFakeData() => Seeds;
+
 }

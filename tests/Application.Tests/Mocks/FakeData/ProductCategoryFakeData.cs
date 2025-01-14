@@ -1,20 +1,17 @@
 ﻿using Core.Test.Application.FakeData;
 using Domain.Entities;
+using Nest;
 using System;
 using System.Collections.Generic;
 
 namespace Application.Tests.Mocks.FakeData;
 public class ProductCategoryFakeData : BaseFakeData<ProductCategory, Guid>
 {
-    public override List<ProductCategory> CreateFakeData()
+    public static readonly List<ProductCategory> Seeds=new List<ProductCategory>()
     {
-        Guid id=Guid.NewGuid();
-        List<ProductCategory> data = new()
-        {
-            new(id,"Elektronika","rahat dasimaq"),
+            new(Guid.NewGuid(),"Elektronika","rahat dasimaq"),
             new(Guid.NewGuid(),"Telefon","asan əlaqə"),
-            new(Guid.NewGuid(),"Telefon",id,"asan əlaqə"),
-        };
-        return data;
-    }
+    };
+
+    public override List<ProductCategory> CreateFakeData() => Seeds;
 }
