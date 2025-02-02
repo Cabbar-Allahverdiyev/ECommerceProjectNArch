@@ -13,7 +13,7 @@ public class CreateCompanyCommandValidator : AbstractValidator<CreateCompanyComm
         RuleFor(c => c.Name).MaximumLength(50);
 
         RuleFor(c => c.AddressLine1).NotEmpty();
-        RuleFor(c => c.AddressLine1).MinimumLength(2);
+        RuleFor(c => c.AddressLine1).MinimumLength(3);
         RuleFor(c => c.AddressLine1).MaximumLength(100);
 
         //RuleFor(c =>c.AddressLine2).NotEmpty();
@@ -22,7 +22,7 @@ public class CreateCompanyCommandValidator : AbstractValidator<CreateCompanyComm
 
         RuleFor(c => c.Email).NotEmpty();
         RuleFor(c => c.Email).EmailAddress();
-        RuleFor(c => c.Email).MinimumLength(3);
+        RuleFor(c => c.Email).MinimumLength(7);
         RuleFor(c => c.Email).MaximumLength(50);
 
         RuleFor(c => c.PhoneNumber).NotEmpty();
