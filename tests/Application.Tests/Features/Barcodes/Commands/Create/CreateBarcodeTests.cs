@@ -105,6 +105,7 @@ public class CreateBarcodeTests : BarcodeMockRepository
             .FirstOrDefault();
         Assert.Equal(BarcodesBusinessMessages.BarcodeNumberMustContainOnlyDigits, result?.ErrorMessage);
     }
+
     [Theory]
     [InlineData("1234567890123456789012345678901234567890123456789")]
     [InlineData("123456789012345678901234567890123456789012345678")]
