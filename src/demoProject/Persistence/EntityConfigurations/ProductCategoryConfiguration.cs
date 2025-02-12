@@ -32,7 +32,7 @@ public class ProductCategoryConfiguration : IEntityTypeConfiguration<ProductCate
         {
             new(ProductCategoryConfigIds[0],"Elektronika","rahat dasimaq"),
             new(ProductCategoryConfigIds[1],"Telefon","asan əlaqə"),
-            new(ProductCategoryConfigIds[2],"Telefon",ProductCategoryConfigIds[0],"asan əlaqə"),
+            new(ProductCategoryConfigIds[2],ProductCategoryConfigIds[0],"Telefon","asan əlaqə"),
         };
         return data;
     }
