@@ -39,7 +39,6 @@
 	  <Folder Include="Features\Companies\Commands\Update\" />
 	  <Folder Include="Features\Companies\Queries\GetById\" />
 	  <Folder Include="Features\Companies\Queries\GetList\" />
-	  <Folder Include="Features\Countries\Queries\" />
 	</ItemGroup>
 
 </Project>
