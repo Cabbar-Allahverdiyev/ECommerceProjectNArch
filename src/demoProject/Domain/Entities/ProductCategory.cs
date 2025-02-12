@@ -16,9 +16,9 @@ public class ProductCategory : Entity<Guid>
     }
 
     public ProductCategory(Guid id,
-                              string name,
-                              Guid? parentId,
-                              string description) : this()
+                           Guid parentId,
+                           string name,
+                           string description) : this()
     {
         Id = id;
         Name = name;
@@ -33,5 +33,12 @@ public class ProductCategory : Entity<Guid>
         Id = id;
         Name = name;
         Description = description;
+    }
+
+    public ProductCategory(Guid id,
+                          string name) : this()
+    {
+        Id = id;
+        Name = name;
     }
 }

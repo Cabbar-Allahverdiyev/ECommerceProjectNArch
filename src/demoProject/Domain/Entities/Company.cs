@@ -37,4 +37,19 @@ public class Company : Entity<Guid>
         Email = email;
         PhoneNumber = phoneNumber;
     }
+    public Company(Guid id,
+                   Guid cityId,
+                   string name,
+                   string addressLine1,
+                   string email,
+                   string phoneNumber
+                   ) : this()
+    {
+        Id = id;
+        Name = name;
+        AddressLine1 = addressLine1;
+        CityId = cityId;
+        Email = email;
+        PhoneNumber = phoneNumber;
+    }
 }
