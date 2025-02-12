@@ -40,7 +40,7 @@ public class DeleteProductCategoryTests:ProductCategoryMockRepository
         Guid testedId = Guid.NewGuid();
 
         await MockRepository.Object.AddAsync(new(id, "Cherez", description: "Qacirilmazdir"));
-        await MockRepository.Object.AddAsync(new(testedId, "Lepeler", id,description: "Qacirilmazdir"));
+        await MockRepository.Object.AddAsync(new(testedId, id, "Lepeler", description: "Qacirilmazdir"));
 
         _command.Id = testedId;
 
